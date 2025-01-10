@@ -36,6 +36,52 @@ public class Robot extends TimedRobot {
   private final XboxController m_controller = new XboxController(0);
   private final Timer m_timer = new Timer();
 
+  /** Called once at the beginning of the robot program. */
+  public Robot() {
+    SendableRegistry.addChild(m_robotDrive, m_leftDrive);
+    SendableRegistry.addChild(m_robotDrive, m_rightDrive);
+
+    // We need to invert one side of the drivetrain so that positive voltages
+    // result in both sides moving forward. Possibly need to change from rightDrive
+    // to LeftDrive in the future depending on orientation.
+    m_rightDrive.setInverted(true);
+  }
+
+  /** autonomousInit is ran every time the robot (evil susan??) enters Autonomous Mode. */
+  @Override
+  public void autonomousInit() {
+    m_timer.restart();
+  }
+
+  /** This function is called upon periodically during Autonomous */
+  @Override
+  public void autonomousPeriodic() {
+    //Ex: Drive for 2 seconds. May need to change
+    if(m_timer.get() < 2.0) {
+      //Ex: Drive forward at 0.5 speed, be sure to turn off input squaring
+      m_robotDrive.arcadeDrive(0.5, 0.0, false);
+    } else {
+      m_robotDrive.stopMotor(); // here, the movement of Evil Susan is halted.
+    }
+  }
+
+  /** teleopInit is ran every time the robot enters Teleop/TeleOperated mode. */
+  @Override
+  public void teleopInit() {}
+
+  /** This function is called upon periodically during Teleop. */
+  public void teleopPeriodic() {
+    m_robotDrive.arcadeDrive(-m_controller.getLeftY(), -m_controller.getRightX());
+  }
+
+  /** testInit is ran every time the robot enters Test Mode. */
+  @Override
+  public void testInit() {}
+
+  /** This function is called upon periodically during Test Mode. */
+  @Override
+  public void testPeriodic() {}
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
