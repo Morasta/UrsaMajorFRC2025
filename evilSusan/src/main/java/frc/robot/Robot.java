@@ -7,6 +7,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+package edu.wpi.first.wpilibj.examples.gettingstarted;
+
+import edu.wpi.first.util.sendable.SendableRegistry;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +28,13 @@ public class Robot extends TimedRobot {
   private static final String kCustomAuto = "My Auto";
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
+  private final PWMSparkMax m_leftDrive = new PWMSparkMax (0);
+  private final PWMSparkMax m_rightDrive = new PWMSparkMax(1);
+  private final DifferentialDrive m_robotDrive =
+      new DifferentialDrive(m_leftDrive::set, m_rightDrive::set);
+  private final XboxController m_controller = new XboxController(0);
+  private final Timer m_timer = new Timer();
 
   /**
    * This function is run when the robot is first started up and should be used for any
