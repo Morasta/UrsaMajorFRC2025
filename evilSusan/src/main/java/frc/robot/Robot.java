@@ -3,14 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+//package edu.wpi.first.wpilibj.examples.gettingstarted;
+
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-package edu.wpi.first.wpilibj.examples.gettingstarted;
-
 import edu.wpi.first.util.sendable.SendableRegistry;
-import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -88,9 +87,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+   
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+    m_leftDrive.set(0);
+    m_rightDrive.set(0);
+    m_robotDrive.feed();
   }
 
   /**
@@ -101,7 +104,9 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    m_robotDrive.feed();
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
@@ -117,7 +122,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
+    System.out.println("Diffrent Message " + m_autoSelected);
   }
 
   /** This function is called periodically during autonomous. */
