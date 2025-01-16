@@ -35,6 +35,8 @@ public class Robot extends TimedRobot {
   private final XboxController m_controller = new XboxController(0);
   private final Timer m_timer = new Timer();
 
+  private double aStartTime;
+
   /** Called once at the beginning of the robot program. */
   public Robot() {
     SendableRegistry.addChild(m_robotDrive, m_leftDrive);
@@ -86,15 +88,27 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autoSelected = m_chooser.getSelected();
+    aStartTime = Timer.getFPGATimestamp();
     // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
     System.out.println("Diffrent Message " + m_autoSelected);
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {
+  public void autonomousPeriodic() { 
+    double currentTime = Timer.getFPGATimestamp();
+    if (currentTime - aStartTime < 3) {
+      //System.out.println("Moving Forward");
+      m_leftDrive.set(0.5);
+      m_rightDrive.set(0.5);
+    } else {
+      //System.out.println("Stopping");
+      m_leftDrive.set(0);
+      m_leftDrive.set(0);
+    }
     switch (m_autoSelected) {
       case kCustomAuto:
+       
         // Put custom auto code here
         break;
       case kDefaultAuto:
