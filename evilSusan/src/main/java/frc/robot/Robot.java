@@ -9,11 +9,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 
 
 /**
@@ -32,8 +36,14 @@ public class Robot extends TimedRobot {
   private final PWMSparkMax m_rightDrive = new PWMSparkMax(1);
   private final DifferentialDrive m_robotDrive =
       new DifferentialDrive(m_leftDrive::set, m_rightDrive::set);
-  private final XboxController m_controller = new XboxController(0);
+  private final CommandXboxController m_controller = new CommandXboxController(0);
   private final Timer m_timer = new Timer();
+
+  //private final Drivetrain m_drive = new Drivetrain();
+  private final XboxController driverController_HID = m_controller.getHID();
+
+  private final SlewRateLimiter m_speedLimiter = new SlewRateLimiter(3);
+  private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
 
   private double aStartTime;
 
@@ -120,11 +130,22 @@ public class Robot extends TimedRobot {
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    m_robotDrive.arcadeDrive(0, 0);
+  }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    //m_leftDrive.set(0);
+    //m_rightDrive.set(0);
+    final var xSpeed = -m_speedLimiter.calculate(driverController_HID.getLeftY()); //* Drivetrain.kMaxSpeed;
+    //final var rot = m_rotLimiter.calculate(m_controller.getRightX()); //+ Drivetrain.kAngularSpeed;
+    m_robotDrive.arcadeDrive(xSpeed, 0);
+    System.out.println("In teleopPeriodic: " + driverController_HID.getLeftY());
+    //System.out.println("In teleopPeriodic: " + m_controller.getAxisCount());
+    m_robotDrive.feed();
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
