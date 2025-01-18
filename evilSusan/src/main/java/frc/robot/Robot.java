@@ -36,11 +36,11 @@ public class Robot extends TimedRobot {
   private final PWMSparkMax m_rightDrive = new PWMSparkMax(1);
   private final DifferentialDrive m_robotDrive =
       new DifferentialDrive(m_leftDrive::set, m_rightDrive::set);
-  private final CommandXboxController m_controller = new CommandXboxController(0);
+  private final XboxController m_controller = new XboxController(0);
   private final Timer m_timer = new Timer();
 
   //private final Drivetrain m_drive = new Drivetrain();
-  private final XboxController driverController_HID = m_controller.getHID();
+  //private final XboxController driverController_HID = m_controller.getHID();
 
   private final SlewRateLimiter m_speedLimiter = new SlewRateLimiter(3);
   private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(3);
@@ -64,7 +64,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-   
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
@@ -114,7 +113,7 @@ public class Robot extends TimedRobot {
     } else {
       //System.out.println("Stopping");
       m_leftDrive.set(0);
-      m_leftDrive.set(0);
+      m_rightDrive.set(0);
     }
     switch (m_autoSelected) {
       case kCustomAuto:
@@ -139,12 +138,20 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     //m_leftDrive.set(0);
     //m_rightDrive.set(0);
-    final var xSpeed = -m_speedLimiter.calculate(driverController_HID.getLeftY()); //* Drivetrain.kMaxSpeed;
-    //final var rot = m_rotLimiter.calculate(m_controller.getRightX()); //+ Drivetrain.kAngularSpeed;
-    m_robotDrive.arcadeDrive(xSpeed, 0);
-    System.out.println("In teleopPeriodic: " + driverController_HID.getLeftY());
+    /* Axis [0] Left joystick, x-axis left (-1) and right (1)
+     * Axis [1] Left joystick, y-axis up (-1) and down (1)
+     * Axis [2] Left rear trigger (1-pressed)
+     * Axis [3] Right rear trigger (1-pressed)
+     * Axis [4] Right joystick, x-axis left (-1) and right (1)
+     * Axis [5] Right joystick, y-axis up (-1) and down (1)
+     * 
+    */
+    final double xSpeed = -m_speedLimiter.calculate(m_controller.getLeftY()); //* Drivetrain.kMaxSpeed;
+    final double rot = m_rotLimiter.calculate(m_controller.getRightX()); //+ Drivetrain.kAngularSpeed;
+    //m_robotDrive.arcadeDrive(xSpeed, 0);
+    System.out.println("In teleopPeriodic: " + xSpeed);
     //System.out.println("In teleopPeriodic: " + m_controller.getAxisCount());
-    m_robotDrive.feed();
+    m_robotDrive.arcadeDrive(xSpeed, rot);
   }
 
   /** This function is called once when the robot is disabled. */
