@@ -10,14 +10,16 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import frc.robot.GameControllers.ControllerTypes;
+import frc.robot.GameControllers.GameController;
 
 
 /**
@@ -36,7 +38,8 @@ public class Robot extends TimedRobot {
   private final PWMSparkMax m_rightDrive = new PWMSparkMax(1);
   private final DifferentialDrive m_robotDrive =
       new DifferentialDrive(m_leftDrive::set, m_rightDrive::set);
-  private final XboxController m_controller = new XboxController(0);
+      //private final XboxController m_controller = new XboxController(0);
+  private final GameController m_controller = new GameController(ControllerTypes.LogiF310);    
   private final Timer m_timer = new Timer();
 
   //private final Drivetrain m_drive = new Drivetrain();
@@ -146,12 +149,15 @@ public class Robot extends TimedRobot {
      * Axis [5] Right joystick, y-axis up (-1) and down (1)
      * 
     */
-    final double xSpeed = -m_speedLimiter.calculate(m_controller.getLeftY()); //* Drivetrain.kMaxSpeed;
-    final double rot = m_rotLimiter.calculate(m_controller.getRightX()); //+ Drivetrain.kAngularSpeed;
+    final double xSpeed = -m_speedLimiter.calculate(m_controller.xc.getLeftY()); //* Drivetrain.kMaxSpeed;
+    final double rot = m_rotLimiter.calculate(m_controller.xc.getRightX()); //+ Drivetrain.kAngularSpeed;
     //m_robotDrive.arcadeDrive(xSpeed, 0);
-    System.out.println("In teleopPeriodic: " + xSpeed);
+    //System.out.println("In teleopPeriodic: " + xSpeed);
     //System.out.println("In teleopPeriodic: " + m_controller.getAxisCount());
     m_robotDrive.arcadeDrive(xSpeed, rot);
+    //m_controller.xc.button(0).whileTrue(new InstantCommand(() -> System.out.println("Button 1 pressed")));
+    m_controller.xc.getHID().getXButtonPressed();
+    System.out.println("x pressed: " + m_controller.xc.getHID().getXButton());
   }
 
   /** This function is called once when the robot is disabled. */
