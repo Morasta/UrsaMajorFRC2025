@@ -3,6 +3,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import frc.robot.commands.DriveForwardCmd;
 
 
 public class RobotContainer {
@@ -38,6 +39,7 @@ public class RobotContainer {
                         new ElevatorPIDCmd(elevatorSubsystem, ElevatorConstants.kRaisedPosition)
                 )
         );*/
-        return new PrintCommand("Executed autotonomous command!");
+       // return new PrintCommand("Executed autotonomous command!");
+       return new DriveForwardCmd(null, 0);
     }
 }

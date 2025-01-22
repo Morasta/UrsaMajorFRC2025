@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import frc.robot.Constants.DriveConstants;
+
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -23,6 +25,11 @@ public class DriveTrain {
         new MecanumDrive(m_FrontLeft, m_BackLeft, m_FrontRight, m_BackRight);
 
     private double aStartTime;
+
+    public void setMotors(double leftSpeed, double rightSpeed) {
+        m_FrontLeft.set(leftSpeed);
+        m_FrontRight.set(-rightSpeed);
+    }
 
     private final Encoder m_frontLeftEncoder = new Encoder(
         DriveConstants.kFrontLeftEncoderPorts[0],
@@ -56,7 +63,7 @@ public class DriveTrain {
 
         m_frontLeftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_rearLeftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-        m_frontRightEncoder.setDistancePerPulse(Driveconstants.kEncoderDistancePerPulse);
+        m_frontRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_rearRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
 
         m_FrontRight.setInverted(true);
