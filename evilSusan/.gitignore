@@ -3,6 +3,7 @@
 
 # OS
 .DS_Store
+*.DS_Store
 
 ### C++ ###
 # Prerequisites

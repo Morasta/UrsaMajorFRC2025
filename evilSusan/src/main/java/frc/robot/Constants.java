@@ -14,22 +14,25 @@ public final class Constants {
 
     public static final class DriveConstants {
         public static final double kAutoDriveForwardSpeed = 0.5;
-       
         public static final double kAutoDriveForwardDistance = 0.5;
 
-        public static final int kFrontLeftMotorPort = 1;
+        public static final int kFrontLeftMotorPort = 0;
         public static final int kFrontRightMotorPort = 1;
-        public static final int kRearLeftMotorPort = 1;
-        public static final int kRearRightMotorPort = 1;
+        public static final int kRearLeftMotorPort = 2;
+        public static final int kRearRightMotorPort = 3;
+
         public static final int[] kFrontLeftEncoderPorts = new int[] {0, 1};
-        public static final int[] kEncoderDistancePerPulset = new int[] {0, 1};
-        public static final int[] kFrontRightEncoderPorts = new int[] {0, 1};
-        public static final boolean kFrontRightEncoderReversed = true;
-        public static final boolean kRearRightEncoderReversed = true; 
+        public static final int[] kRearLeftEncoderPorts = new int[] {2, 3};
+        public static final int[] kFrontRightEncoderPorts = new int[] {4, 5};
+        public static final int[] kRearRightEncoderPorts = new int[] {6, 7};
+
         public static final boolean kFrontLeftEncoderReversed = false;
-        public static final boolean kRearLeftEncoderReversed = false;
-        public static final int[] kRearLeftEncoderPorts = new int[] {0, 1};
-        public static final int[] kRearRightEncoderPorts = new int[] {0, 1};
+        public static final boolean kRearLeftEncoderReversed = true;
+        public static final boolean kFrontRightEncoderReversed = false;
+        public static final boolean kRearRightEncoderReversed = true;
+        
+        // TODO: do the math for this, such as: (kWheelDiameterMeters * Math.PI) / kEncoderCPR;
+        // Assumes the encoders are directly mounted on the wheel shafts
         public static final double kEncoderDistancePerPulse = 1.0;
     }
 }

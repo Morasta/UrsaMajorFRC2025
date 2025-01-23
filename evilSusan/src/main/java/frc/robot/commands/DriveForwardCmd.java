@@ -12,12 +12,12 @@ public class DriveForwardCmd extends CommandBase {
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public DriveForwardCmd(DriveTrain DriveTrain, double distance) {
+    public DriveForwardCmd(DriveTrain driveTrain, double distance) {
         printStatus("Created");
-        this.driveSubsystem = DriveTrain;
+        this.driveSubsystem = driveTrain;
         this.distance = 1; //TODO: Fix me
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
-       // addRequirements(DriveTrain);
+        // addRequirements(DriveTrain);
         
     }
 
@@ -30,13 +30,13 @@ public class DriveForwardCmd extends CommandBase {
     @Override
     public void execute() {
         printStatus("executed");
-        //DriveTrain.setMotors(DriveConstants.kAutoDriveForwardSpeed, DriveConstants.kAutoDriveForwardSpeed);
+        driveSubsystem.setMotors(DriveConstants.kAutoDriveForwardSpeed, DriveConstants.kAutoDriveForwardSpeed);
     }
 
     @Override
     public void end(boolean interrupted) {
         printStatus("end");
-        //DriveTrain.setMotors(0, 0);
+        driveSubsystem.setMotors(0, 0);
         System.out.println(this.getClass().getSimpleName() + " executed");
     }
 }
