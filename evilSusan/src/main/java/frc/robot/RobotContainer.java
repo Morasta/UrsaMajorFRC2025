@@ -2,11 +2,14 @@ package frc.robot;
 
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
+//import edu.wpi.first.wpilibj2.command.PrintCommand;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.commands.DriveForwardCmd;
 
 
 public class RobotContainer {
+    private final DriveTrain driveSubsystem = new DriveTrain();
+
     public RobotContainer() {
         // Set up the buttons and tell the robot what they need to do
         configureButtonBindings();
@@ -39,7 +42,7 @@ public class RobotContainer {
                         new ElevatorPIDCmd(elevatorSubsystem, ElevatorConstants.kRaisedPosition)
                 )
         );*/
-       // return new PrintCommand("Executed autotonomous command!");
-       return new DriveForwardCmd(null, 0);
+       //return new PrintCommand("Executed autotonomous command!");
+       return new DriveForwardCmd(driveSubsystem, 1);
     }
 }
