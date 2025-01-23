@@ -6,9 +6,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.DriveForwardCmd;
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -24,10 +28,9 @@ import java.util.List;
 
 public class RobotContainer {
     private final DriveTrain m_robotDrive = new DriveTrain();
+    XboxController m_driverController = new XboxController(OIConstants.kDriverJoystickPort);
 
     public RobotContainer() {
-
-        XboxController m_driverController = new XboxController(OIConstants.kDriverJoystickPort);
         // Set up the buttons and tell the robot what they need to do
         configureButtonBindings();
 
@@ -55,8 +58,8 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Add the controller button stuff here, as an example: 
         new JoystickButton(m_driverController, Button.kRightBumper.value)
-        .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
-        .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
+            .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
+            .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
         // Note this should map to Xbox/logi/ps4/5 controllers instead
     }
 
@@ -72,4 +75,36 @@ public class RobotContainer {
        //return new PrintCommand("Executed autotonomous command!");
        return new DriveForwardCmd(m_robotDrive, 1);
     }
+
+    MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(
+         new Trajectory(),
+            m_robotDrive::getPose,
+            DriveConstants.kFeedForward,
+            DriveConstants.kDriveKinematics,
+
+            // Position controllers
+            //TODO: replace kp with AutoConstants
+            new PIDController(0.5, 0, 0),
+            new PIDController(0.5, 0, 0),
+            new ProfiledPIDController(
+                0.5, 0, 0, 0.5),
+
+            // Needed for normalizing wheel speeds
+            //TODO:
+            3.0,
+
+            // Velocity PID's
+            new PIDController(DriveConstants.kPFrontLeftVel, 0, 0),
+            new PIDController(DriveConstants.kPRearLeftVel, 0, 0),
+            new PIDController(DriveConstants.kPFrontRightVel, 0, 0),
+            new PIDController(DriveConstants.kPRearRightVel, 0, 0),
+            m_robotDrive::getCurrentWheelSpeeds,
+            m_robotDrive::setDriveMotorControllersVolts, // Consumer for the output motor voltages
+            m_robotDrive);
+
+        new InstantCommand(() -> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose()),
+        MecanumControllerCommand,
+        new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false)));
+
+    //TODO: implament a real trajectory
 }

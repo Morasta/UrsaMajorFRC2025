@@ -4,52 +4,64 @@ import frc.robot.Constants.DriveConstants;
 
 import edu.wpi.first.util.sendable.SendableRegistry;
 
-//import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
-//import edu.wpi.first.math.geometry.Pose2d;
-//import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-//import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
-// A mecanum drive train
 public class DriveTrain extends SubsystemBase {
     private final PWMSparkMax m_FrontLeft = new PWMSparkMax(DriveConstants.kFrontLeftMotorPort);
     private final PWMSparkMax m_FrontRight = new PWMSparkMax(DriveConstants.kFrontRightMotorPort);
     private final PWMSparkMax m_BackLeft = new PWMSparkMax(DriveConstants.kRearLeftMotorPort);
     private final PWMSparkMax m_BackRight = new PWMSparkMax(DriveConstants.kRearRightMotorPort);
-    private final MecanumDrive m_robotDrive = new MecanumDrive(m_FrontLeft, m_BackLeft, m_FrontRight, m_BackRight);
+    private final MecanumDrive m_robotDrive = 
+        new MecanumDrive(m_FrontLeft, m_BackLeft, m_FrontRight, m_BackRight);
 
-    //private double aStartTime;
+    private double aStartTime;
+
+    private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+
+    public void setMaxOutput(double maxOutput) {
+        m_robotDrive.setMaxOutput(maxOutput);
+    }
+
+    public void setMotors(double leftSpeed, double rightSpeed) {
+        m_FrontLeft.set(leftSpeed);
+        m_FrontRight.set(-rightSpeed);
+    }
 
     private final Encoder m_frontLeftEncoder = new Encoder(
         DriveConstants.kFrontLeftEncoderPorts[0],
         DriveConstants.kFrontLeftEncoderPorts[1],
         DriveConstants.kFrontLeftEncoderReversed
-    );
+        );
 
     private final Encoder m_rearLeftEncoder = new Encoder(
         DriveConstants.kRearLeftEncoderPorts[0],
         DriveConstants.kRearLeftEncoderPorts[1],
         DriveConstants.kRearLeftEncoderReversed
-    );     
+        );     
 
-    private final Encoder m_frontRightEncoder = new Encoder(
+        private final Encoder m_frontRightEncoder = new Encoder(
         DriveConstants.kFrontRightEncoderPorts[0],
         DriveConstants.kFrontRightEncoderPorts[1],
         DriveConstants.kFrontRightEncoderReversed
-    );
+        );
 
-    private final Encoder m_rearRightEncoder = new Encoder(
+         private final Encoder m_rearRightEncoder = new Encoder(
         DriveConstants.kRearRightEncoderPorts[0],
         DriveConstants.kRearRightEncoderPorts[1],
         DriveConstants.kRearRightEncoderReversed
-    );
+        );
 
     public DriveTrain() {
         SendableRegistry.addChild(m_robotDrive, m_FrontLeft);
@@ -105,8 +117,9 @@ public class DriveTrain extends SubsystemBase {
             m_rearRightEncoder.getDistance());
     }
 
-    public void setMotors(double leftSpeed, double rightSpeed) {
-        m_FrontLeft.set(leftSpeed);
-        m_FrontRight.set(-rightSpeed);
+    public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+        if(fieldRelative) {
+            m_robotDrive.driveCartesian(xSpeed, ySpeed, rot, m_gyro.getRotation2d());
+        }
     }
 }
