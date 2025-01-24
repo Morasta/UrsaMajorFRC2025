@@ -117,6 +117,19 @@ public class DriveTrain extends SubsystemBase {
             m_rearRightEncoder.getDistance());
     }
 
+
+    /** Sets the front left drive MotorController to a voltage. */
+    public void setDriveMotorControllersVolts(
+        double frontLeftVoltage,
+        double frontRightVoltage,
+        double rearLeftVoltage,
+        double rearRightVoltage) {
+        m_FrontLeft.setVoltage(frontLeftVoltage);
+        m_BackLeft.setVoltage(rearLeftVoltage);
+        m_FrontRight.setVoltage(frontRightVoltage);
+        m_BackRight.setVoltage(rearRightVoltage);
+    }
+    
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
         if(fieldRelative) {
             m_robotDrive.driveCartesian(xSpeed, ySpeed, rot, m_gyro.getRotation2d());
