@@ -1,12 +1,11 @@
 package frc.robot.commands;
 
 import java.util.function.Supplier;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
 
-public class MecanumDriveCmd extends CommandBase {
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.DriveTrain;
+
+public class MecanumDriveCmd extends Command {
     private final DriveTrain driveTrain;
     private final Supplier<Double> speedFunction, turnFunction;
 
