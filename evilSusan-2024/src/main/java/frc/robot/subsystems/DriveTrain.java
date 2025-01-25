@@ -1,18 +1,22 @@
 package frc.robot.subsystems;
 
+import frc.robot.Constants.DriveConstants;
+
+import edu.wpi.first.util.sendable.SendableRegistry;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
+
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.MecanumDriveMotorVoltages;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.DriveConstants;
 
 public class DriveTrain extends SubsystemBase {
     private final PWMSparkMax m_FrontLeft = new PWMSparkMax(DriveConstants.kFrontLeftMotorPort);
@@ -21,7 +25,12 @@ public class DriveTrain extends SubsystemBase {
     private final PWMSparkMax m_BackRight = new PWMSparkMax(DriveConstants.kRearRightMotorPort);
     private final MecanumDrive m_robotDrive = new MecanumDrive(m_FrontLeft, m_BackLeft, m_FrontRight, m_BackRight);
 
+    // Gains are for example p
+
+    private double aStartTime;
+
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+    
 
     public void setMaxOutput(double maxOutput) {
         m_robotDrive.setMaxOutput(maxOutput);
@@ -31,7 +40,7 @@ public class DriveTrain extends SubsystemBase {
         m_FrontLeft.set(leftSpeed);
         m_FrontRight.set(-rightSpeed);
     }
-
+    
     private final Encoder m_frontLeftEncoder = new Encoder(
             DriveConstants.kFrontLeftEncoderPorts[0],
             DriveConstants.kFrontLeftEncoderPorts[1],
@@ -73,8 +82,7 @@ public class DriveTrain extends SubsystemBase {
 
     public void resetOdometry(Pose2d pose) {
         // https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/simpledifferentialdrivesimulation/Drivetrain.java#L125
-        // m_odometry.resetPosition(m_gyro.getRotation2d(), getCurrentWheelDistances(), pose);
-        System.out.println("resetOdometry called");
+        m_odometry.resetPosition(m_gyro.getRotation2d(), getCurrentWheelDistances(), pose);
     }
 
     public void resetEncoders() {
@@ -100,13 +108,11 @@ public class DriveTrain extends SubsystemBase {
         return m_rearRightEncoder;
     }
 
-    MecanumDriveOdometry m_odometry = new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d(), new MecanumDriveWheelPositions());
-
-    Rotation2d desiredRotation = new Rotation2d();
+    private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+            m_gyro.getRotation2d(), m_frontLeftEncoder.getDistance(), m_frontRightEncoder.getDistance());
     public Pose2d getPose() {
         return m_odometry.getPoseMeters();
     }
-
     public MecanumDriveWheelSpeeds getCurrentWheelSpeeds() {
         return new MecanumDriveWheelSpeeds(
                 m_frontLeftEncoder.getRate(),
@@ -117,10 +123,10 @@ public class DriveTrain extends SubsystemBase {
 
     public MecanumDriveWheelPositions getCurrentWheelDistances() {
         return new MecanumDriveWheelPositions(
-                m_frontLeftEncoder.getDistance(),
-                m_rearLeftEncoder.getDistance(),
-                m_frontRightEncoder.getDistance(),
-                m_rearRightEncoder.getDistance());
+            m_frontLeftEncoder.getDistance(),
+            m_rearLeftEncoder.getDistance(),
+            m_frontRightEncoder.getDistance(),
+            m_rearRightEncoder.getDistance());
     }
 
     public MecanumDriveWheelPositions getCurrentWheelPositions() {
@@ -132,15 +138,15 @@ public class DriveTrain extends SubsystemBase {
     }
 
     /** Sets the front left drive MotorController to a voltage. */
-    public void setDriveMotorControllersVolts(MecanumDriveMotorVoltages mdmv) {
-        m_FrontLeft.setVoltage(mdmv.frontLeftVoltage);
-        m_BackRight.setVoltage(mdmv.rearRightVoltage);
-        m_FrontRight.setVoltage(mdmv.frontRightVoltage);
-        m_BackRight.setVoltage(mdmv.rearRightVoltage);
-        // m_FrontLeft.setVoltage(frontLeftVoltage);
-        // m_BackLeft.setVoltage(rearLeftVoltage);
-        // m_FrontRight.setVoltage(frontRightVoltage);
-        // m_BackRight.setVoltage(rearRightVoltage);
+    public void setDriveMotorControllersVolts(
+            double frontLeftVoltage,
+            double frontRightVoltage,
+            double rearLeftVoltage,
+            double rearRightVoltage) {
+        m_FrontLeft.setVoltage(frontLeftVoltage);
+        m_BackLeft.setVoltage(rearLeftVoltage);
+        m_FrontRight.setVoltage(frontRightVoltage);
+        m_BackRight.setVoltage(rearRightVoltage);
     }
 
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {

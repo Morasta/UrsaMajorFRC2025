@@ -1,7 +1,15 @@
 package frc.robot;
 
-import java.util.List;
-
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
+import frc.robot.commands.DriveForwardCmd;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -12,16 +20,21 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.math.kinematics.MecanumDriveMotorVoltages;
+import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
+/*
+import frc.robot.mecanumcontrollercommand.Constants.AutoConstants;
+import frc.robot.mecanumcontrollercommand.Constants.DriveConstants;
+import frc.robot.mecanumcontrollercommand.Constants.OIConstants;
+import frc.robot.mecanumcontrollercommand.subsystems.DriveSubsystem;
+*/
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
-import frc.robot.commands.MecanumDriveCmd;
-import frc.robot.subsystems.DriveTrain;
+import java.util.List;
+import java.util.Timer;
+import java.util.function.Supplier;
 
 public class RobotContainer {
     private final DriveTrain m_robotDrive = new DriveTrain();
@@ -32,19 +45,13 @@ public class RobotContainer {
         // Set up the buttons and tell the robot what they need to do
         configureButtonBindings();
 
-        
-       m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, 
-        () -> m_driverController.getRawAxis(OIConstants.kArcadeDriveSpeedAxis),
-        () -> m_driverController.getRawAxis(OIConstants.kArcadeDriveTurnAxis)));
-
-      /*   m_robotDrive.setDefaultCommand(
+        m_robotDrive.setDefaultCommand(
                 new RunCommand(
                         () -> m_robotDrive.drive(
                                 -m_driverController.getLeftY(),
                                 -m_driverController.getRightX(),
                                 -m_driverController.getLeftX(),
-                                false), m_robotDrive));
-      */                      
+                                false)));
 
         /*
          * Configure joysticks example
@@ -88,16 +95,17 @@ public class RobotContainer {
                 config);
 
         // Position controllers
-        PIDController kPXController = new PIDController(AutoConstants.kPXController, 0, 0);
-        PIDController kPYController = new PIDController(AutoConstants.kPYController, 0, 0);
-        ProfiledPIDController kPThetaController = new ProfiledPIDController(AutoConstants.kPThetaController, 0, 0,
+        var kPXController = new PIDController(AutoConstants.kPXController, 0, 0);
+        var kPYController = new PIDController(AutoConstants.kPYController, 0, 0);
+        var kPThetaController = new ProfiledPIDController(AutoConstants.kPThetaController, 0, 0,
                 AutoConstants.kThetaControllerConstraints);
+        var desiredRotation = new Rotation2d();
 
         // Velocity PID's
-        PIDController kFrontLeftVel = new PIDController(DriveConstants.kFrontLeftVel, 0, 0);
-        PIDController kRearLeftVel = new PIDController(DriveConstants.kRearLeftVel, 0, 0);
-        PIDController kPFrontRightVel = new PIDController(DriveConstants.kPFrontRightVel, 0, 0);
-        PIDController kPRearRightVel = new PIDController(DriveConstants.kPRearRightVel, 0, 0);
+        var kFrontLeftVel = new PIDController(DriveConstants.kFrontLeftVel, 0, 0);
+        var kRearLeftVel = new PIDController(DriveConstants.kRearLeftVel, 0, 0);
+        var kPFrontRightVel = new PIDController(DriveConstants.kPFrontRightVel, 0, 0);
+        var kPRearRightVel = new PIDController(DriveConstants.kPRearRightVel, 0, 0);
 
         MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(
                 exampleTrajectory,
@@ -108,6 +116,7 @@ public class RobotContainer {
                 kPXController,
                 kPYController,
                 kPThetaController,
+                desiredRotation,
                 // Needed for normalizing wheel speeds
                 AutoConstants.kMaxSpeedMetersPerSecond,
 
@@ -126,4 +135,5 @@ public class RobotContainer {
                 mecanumControllerCommand,
                 new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false)));
     }
+
 }
