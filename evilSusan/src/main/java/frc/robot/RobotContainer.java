@@ -1,15 +1,7 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
-import frc.robot.commands.DriveForwardCmd;
-import frc.robot.subsystems.DriveTrain;
+import java.util.List;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -20,21 +12,16 @@ import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.math.kinematics.MecanumDriveMotorVoltages;
-import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-/*
-import frc.robot.mecanumcontrollercommand.Constants.AutoConstants;
-import frc.robot.mecanumcontrollercommand.Constants.DriveConstants;
-import frc.robot.mecanumcontrollercommand.Constants.OIConstants;
-import frc.robot.mecanumcontrollercommand.subsystems.DriveSubsystem;
-*/
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
-import java.util.List;
-import java.util.Timer;
-import java.util.function.Supplier;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
+import frc.robot.subsystems.DriveTrain;
 
 public class RobotContainer {
     private final DriveTrain m_robotDrive = new DriveTrain();
@@ -51,7 +38,7 @@ public class RobotContainer {
                                 -m_driverController.getLeftY(),
                                 -m_driverController.getRightX(),
                                 -m_driverController.getLeftX(),
-                                false)));
+                                false), m_robotDrive));
 
         /*
          * Configure joysticks example
@@ -99,7 +86,6 @@ public class RobotContainer {
         var kPYController = new PIDController(AutoConstants.kPYController, 0, 0);
         var kPThetaController = new ProfiledPIDController(AutoConstants.kPThetaController, 0, 0,
                 AutoConstants.kThetaControllerConstraints);
-        var desiredRotation = new Rotation2d();
 
         // Velocity PID's
         var kFrontLeftVel = new PIDController(DriveConstants.kFrontLeftVel, 0, 0);
@@ -116,7 +102,6 @@ public class RobotContainer {
                 kPXController,
                 kPYController,
                 kPThetaController,
-                desiredRotation,
                 // Needed for normalizing wheel speeds
                 AutoConstants.kMaxSpeedMetersPerSecond,
 
@@ -135,5 +120,4 @@ public class RobotContainer {
                 mecanumControllerCommand,
                 new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false)));
     }
-
 }
