@@ -1,7 +1,7 @@
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.subsystems;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class MecanumDriveTrain extends subsystems {
+public class MecanumDriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public MecanumDriveTrain() {}
 
