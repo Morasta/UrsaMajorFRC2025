@@ -40,6 +40,7 @@ public class RobotContainer {
     private final DriveTrain m_robotDrive = new DriveTrain();
     XboxController m_driverController = new XboxController(OIConstants.kDriverJoystickPort);
 
+
     public RobotContainer() {
         // Set up the buttons and tell the robot what they need to do
         configureButtonBindings();
@@ -98,6 +99,7 @@ public class RobotContainer {
         var kPYController = new PIDController(AutoConstants.kPYController, 0, 0);
         var kPThetaController = new ProfiledPIDController(AutoConstants.kPThetaController, 0, 0,
                 AutoConstants.kThetaControllerConstraints);
+        var desiredRotation = new Rotation2d();
 
         // Velocity PID's
         var kFrontLeftVel = new PIDController(DriveConstants.kFrontLeftVel, 0, 0);
@@ -107,13 +109,14 @@ public class RobotContainer {
 
         MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(
                 exampleTrajectory,
-                m_robotDrive::getPose,
+                m_robotDrive::getPose2d,
                 DriveConstants.kFeedForward,
                 DriveConstants.kDriveKinematics,
 
                 kPXController,
                 kPYController,
                 kPThetaController,
+                desiredRotation,
                 // Needed for normalizing wheel speeds
                 AutoConstants.kMaxSpeedMetersPerSecond,
 

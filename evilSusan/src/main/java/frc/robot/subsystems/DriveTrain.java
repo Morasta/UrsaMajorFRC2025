@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
@@ -17,18 +18,19 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-
 public class DriveTrain extends SubsystemBase {
     private final PWMSparkMax m_FrontLeft = new PWMSparkMax(DriveConstants.kFrontLeftMotorPort);
     private final PWMSparkMax m_FrontRight = new PWMSparkMax(DriveConstants.kFrontRightMotorPort);
     private final PWMSparkMax m_BackLeft = new PWMSparkMax(DriveConstants.kRearLeftMotorPort);
     private final PWMSparkMax m_BackRight = new PWMSparkMax(DriveConstants.kRearRightMotorPort);
-    private final MecanumDrive m_robotDrive = 
-        new MecanumDrive(m_FrontLeft, m_BackLeft, m_FrontRight, m_BackRight);
+    private final MecanumDrive m_robotDrive = new MecanumDrive(m_FrontLeft, m_BackLeft, m_FrontRight, m_BackRight);
+
+    // Gains are for example p
 
     private double aStartTime;
 
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
+    
 
     public void setMaxOutput(double maxOutput) {
         m_robotDrive.setMaxOutput(maxOutput);
@@ -38,30 +40,26 @@ public class DriveTrain extends SubsystemBase {
         m_FrontLeft.set(leftSpeed);
         m_FrontRight.set(-rightSpeed);
     }
-
+    
     private final Encoder m_frontLeftEncoder = new Encoder(
-        DriveConstants.kFrontLeftEncoderPorts[0],
-        DriveConstants.kFrontLeftEncoderPorts[1],
-        DriveConstants.kFrontLeftEncoderReversed
-        );
+            DriveConstants.kFrontLeftEncoderPorts[0],
+            DriveConstants.kFrontLeftEncoderPorts[1],
+            DriveConstants.kFrontLeftEncoderReversed);
 
     private final Encoder m_rearLeftEncoder = new Encoder(
-        DriveConstants.kRearLeftEncoderPorts[0],
-        DriveConstants.kRearLeftEncoderPorts[1],
-        DriveConstants.kRearLeftEncoderReversed
-        );     
+            DriveConstants.kRearLeftEncoderPorts[0],
+            DriveConstants.kRearLeftEncoderPorts[1],
+            DriveConstants.kRearLeftEncoderReversed);
 
-        private final Encoder m_frontRightEncoder = new Encoder(
-        DriveConstants.kFrontRightEncoderPorts[0],
-        DriveConstants.kFrontRightEncoderPorts[1],
-        DriveConstants.kFrontRightEncoderReversed
-        );
+    private final Encoder m_frontRightEncoder = new Encoder(
+            DriveConstants.kFrontRightEncoderPorts[0],
+            DriveConstants.kFrontRightEncoderPorts[1],
+            DriveConstants.kFrontRightEncoderReversed);
 
-         private final Encoder m_rearRightEncoder = new Encoder(
-        DriveConstants.kRearRightEncoderPorts[0],
-        DriveConstants.kRearRightEncoderPorts[1],
-        DriveConstants.kRearRightEncoderReversed
-        );
+    private final Encoder m_rearRightEncoder = new Encoder(
+            DriveConstants.kRearRightEncoderPorts[0],
+            DriveConstants.kRearRightEncoderPorts[1],
+            DriveConstants.kRearRightEncoderReversed);
 
     public DriveTrain() {
         SendableRegistry.addChild(m_robotDrive, m_FrontLeft);
@@ -76,6 +74,15 @@ public class DriveTrain extends SubsystemBase {
 
         m_FrontRight.setInverted(true);
         m_BackRight.setInverted(true);
+    }
+
+    public Pose2d getPose2d() {
+        return m_odometry.getPoseMeters();
+    }
+
+    public void resetOdometry(Pose2d pose) {
+        // https://github.com/wpilibsuite/allwpilib/blob/main/wpilibjExamples/src/main/java/edu/wpi/first/wpilibj/examples/simpledifferentialdrivesimulation/Drivetrain.java#L125
+        m_odometry.resetPosition(m_gyro.getRotation2d(), getCurrentWheelDistances(), pose);
     }
 
     public void resetEncoders() {
@@ -101,37 +108,49 @@ public class DriveTrain extends SubsystemBase {
         return m_rearRightEncoder;
     }
 
+    private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+            m_gyro.getRotation2d(), m_frontLeftEncoder.getDistance(), m_frontRightEncoder.getDistance());
+    public Pose2d getPose() {
+        return m_odometry.getPoseMeters();
+    }
     public MecanumDriveWheelSpeeds getCurrentWheelSpeeds() {
         return new MecanumDriveWheelSpeeds(
-            m_frontLeftEncoder.getRate(),
-            m_rearLeftEncoder.getRate(),
-            m_frontRightEncoder.getRate(),
-            m_rearRightEncoder.getRate());
-      }
+                m_frontLeftEncoder.getRate(),
+                m_rearLeftEncoder.getRate(),
+                m_frontRightEncoder.getRate(),
+                m_rearRightEncoder.getRate());
+    }
 
-    public MecanumDriveWheelPositions getCurrentWheelPositions() {
-        return new MecanumDriveWheelPositions( 
-            m_frontLeftEncoder.getDistance(), 
-            m_rearLeftEncoder.getDistance(), 
-            m_frontRightEncoder.getDistance(), 
+    public MecanumDriveWheelPositions getCurrentWheelDistances() {
+        return new MecanumDriveWheelPositions(
+            m_frontLeftEncoder.getDistance(),
+            m_rearLeftEncoder.getDistance(),
+            m_frontRightEncoder.getDistance(),
             m_rearRightEncoder.getDistance());
     }
 
+    public MecanumDriveWheelPositions getCurrentWheelPositions() {
+        return new MecanumDriveWheelPositions(
+                m_frontLeftEncoder.getDistance(),
+                m_rearLeftEncoder.getDistance(),
+                m_frontRightEncoder.getDistance(),
+                m_rearRightEncoder.getDistance());
+    }
 
     /** Sets the front left drive MotorController to a voltage. */
     public void setDriveMotorControllersVolts(
-        double frontLeftVoltage,
-        double frontRightVoltage,
-        double rearLeftVoltage,
-        double rearRightVoltage) {
+            double frontLeftVoltage,
+            double frontRightVoltage,
+            double rearLeftVoltage,
+            double rearRightVoltage) {
         m_FrontLeft.setVoltage(frontLeftVoltage);
         m_BackLeft.setVoltage(rearLeftVoltage);
         m_FrontRight.setVoltage(frontRightVoltage);
         m_BackRight.setVoltage(rearRightVoltage);
     }
-    
+
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-        if(fieldRelative) {
+        if (fieldRelative) {
             m_robotDrive.driveCartesian(xSpeed, ySpeed, rot, m_gyro.getRotation2d());
         }
     }
