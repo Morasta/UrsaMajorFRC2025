@@ -65,6 +65,8 @@ public class DriveTrain extends SubsystemBase {
 
         m_FrontRight.setInverted(true);
         m_BackRight.setInverted(true);
+
+        m_robotDrive.feed();
     }
 
     public Pose2d getPose2d() {

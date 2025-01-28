@@ -36,6 +36,7 @@ public class RobotContainer {
        m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, 
         () -> m_driverController.getRawAxis(OIConstants.kArcadeDriveSpeedAxis),
         () -> m_driverController.getRawAxis(OIConstants.kArcadeDriveTurnAxis)));
+        
 
       /*   m_robotDrive.setDefaultCommand(
                 new RunCommand(
@@ -63,8 +64,8 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Add the controller button stuff here, as an example:
         new JoystickButton(m_driverController, Button.kRightBumper.value)
-                .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
-                .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
+                .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)))
+                .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(0)));
         // Note this should map to Xbox/logi/ps4/5 controllers instead
     }
 

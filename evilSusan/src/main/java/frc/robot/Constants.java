@@ -14,7 +14,7 @@ public final class Constants {
         public static final int kDriverJoystickPort = 0;
 
         public static final int kArcadeDriveSpeedAxis = 1;
-        public static final int kArcadeDriveTurnAxis = 3;
+        public static final int kArcadeDriveTurnAxis = 5;
     }
 
     public static final class AutoConstants {
