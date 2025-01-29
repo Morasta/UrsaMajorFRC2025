@@ -6,15 +6,20 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import frc.robot.subsystems.DriveTrain;
 
 public final class Constants {
     // Constant definitions for controller mapping used by the "operator" or driver
     // This should map to the controller classes we'll define later
+
     public static final class OIConstants {
+
         public static final int kDriverJoystickPort = 0;
 
         public static final int kArcadeDriveSpeedAxis = 1;
-        public static final int kArcadeDriveTurnAxis = 5;
+        public static final int kArcadeDriveTurnAxis = 4;
     }
 
     public static final class AutoConstants {
@@ -33,6 +38,7 @@ public final class Constants {
     }
 
     public static final class DriveConstants {
+
         public static final double kAutoDriveForwardSpeed = 0.5;
         public static final double kAutoDriveForwardDistance = 0.5;
 

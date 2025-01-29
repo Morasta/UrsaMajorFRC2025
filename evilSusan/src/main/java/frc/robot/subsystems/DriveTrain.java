@@ -29,7 +29,9 @@ public class DriveTrain extends SubsystemBase {
 
     public void setMotors(double leftSpeed, double rightSpeed) {
         m_FrontLeft.set(leftSpeed);
+        m_BackLeft.set(leftSpeed);
         m_FrontRight.set(-rightSpeed);
+        m_BackRight.set(-rightSpeed);
     }
 
     private final Encoder m_frontLeftEncoder = new Encoder(
@@ -68,8 +70,8 @@ public class DriveTrain extends SubsystemBase {
 
         m_robotDrive.feed();
     }
-
-    public Pose2d getPose2d() {
+        
+            public Pose2d getPose2d() {
         return m_odometry.getPoseMeters();
     }
 
