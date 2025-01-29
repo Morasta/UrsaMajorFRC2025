@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,12 +23,25 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.MecanumDriveCmd;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 public class RobotContainer {
     private final DriveTrain m_robotDrive = new DriveTrain();
     XboxController m_driverController = new XboxController(OIConstants.kDriverJoystickPort);
 
+ private final DriveTrain driveSubsystem = new DriveTrain();
+    private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+    private final Joystick joystick1 = new Joystick(OIConstants.kDriverJoystickPort);
+
     public RobotContainer() {
+        configureButtonBindings();
+
+        driveSubsystem.setDefaultCommand(new MecanumDriveCmd(driveSubsystem, //
+                () -> -joystick1.getRawAxis(OIConstants.kArcadeDriveSpeedAxis),
+                () -> joystick1.getRawAxis(OIConstants.kArcadeDriveTurnAxis))//
+        );
+        elevatorSubsystem.setDefaultCommand(new ElevatorJoystickCmd(elevatorSubsystem, 0));
+
         // Set up the buttons and tell the robot what they need to do
         configureButtonBindings();
         
