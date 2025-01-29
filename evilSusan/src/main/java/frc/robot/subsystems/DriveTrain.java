@@ -34,6 +34,13 @@ public class DriveTrain extends SubsystemBase {
         m_BackRight.set(-rightSpeed);
     }
 
+    public void setStrafeMotors(double leftSpeed, double rightSpeed) {
+        m_FrontLeft.set(leftSpeed);
+        m_BackLeft.set(-leftSpeed);
+        m_FrontRight.set(-rightSpeed);
+        m_BackRight.set(rightSpeed);
+    }
+
     private final Encoder m_frontLeftEncoder = new Encoder(
             DriveConstants.kFrontLeftEncoderPorts[0],
             DriveConstants.kFrontLeftEncoderPorts[1],

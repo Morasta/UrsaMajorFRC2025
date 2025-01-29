@@ -18,7 +18,6 @@ public class DriveForwardCmd extends Command {
         this.distance = 1; //TODO: Fix me
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
         // addRequirements(DriveTrain);
-        
     }
 
     @Override

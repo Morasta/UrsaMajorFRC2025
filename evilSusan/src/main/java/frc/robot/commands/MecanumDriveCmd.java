@@ -32,6 +32,7 @@ public class MecanumDriveCmd extends Command {
         double left = realTimeSpeed + realTimeTurn;
         double right = realTimeSpeed - realTimeTurn;
         driveTrain.setMotors(left, right);
+        driveTrain.setStrafeMotors(left, right);
     }
 
     @Override
