@@ -83,5 +83,17 @@ public final class Constants {
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
     }
+    public static final class ElevatorConstants {
+        public static final int kMotorPort = 2;
+        public static final int kEncoderChannelA = 4;
+        public static final int kEncoderChannelB = 5;
+        public static final double kEncoderTick2Meter = 1.0 / 4096.0 * 0.1 * Math.PI;
+        public static final double kP = 3;
+        public static final double kI = 0;
+        public static final double kD = 0.8;
 
+        public static final double kRaisedPosition = 1.2;
+        public static final double kLoweredPosition = 0;
+        public static final double kJoystickMaxSpeed = 0.5;
+    }
 }
