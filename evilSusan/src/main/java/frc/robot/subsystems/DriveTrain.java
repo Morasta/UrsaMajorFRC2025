@@ -78,7 +78,7 @@ public class DriveTrain extends SubsystemBase {
         m_robotDrive.feed();
     }
         
-            public Pose2d getPose2d() {
+    public Pose2d getPose2d() {
         return m_odometry.getPoseMeters();
     }
 

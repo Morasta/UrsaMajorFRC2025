@@ -1,11 +1,8 @@
 package frc.robot.commands;
 
 import java.util.function.Supplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class MecanumDriveCmd extends Command {
     private final DriveTrain driveTrain;
@@ -32,7 +29,7 @@ public class MecanumDriveCmd extends Command {
         double left = realTimeSpeed + realTimeTurn;
         double right = realTimeSpeed - realTimeTurn;
         driveTrain.setMotors(left, right);
-        driveTrain.setStrafeMotors(left, right);
+        //driveTrain.setStrafeMotors(left, right);
     }
 
     @Override

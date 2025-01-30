@@ -1,10 +1,11 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+//import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ElevatorSubsystem;
+import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class ElevatorJoystickCmd extends CommandBase{
+public class ElevatorJoystickCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
     private final double speed;
 

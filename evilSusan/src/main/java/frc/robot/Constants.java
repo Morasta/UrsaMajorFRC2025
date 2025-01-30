@@ -1,15 +1,12 @@
 package frc.robot;
 
-import java.lang.reflect.Array;
+//import java.lang.reflect.Array;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
-import frc.robot.subsystems.DriveTrain;
 
 
 public final class Constants {
@@ -25,6 +22,8 @@ public final class Constants {
         //Strafe buttons
         public static final int leftStrafe = 2;
         public static final int rightStrafe = 3;
+
+        //Intake buttons
         public static final int kIntakeCloseButtonIdx = 5;
     }
 
@@ -47,26 +46,33 @@ public final class Constants {
     // TODO: Confirm all ports match the actual intake motors (based on wiring)
     public static final class DriveConstants {
         public static final double kAutoDriveForwardSpeed = 0.5;
-       
         public static final double kAutoDriveForwardDistance = 0.5;
 
-        public static final int kFrontLeftMotorPort = 1;
+        public static final int kFrontLeftVel = 1;
+        public static final int kRearLeftVel = 1;
+        public static final int kPFrontRightVel = 1;
+        public static final int kPRearRightVel = 1;
+
+        public static final int kFrontLeftMotorPort = 0;
         public static final int kFrontRightMotorPort = 1;
-        public static final int kRearLeftMotorPort = 1;
-        public static final int kRearRightMotorPort = 1;
+        public static final int kRearLeftMotorPort = 2;
+        public static final int kRearRightMotorPort = 3;
         public static final int[] kFrontLeftEncoderPorts = new int[] {0, 1};
-        public static final int[] kEncoderDistancePerPulset = new int[] {0, 1};
-        public static final int[] kFrontRightEncoderPorts = new int[] {0, 1};
-        public static final int[] kRearLeftEncoderPorts = new int[] {0, 1};
-        public static final int[] kRearRightEncoderPorts = new int[] {0, 1};
+        public static final int[] kFrontRightEncoderPorts = new int[] {2, 3};
+        public static final int[] kRearLeftEncoderPorts = new int[] {4, 5};
+        public static final int[] kRearRightEncoderPorts = new int[] {6, 7};
+
         public static final boolean kFrontRightEncoderReversed = true;
-        public static final boolean kRearRightEncoderReversed = true; 
         public static final boolean kFrontLeftEncoderReversed = false;
+        
+        public static final boolean kRearRightEncoderReversed = true;
         public static final boolean kRearLeftEncoderReversed = true;
 
+        
         // TODO: do the math for this, such as: (kWheelDiameterMeters * Math.PI) / kEncoderCPR;
         // Assumes the encoders are directly mounted on the wheel shafts
         public static final double kEncoderDistancePerPulse = 1.0;
+        public static final int[] kEncoderDistancePerPulset = new int[] {0, 1};
 
         public static final SimpleMotorFeedforward kFeedForward = new SimpleMotorFeedforward(1, 0.8, 0.15);
 
@@ -100,8 +106,8 @@ public final class Constants {
 
     // TODO: Map these ports to the actual intake motors (based on wiring)
     public static final class IntakeConstants {
-        public static final int kLeftMotorPort = 3;
-        public static final int kRightMotorPort = 4;
+        public static final int kLeftMotorPort = 8;
+        public static final int kRightMotorPort = 9;
         public static final double kOpenSpeed = -1;
         public static final double kCloseSpeed = 1;
     }

@@ -1,6 +1,7 @@
 package frc.robot;
 
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.commands.IntakeSetCmd;
@@ -15,12 +16,22 @@ import frc.robot.commands.ElevatorJoystickCmd;
 import frc.robot.commands.MecanumDriveCmd;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
+import java.util.List;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController.Button;
 
 public class RobotContainer {
         private final DriveTrain m_robotDrive = new DriveTrain();
         XboxController m_driverController = new XboxController(OIConstants.kDriverJoystickPort);
 
-private final DriveTrain driveSubsystem = new DriveTrain();
         // Robot Subsystems: create one instance of each
         private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
         private final Joystick joystick1 = new Joystick(OIConstants.kDriverJoystickPort);
@@ -29,7 +40,7 @@ private final DriveTrain driveSubsystem = new DriveTrain();
         public RobotContainer() {
                 configureButtonBindings();
 
-                driveSubsystem.setDefaultCommand(new MecanumDriveCmd(driveSubsystem, //
+                m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, //
                         () -> -joystick1.getRawAxis(OIConstants.kArcadeDriveSpeedAxis),
                         () -> joystick1.getRawAxis(OIConstants.kArcadeDriveTurnAxis))//
                 );
@@ -37,11 +48,6 @@ private final DriveTrain driveSubsystem = new DriveTrain();
                 intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
 
                 // Set up the buttons and tell the robot what they need to do
-                configureButtonBindings();
-                
-        m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, 
-                () -> m_driverController.getRawAxis(OIConstants.kArcadeDriveSpeedAxis),
-                () -> m_driverController.getRawAxis(OIConstants.kArcadeDriveTurnAxis)));
 
                 /*  m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, 
                         () -> m_driverController.getRawAxis(OIConstants.leftStrafe),
@@ -77,7 +83,7 @@ private final DriveTrain driveSubsystem = new DriveTrain();
                 new JoystickButton(m_driverController, Button.kRightBumper.value)
                         .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)))
                         .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(0)));
-                        new JoystickButton(joystick1, OIConstants.kIntakeCloseButtonIdx)
+                new JoystickButton(joystick1, OIConstants.kIntakeCloseButtonIdx)
                         .whileTrue(new IntakeSetCmd(intakeSubsystem, false));
                 // Note this should map to Xbox/logi/ps4/5 controllers instead
         }
