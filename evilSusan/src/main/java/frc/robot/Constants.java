@@ -2,8 +2,6 @@ package frc.robot;
 
 import java.lang.reflect.Array;
 
-<<<<<<< Updated upstream
-=======
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
@@ -14,18 +12,10 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import frc.robot.subsystems.DriveTrain;
 
 
->>>>>>> Stashed changes
 public final class Constants {
     // Constant definitions for controller mapping used by the "operator" or driver
     // This should map to the controller classes we'll define later
     public static final class OIConstants {
-<<<<<<< Updated upstream
-        public static final int kDriverJoystickPort = 0;
-
-        public static final int kArcadeDriveSpeedAxis = 1;
-        public static final int kArcadeDriveTurnAxis = 3;
-    } 
-=======
         //Joystick ports
         public static final int kDriverJoystickPort = 0;
 
@@ -53,7 +43,6 @@ public final class Constants {
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared
         );
     }
->>>>>>> Stashed changes
 
     // TODO: Confirm all ports match the actual intake motors (based on wiring)
     public static final class DriveConstants {
@@ -68,18 +57,12 @@ public final class Constants {
         public static final int[] kFrontLeftEncoderPorts = new int[] {0, 1};
         public static final int[] kEncoderDistancePerPulset = new int[] {0, 1};
         public static final int[] kFrontRightEncoderPorts = new int[] {0, 1};
+        public static final int[] kRearLeftEncoderPorts = new int[] {0, 1};
+        public static final int[] kRearRightEncoderPorts = new int[] {0, 1};
         public static final boolean kFrontRightEncoderReversed = true;
         public static final boolean kRearRightEncoderReversed = true; 
         public static final boolean kFrontLeftEncoderReversed = false;
-<<<<<<< Updated upstream
-        public static final boolean kRearLeftEncoderReversed = false;
-        public static final int[] kRearLeftEncoderPorts = new int[] {0, 1};
-        public static final int[] kRearRightEncoderPorts = new int[] {0, 1};
-        public static final double kEncoderDistancePerPulse = 1.0;
-=======
         public static final boolean kRearLeftEncoderReversed = true;
-        public static final boolean kFrontRightEncoderReversed = false;
-        public static final boolean kRearRightEncoderReversed = true;
 
         // TODO: do the math for this, such as: (kWheelDiameterMeters * Math.PI) / kEncoderCPR;
         // Assumes the encoders are directly mounted on the wheel shafts
@@ -113,7 +96,6 @@ public final class Constants {
         public static final double kRaisedPosition = 1.2;
         public static final double kLoweredPosition = 0;
         public static final double kJoystickMaxSpeed = 0.5;
->>>>>>> Stashed changes
     }
 
     // TODO: Map these ports to the actual intake motors (based on wiring)
