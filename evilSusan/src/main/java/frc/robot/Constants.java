@@ -66,7 +66,7 @@ public final class Constants {
         public static final boolean kFrontLeftEncoderReversed = false;
         
         public static final boolean kRearRightEncoderReversed = true;
-        public static final boolean kRearLeftEncoderReversed = true;
+        public static final boolean kRearLeftEncoderReversed = false;
 
         
         // TODO: do the math for this, such as: (kWheelDiameterMeters * Math.PI) / kEncoderCPR;
@@ -91,9 +91,9 @@ public final class Constants {
 
     // TODO: Map these ports to the actual intake motors (based on wiring)
     public static final class ElevatorConstants {
-        public static final int kMotorPort = 2;
-        public static final int kEncoderChannelA = 4;
-        public static final int kEncoderChannelB = 5;
+        public static final int kMotorPort = 4;
+        public static final int kEncoderChannelA = 8;
+        public static final int kEncoderChannelB = 9;
         public static final double kEncoderTick2Meter = 1.0 / 4096.0 * 0.1 * Math.PI;
         public static final double kP = 3;
         public static final double kI = 0;
