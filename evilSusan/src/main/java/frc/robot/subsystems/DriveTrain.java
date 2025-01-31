@@ -19,11 +19,13 @@ public class DriveTrain extends SubsystemBase {
     private final PWMSparkMax m_FrontRight = new PWMSparkMax(DriveConstants.kFrontRightMotorPort);
     private final PWMSparkMax m_BackLeft = new PWMSparkMax(DriveConstants.kRearLeftMotorPort);
     private final PWMSparkMax m_BackRight = new PWMSparkMax(DriveConstants.kRearRightMotorPort);
+
     private final MecanumDrive m_robotDrive = new MecanumDrive(m_FrontLeft, m_BackLeft, m_FrontRight, m_BackRight);
 
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
     public void setMaxOutput(double maxOutput) {
+        System.out.println("SetMaxOutput" + maxOutput);
         m_robotDrive.setMaxOutput(maxOutput);
     }
 
@@ -155,6 +157,9 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+        //System.out.println("xSpeed" + xSpeed);
+        //System.out.println("ySpeed" + ySpeed);
+        //System.out.println("rot" + rot);
         if (fieldRelative) {
             m_robotDrive.driveCartesian(xSpeed, ySpeed, rot, m_gyro.getRotation2d());
         }

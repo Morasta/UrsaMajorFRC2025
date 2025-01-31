@@ -56,7 +56,9 @@ public class RobotContainer {
          CommandXboxController xc = new CommandXboxController(0);
          //Trigger xButton = xc.x();
 
-         m_driverController.x().whileTrue(new PrintCommand("Getting Left joystick side to side"));
+         //xc.x().whileTrue(new PrintCommand("Getting X button"));
+         xc.x().onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)));
+         xc.x().onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
 
         //new JoystickButton(m_driverController, Button.kLeftStick.value).whileTrue(new Command());
 
@@ -78,10 +80,10 @@ public class RobotContainer {
                 */
                 m_robotDrive.setDefaultCommand(
                         new RunCommand(() -> m_robotDrive.drive(
-                                -m_driverController.getLeftY(),
-                                -m_driverController.getRightX(),
-                                -m_driverController.getLeftX(),
-                        false), m_robotDrive));
+                                -xc.getRawAxis(0),
+                                -xc.getRawAxis(4),
+                                -xc.getRawAxis(2),
+                        true), m_robotDrive));
 
         /*   m_robotDrive.setDefaultCommand(
                         new RunCommand(
@@ -111,8 +113,9 @@ public class RobotContainer {
                 new JoystickButton(m_driverController, Button.kRightBumper.value)
                         .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)))
                         .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(0)));
-                new JoystickButton(joystick1, OIConstants.kIntakeCloseButtonIdx)
-                        .whileTrue(new IntakeSetCmd(intakeSubsystem, false));
+
+                //new JoystickButton(joystick1, OIConstants.kIntakeCloseButtonIdx)
+                //        .whileTrue(new IntakeSetCmd(intakeSubsystem, false));
                 // Note this should map to Xbox/logi/ps4/5 controllers instead
         }
 

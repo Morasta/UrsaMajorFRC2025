@@ -22,7 +22,7 @@ public class IntakeSetCmd extends Command{
 
     @Override
     public void execute() {
-        System.out.println("executing IntakeSetCmd!");
+        //System.out.println("executing IntakeSetCmd!");
         intakeSubsystem.setPosition(open);
     }
 
