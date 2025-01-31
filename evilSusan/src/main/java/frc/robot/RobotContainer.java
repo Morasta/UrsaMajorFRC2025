@@ -8,7 +8,11 @@ import frc.robot.commands.IntakeSetCmd;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
@@ -40,10 +44,28 @@ public class RobotContainer {
         public RobotContainer() {
                 configureButtonBindings();
 
-                m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, //
+        /*         m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, //
                         () -> -joystick1.getRawAxis(OIConstants.kArcadeDriveSpeedAxis),
                         () -> joystick1.getRawAxis(OIConstants.kArcadeDriveTurnAxis))//
                 );
+        */
+
+
+    
+
+         CommandXboxController xc = new CommandXboxController(0);
+         //Trigger xButton = xc.x();
+
+         m_driverController.x().whileTrue(new PrintCommand("Getting Left joystick side to side"));
+
+        //new JoystickButton(m_driverController, Button.kLeftStick.value).whileTrue(new Command());
+
+/* 
+        new JoystickButton(m_driverController, XBoxController.Button.kX.value)
+        .and(new JoystickButton(m_driverController, XboxController.Button.kY.value))
+        .whenActive(new ExampleCommand());
+*/
+
                 elevatorSubsystem.setDefaultCommand(new ElevatorJoystickCmd(elevatorSubsystem, 0));
                 intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
 
@@ -54,6 +76,12 @@ public class RobotContainer {
                         () -> m_driverController.getRawAxis(OIConstants.rightStrafe))
                 );
                 */
+                m_robotDrive.setDefaultCommand(
+                        new RunCommand(() -> m_robotDrive.drive(
+                                -m_driverController.getLeftY(),
+                                -m_driverController.getRightX(),
+                                -m_driverController.getLeftX(),
+                        false), m_robotDrive));
 
         /*   m_robotDrive.setDefaultCommand(
                         new RunCommand(
