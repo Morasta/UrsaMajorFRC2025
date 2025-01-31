@@ -150,10 +150,6 @@ public class DriveTrain extends SubsystemBase {
         m_BackRight.setVoltage(mdmv.rearRightVoltage);
         m_FrontRight.setVoltage(mdmv.frontRightVoltage);
         m_BackRight.setVoltage(mdmv.rearRightVoltage);
-        // m_FrontLeft.setVoltage(frontLeftVoltage);
-        // m_BackLeft.setVoltage(rearLeftVoltage);
-        // m_FrontRight.setVoltage(frontRightVoltage);
-        // m_BackRight.setVoltage(rearRightVoltage);
     }
 
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {

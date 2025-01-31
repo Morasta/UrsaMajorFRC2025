@@ -34,11 +34,11 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 
 public class RobotContainer {
         private final DriveTrain m_robotDrive = new DriveTrain();
-        XboxController m_driverController = new XboxController(OIConstants.kDriverJoystickPort);
+        CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverJoystickPort);
 
         // Robot Subsystems: create one instance of each
         private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-        private final Joystick joystick1 = new Joystick(OIConstants.kDriverJoystickPort);
+        //private final Joystick joystick1 = new Joystick(OIConstants.kDriverJoystickPort);
         private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
         public RobotContainer() {
@@ -53,16 +53,18 @@ public class RobotContainer {
 
     
 
-         CommandXboxController xc = new CommandXboxController(0);
          //Trigger xButton = xc.x();
-
+        //TODO: Move xc toXbox controller
          //xc.x().whileTrue(new PrintCommand("Getting X button"));
-         xc.x().onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)));
-         xc.x().onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
+         //xc.x().onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)));
+         //xc.x().onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
+
+         m_driverController.x().onTrue(new InstantCommand(() -> m_robotDrive.drive(0.5, 0.5, 0, true)));
+         m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
 
         //new JoystickButton(m_driverController, Button.kLeftStick.value).whileTrue(new Command());
 
-/* 
+/*      Example of a command issued when both x and y are pressed at same time
         new JoystickButton(m_driverController, XBoxController.Button.kX.value)
         .and(new JoystickButton(m_driverController, XboxController.Button.kY.value))
         .whenActive(new ExampleCommand());
@@ -71,18 +73,11 @@ public class RobotContainer {
                 elevatorSubsystem.setDefaultCommand(new ElevatorJoystickCmd(elevatorSubsystem, 0));
                 intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
 
-                // Set up the buttons and tell the robot what they need to do
-
-                /*  m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, 
-                        () -> m_driverController.getRawAxis(OIConstants.leftStrafe),
-                        () -> m_driverController.getRawAxis(OIConstants.rightStrafe))
-                );
-                */
                 m_robotDrive.setDefaultCommand(
                         new RunCommand(() -> m_robotDrive.drive(
-                                -xc.getRawAxis(0),
-                                -xc.getRawAxis(4),
-                                -xc.getRawAxis(2),
+                                -m_driverController.getRawAxis(0),
+                                -m_driverController.getRawAxis(4),
+                                -m_driverController.getRawAxis(2),
                         true), m_robotDrive));
 
         /*   m_robotDrive.setDefaultCommand(
@@ -93,36 +88,20 @@ public class RobotContainer {
                                         -m_driverController.getLeftX(),
                                         false), m_robotDrive));
         */                      
-
-                /*
-                * Configure joysticks example
-                * 1) The subsystem added
-                * 2) Mapped to our joystick class
-                * 3) Refined to match our structure
-                */
-                /*
-                * driveSubsystem.setDefaultCommand(new ArcadeDriveCmd(driveSubsystem, //
-                * () -> -joystick1.getRawAxis(OIConstants.kArcadeDriveSpeedAxis),
-                * () -> joystick1.getRawAxis(OIConstants.kArcadeDriveTurnAxis))//
-                * );
-                */
         }
 
-        private void configureButtonBindings() {
-                // Add the controller button stuff here, as an example:
-                new JoystickButton(m_driverController, Button.kRightBumper.value)
+         private void configureButtonBindings() {
+                 //TODO: fix to not be CommandXboxController
+  /*              new JoystickButton(m_driverController, Button.kRightBumper.value)
                         .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)))
                         .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(0)));
-
-                //new JoystickButton(joystick1, OIConstants.kIntakeCloseButtonIdx)
-                //        .whileTrue(new IntakeSetCmd(intakeSubsystem, false));
+*/
                 // Note this should map to Xbox/logi/ps4/5 controllers instead
         }
 
         public static final Pose2d kZeroPose2d = new Pose2d();
         public static final Rotation2d kZeroRotation2d = new Rotation2d();
 
-    //
     public Command getAutonomousCommand() {
         // Create config for trajectory
         new IntakeSetCmd(intakeSubsystem, false); //
@@ -139,7 +118,6 @@ public class RobotContainer {
                 // End 3 meters straight ahead of where we started, facing forward
                 new Pose2d(3, 0, RobotContainer.kZeroRotation2d),
                 config
-
         );
 
         // Position controllers

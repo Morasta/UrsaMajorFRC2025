@@ -8,7 +8,6 @@ public class MecanumDriveCmd extends Command {
     private final DriveTrain driveTrain;
     private final Supplier<Double> speedFunction, turnFunction;
 
-
     public MecanumDriveCmd(DriveTrain driveTrain, Supplier<Double> speedFunction, Supplier<Double> turnFunction) {
         this.speedFunction = speedFunction;
         this.turnFunction = turnFunction;
@@ -29,12 +28,10 @@ public class MecanumDriveCmd extends Command {
         double left = realTimeSpeed + realTimeTurn;
         double right = realTimeSpeed - realTimeTurn;
         driveTrain.setMotors(left, right);
-        //driveTrain.setStrafeMotors(left, right);
     }
 
     @Override
     public void end(boolean interrupted) {
-        
         System.out.println("end of MecanumDrive");
     }
 

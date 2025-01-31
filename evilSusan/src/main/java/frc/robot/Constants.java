@@ -14,7 +14,7 @@ public final class Constants {
     // This should map to the controller classes we'll define later
     public static final class OIConstants {
         //Joystick ports
-        public static final int kDriverJoystickPort = 1;
+        public static final int kDriverJoystickPort = 0;
 
         public static final int kArcadeDriveSpeedAxis = 1;
         public static final int kArcadeDriveTurnAxis = 4;
