@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-//package frc.robot;
+//package edu.wpi.first.wpilibj.examples.gettingstarted;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -95,9 +95,7 @@ public class Robot extends TimedRobot {
 
   // This function is called periodically during operator control.
   @Override
-  public void teleopPeriodic() {
-
-  }
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {

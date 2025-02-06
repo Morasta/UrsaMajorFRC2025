@@ -2,9 +2,9 @@ package frc.robot.commands;
 
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DriveForwardCmd extends Command {
+public class DriveForwardCmd extends CommandBase {
     private final DriveTrain driveSubsystem;
     private final double distance;
   
@@ -18,6 +18,7 @@ public class DriveForwardCmd extends Command {
         this.distance = 1; //TODO: Fix me
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
         // addRequirements(DriveTrain);
+        
     }
 
     @Override
