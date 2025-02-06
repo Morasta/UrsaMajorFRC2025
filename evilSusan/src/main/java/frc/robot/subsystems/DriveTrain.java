@@ -13,12 +13,14 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class DriveTrain extends SubsystemBase {
-    private final PWMSparkMax m_FrontLeft = new PWMSparkMax(DriveConstants.kFrontLeftMotorPort);
-    private final PWMSparkMax m_FrontRight = new PWMSparkMax(DriveConstants.kFrontRightMotorPort);
-    private final PWMSparkMax m_BackLeft = new PWMSparkMax(DriveConstants.kRearLeftMotorPort);
-    private final PWMSparkMax m_BackRight = new PWMSparkMax(DriveConstants.kRearRightMotorPort);
+    private final SparkMax m_FrontLeft = new SparkMax(DriveConstants.kFrontLeftMotorPort, MotorType.kBrushed);
+    private final SparkMax m_FrontRight = new SparkMax(DriveConstants.kFrontRightMotorPort, MotorType.kBrushed);
+    private final SparkMax m_BackLeft = new SparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushed);
+    private final SparkMax m_BackRight = new SparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushed);
 
     private final MecanumDrive m_robotDrive = new MecanumDrive(m_FrontLeft, m_BackLeft, m_FrontRight, m_BackRight);
 
@@ -153,11 +155,14 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-        //System.out.println("xSpeed" + xSpeed);
-        //System.out.println("ySpeed" + ySpeed);
-        //System.out.println("rot" + rot);
-        if (fieldRelative) {
+        System.out.println("xSpeed" + xSpeed);
+        System.out.println("ySpeed" + ySpeed);
+        System.out.println("rot" + rot);
+  /*       if (fieldRelative) {
             m_robotDrive.driveCartesian(xSpeed, ySpeed, rot, m_gyro.getRotation2d());
-        }
+        }*/
+    
+        m_robotDrive.driveCartesian(xSpeed, ySpeed, rot);
+        //this.setMotors(0.5, 0.5);
     }
 }

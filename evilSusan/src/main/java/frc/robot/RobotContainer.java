@@ -55,11 +55,11 @@ public class RobotContainer {
 
          //Trigger xButton = xc.x();
         //TODO: Move xc toXbox controller
-         //xc.x().whileTrue(new PrintCommand("Getting X button"));
+         m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
          //xc.x().onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)));
          //xc.x().onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
 
-         m_driverController.x().onTrue(new InstantCommand(() -> m_robotDrive.drive(0.5, 0.5, 0, true)));
+         m_driverController.x().onTrue(new InstantCommand(() -> m_robotDrive.drive(0.05, 0.5, 0, true)));
          m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
 
         //new JoystickButton(m_driverController, Button.kLeftStick.value).whileTrue(new Command());

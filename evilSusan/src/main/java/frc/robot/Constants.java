@@ -53,10 +53,10 @@ public final class Constants {
         public static final int kPFrontRightVel = 1;
         public static final int kPRearRightVel = 1;
 
-        public static final int kFrontLeftMotorPort = 15;
+        public static final int kFrontLeftMotorPort = 11;
         public static final int kFrontRightMotorPort = 12;
-        public static final int kRearLeftMotorPort = 10;
-        public static final int kRearRightMotorPort = 18;
+        public static final int kRearLeftMotorPort = 13;
+        public static final int kRearRightMotorPort = 14;
         public static final int[] kFrontLeftEncoderPorts = new int[] {0, 1};
         public static final int[] kFrontRightEncoderPorts = new int[] {2, 3};
         public static final int[] kRearLeftEncoderPorts = new int[] {4, 5};
