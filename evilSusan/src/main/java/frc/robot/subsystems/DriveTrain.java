@@ -15,8 +15,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class DriveTrain extends SubsystemBase {
+    // SparkMaxConfig
+    private final SparkMaxConfig sparkInvertedConfig = new SparkMaxConfig();
     private final SparkMax m_FrontLeft = new SparkMax(DriveConstants.kFrontLeftMotorPort, MotorType.kBrushed);
     private final SparkMax m_FrontRight = new SparkMax(DriveConstants.kFrontRightMotorPort, MotorType.kBrushed);
     private final SparkMax m_BackLeft = new SparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushed);
@@ -75,9 +78,9 @@ public class DriveTrain extends SubsystemBase {
         m_rearLeftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_frontRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_rearRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-
-        m_FrontRight.setInverted(true);
-        m_BackRight.setInverted(true);
+        sparkInvertedConfig.inverted(true);
+        m_FrontRight.configure(sparkInvertedConfig,null, null);
+        m_FrontLeft.configure(sparkInvertedConfig, null, null);
 
         m_robotDrive.feed();
     }
@@ -146,12 +149,12 @@ public class DriveTrain extends SubsystemBase {
                 m_rearRightEncoder.getDistance());
     }
 
-    /** Sets the front left drive MotorController to a voltage. */
-    public void setDriveMotorControllersVolts(MecanumDriveMotorVoltages mdmv) {
-        m_FrontLeft.setVoltage(mdmv.frontLeftVoltage);
-        m_BackRight.setVoltage(mdmv.rearRightVoltage);
-        m_FrontRight.setVoltage(mdmv.frontRightVoltage);
-        m_BackRight.setVoltage(mdmv.rearRightVoltage);
+    /** Sets the wheel speeds */
+    public void setOutputWheelSpeeds(MecanumDriveWheelSpeeds mdws) {
+        m_FrontLeft.set(mdws.frontLeftMetersPerSecond);
+        m_BackRight.set(mdws.rearRightMetersPerSecond);
+        m_FrontRight.set(mdws.frontRightMetersPerSecond);
+        m_BackLeft.set(mdws.rearLeftMetersPerSecond);
     }
 
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
