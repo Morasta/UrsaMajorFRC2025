@@ -132,7 +132,17 @@ public class RobotContainer {
         PIDController kPFrontRightVel = new PIDController(DriveConstants.kPFrontRightVel, 0, 0);
         PIDController kPRearRightVel = new PIDController(DriveConstants.kPRearRightVel, 0, 0);
 
-        MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(exampleTrajectory, m_robotDrive::getPose2d, DriveConstants.kDriveKinematics, kPXController, kPYController, kPThetaController, AutoConstants.kMaxSpeedMetersPerSecond, m_robotDrive::setOutputWheelSpeeds, m_robotDrive);
+        MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(
+            exampleTrajectory
+            , m_robotDrive::getPose2d
+            , DriveConstants.kDriveKinematics
+            , kPXController
+            , kPYController
+            , kPThetaController
+            , AutoConstants.kMaxSpeedMetersPerSecond
+            , m_robotDrive::setOutputWheelSpeeds
+            , m_robotDrive
+        );
 
         // Reset odometry to the initial pose of the trajectory, run path following
         // command, then stop at the end.
