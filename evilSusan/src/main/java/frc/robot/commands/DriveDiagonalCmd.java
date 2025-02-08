@@ -4,7 +4,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class DriveForwardCmd extends Command {
+public class DriveDiagonalCmd extends Command {
     private final DriveTrain driveSubsystem;
     private final double distance;
   
@@ -12,7 +12,7 @@ public class DriveForwardCmd extends Command {
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public DriveForwardCmd(DriveTrain driveTrain, double distance) {
+    public DriveDiagonalCmd(DriveTrain driveTrain, double distance) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.distance = 1; //TODO: Fix me
@@ -29,13 +29,13 @@ public class DriveForwardCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(DriveConstants.kAutoDriveForwardSpeed, DriveConstants.kAutoDriveForwardSpeed);
+        driveSubsystem.setMotors(DriveConstants.kAutoDriveDiagonalSpeed, DriveConstants.kAutoDriveDiagonalSpeed);
     }
 
     @Override
     public void end(boolean interrupted) {
         printStatus("end");
-        driveSubsystem.setMotors(0, 0);
+        driveSubsystem.setMotors(1, 0, 0, 1);
         System.out.println(this.getClass().getSimpleName() + " executed");
     }
 }
