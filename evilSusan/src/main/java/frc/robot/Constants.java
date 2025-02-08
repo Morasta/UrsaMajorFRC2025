@@ -1,5 +1,9 @@
 package frc.robot;
 
+import java.util.HashMap;
+
+import com.revrobotics.spark.SparkMax;
+
 //import java.lang.reflect.Array;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -20,8 +24,8 @@ public final class Constants {
         public static final int kArcadeDriveTurnAxis = 4;
         
         //Strafe buttons
-        public static final int leftStrafe = 2;
-        public static final int rightStrafe = 3;
+        public static final int leftStrafe = 5;
+        public static final int rightStrafe = 6;
 
         //Intake buttons
         public static final int kIntakeCloseButtonIdx = 5;
@@ -45,6 +49,14 @@ public final class Constants {
 
     // TODO: Confirm all ports match the actual intake motors (based on wiring)
     public static final class DriveConstants {
+
+        public static enum kWheels {
+            FrontLeft
+            , FrontRight
+            , RearLeft
+            , RearRight
+        };
+
         public static final double kAutoDriveForwardSpeed = 0.5;
         public static final double kAutoDriveForwardDistance = 0.5;
 
@@ -53,10 +65,10 @@ public final class Constants {
         public static final int kPFrontRightVel = 1;
         public static final int kPRearRightVel = 1;
 
-        public static final int kFrontLeftMotorPort = 11;
-        public static final int kFrontRightMotorPort = 12;
+        public static final int kFrontLeftMotorPort = 8;
+        public static final int kFrontRightMotorPort = 7;
         public static final int kRearLeftMotorPort = 13;
-        public static final int kRearRightMotorPort = 14;
+        public static final int kRearRightMotorPort = 6;
         public static final int[] kFrontLeftEncoderPorts = new int[] {0, 1};
         public static final int[] kFrontRightEncoderPorts = new int[] {2, 3};
         public static final int[] kRearLeftEncoderPorts = new int[] {4, 5};
