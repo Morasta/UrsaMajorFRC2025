@@ -39,24 +39,28 @@ public class DriveTrain extends SubsystemBase {
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
     private final Encoder m_frontLeftEncoder = new Encoder(
-            DriveConstants.kFrontLeftEncoderPorts[0],
-            DriveConstants.kFrontLeftEncoderPorts[1],
-            DriveConstants.kFrontLeftEncoderReversed);
+        DriveConstants.kFrontLeftEncoderPorts[0],
+        DriveConstants.kFrontLeftEncoderPorts[1],
+        DriveConstants.kFrontLeftEncoderReversed
+    );
 
     private final Encoder m_rearLeftEncoder = new Encoder(
-            DriveConstants.kRearLeftEncoderPorts[0],
-            DriveConstants.kRearLeftEncoderPorts[1],
-            DriveConstants.kRearLeftEncoderReversed);
+        DriveConstants.kRearLeftEncoderPorts[0],
+        DriveConstants.kRearLeftEncoderPorts[1],
+        DriveConstants.kRearLeftEncoderReversed
+    );
 
     private final Encoder m_frontRightEncoder = new Encoder(
-            DriveConstants.kFrontRightEncoderPorts[0],
-            DriveConstants.kFrontRightEncoderPorts[1],
-            DriveConstants.kFrontRightEncoderReversed);
+        DriveConstants.kFrontRightEncoderPorts[0],
+        DriveConstants.kFrontRightEncoderPorts[1],
+        DriveConstants.kFrontRightEncoderReversed
+    );
 
     private final Encoder m_rearRightEncoder = new Encoder(
-            DriveConstants.kRearRightEncoderPorts[0],
-            DriveConstants.kRearRightEncoderPorts[1],
-            DriveConstants.kRearRightEncoderReversed);
+        DriveConstants.kRearRightEncoderPorts[0],
+        DriveConstants.kRearRightEncoderPorts[1],
+        DriveConstants.kRearRightEncoderReversed
+    );
 
     public DriveTrain() {
         SendableRegistry.addChild(m_robotDrive, m_frontLeft);
@@ -72,18 +76,24 @@ public class DriveTrain extends SubsystemBase {
 
         //Inverted
         sparkInvertedConfig.inverted(true);
-
+        //m_FrontLeft.setInverted(true);
+        //m_FrontRight.setInverted(true);
+        //m_RearLeft.setInverted(true);
+        //m_RearRight.setInverted(true);
         m_frontLeftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_rearLeftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_frontRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_rearRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse); 
+        
+        m_frontLeft.configure(sparkInvertedConfig, null, null);
+        m_rearLeft.configure(sparkInvertedConfig, null, null);
 
         m_robotDrive.feed();
     }
     
-    public void setInverted (kWheels wheel) {
-        m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
-    }
+    //public void setInverted (kWheels wheel) {
+        //m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
+    //}
 
     public void setMaxOutput(double maxOutput) {
         System.out.println("SetMaxOutput" + maxOutput);
@@ -91,10 +101,10 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void setMotors(double leftSpeed, double rightSpeed) {
-        m_frontLeft.set(-leftSpeed);
-        m_rearLeft.set(-leftSpeed);
-        m_frontRight.set(-rightSpeed);
-        m_rearRight.set(-rightSpeed);
+        m_frontLeft.set(leftSpeed);
+        m_rearLeft.set(leftSpeed);
+        m_frontRight.set(rightSpeed);
+        m_rearRight.set(rightSpeed);
     }
 
     public void setStrafeMotors(double leftSpeed, double rightSpeed) {
@@ -183,6 +193,6 @@ public class DriveTrain extends SubsystemBase {
         }*/
     
         m_robotDrive.driveCartesian(xSpeed, ySpeed, rot);
-        //this.setMotors(0.5, 0.5);
+        //this.setMotors(0.2, 0.2);
     }
 }

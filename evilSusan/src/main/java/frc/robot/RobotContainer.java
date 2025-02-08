@@ -48,6 +48,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         configureWheels();
+        m_robotDrive.setMaxOutput(0.1);
         configureButtonBindings();
 
         // elevatorSubsystem.setDefaultCommand(new
@@ -66,10 +67,10 @@ public class RobotContainer {
         /*
          * m_robotDrive.setDefaultCommand(
          * new RunCommand(() -> m_robotDrive.drive(
-         * -m_driverController.getLeftY(),
-         * -m_driverController.getRightX(),
-         * -m_driverController.getLeftX(),
-         * false), m_robotDrive)
+            * -m_driverController.getLeftY(),
+            * -m_driverController.getRightX(),
+            * -m_driverController.getLeftX(),
+            * false), m_robotDrive)
          * );
          */
     }
