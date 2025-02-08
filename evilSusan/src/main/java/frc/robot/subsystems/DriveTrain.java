@@ -106,6 +106,13 @@ public class DriveTrain extends SubsystemBase {
         m_frontRight.set(rightSpeed);
         m_rearRight.set(rightSpeed);
     }
+  
+    public void setMotors(double frontLeftSpeed, double rearLeftSpeed, double frontRightSpeed, double rearRightSpeed) {
+        m_frontLeft.set(frontLeftSpeed);
+        m_rearLeft.set(rearLeftSpeed);
+        m_frontRight.set(frontRightSpeed);
+        m_rearRight.set(rearRightSpeed);
+    }
 
     public void setStrafeMotors(double leftSpeed, double rightSpeed) {
         m_frontLeft.set(leftSpeed);
