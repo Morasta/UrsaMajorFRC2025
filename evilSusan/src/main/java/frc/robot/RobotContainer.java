@@ -48,7 +48,8 @@ public class RobotContainer {
 
     public RobotContainer() {
         configureWheels();
-        m_robotDrive.setMaxOutput(0.1);
+        //TODO: figure out what speed is best
+        m_robotDrive.setMaxOutput(0.3);
         configureButtonBindings();
 
         // elevatorSubsystem.setDefaultCommand(new
