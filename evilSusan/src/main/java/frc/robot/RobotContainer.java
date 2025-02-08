@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.DriveConstants.kWheels;
+import frc.robot.Constants.DriveConstants.kWheels;
 import frc.robot.commands.ElevatorJoystickCmd;
 import frc.robot.commands.MecanumDriveCmd;
 import frc.robot.subsystems.DriveTrain;
@@ -42,6 +44,7 @@ public class RobotContainer {
         private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
         public RobotContainer() {
+                configureWheels();
                 configureButtonBindings();
 
         /*         m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, //
@@ -50,11 +53,8 @@ public class RobotContainer {
                 );
         */
 
-
-    
-
          //Trigger xButton = xc.x();
-        //TODO: Move xc toXbox controller
+        //TODO: Move xc to Xbox controller
          m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
          //xc.x().onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)));
          //xc.x().onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
@@ -70,8 +70,8 @@ public class RobotContainer {
         .whenActive(new ExampleCommand());
 */
 
-                elevatorSubsystem.setDefaultCommand(new ElevatorJoystickCmd(elevatorSubsystem, 0));
-                intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
+                //elevatorSubsystem.setDefaultCommand(new ElevatorJoystickCmd(elevatorSubsystem, 0));
+                //intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
 
                 m_robotDrive.setDefaultCommand(
                         new RunCommand(() -> m_robotDrive.drive(
@@ -99,6 +99,11 @@ public class RobotContainer {
                 // Note this should map to Xbox/logi/ps4/5 controllers instead
         }
 
+    private void configureWheels() {
+        m_robotDrive.setInverted(kWheels.FrontLeft);
+        m_robotDrive.setInverted(kWheels.RearLeft);
+
+    }
         public static final Pose2d kZeroPose2d = new Pose2d();
         public static final Rotation2d kZeroRotation2d = new Rotation2d();
 
@@ -151,4 +156,6 @@ public class RobotContainer {
                 mecanumControllerCommand,
                 new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false)));
     }
+
+
 }
