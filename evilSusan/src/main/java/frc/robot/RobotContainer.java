@@ -45,6 +45,7 @@ public class RobotContainer {
 
         public RobotContainer() {
                 configureWheels();
+                m_robotDrive.setMaxOutput(0.1);
                 configureButtonBindings();
 
         /*         m_robotDrive.setDefaultCommand(new MecanumDriveCmd(m_robotDrive, //
@@ -59,7 +60,7 @@ public class RobotContainer {
          //xc.x().onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)));
          //xc.x().onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
 
-         m_driverController.x().onTrue(new InstantCommand(() -> m_robotDrive.drive(0.05, 0.5, 0, true)));
+         m_driverController.x().whileTrue(new InstantCommand(() -> m_robotDrive.drive(0.05, 0.5, 0, true)));
          m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
 
         //new JoystickButton(m_driverController, Button.kLeftStick.value).whileTrue(new Command());
@@ -75,9 +76,9 @@ public class RobotContainer {
 
                 m_robotDrive.setDefaultCommand(
                         new RunCommand(() -> m_robotDrive.drive(
-                                -m_driverController.getRawAxis(0),
-                                -m_driverController.getRawAxis(4),
-                                -m_driverController.getRawAxis(2),
+                                -m_driverController.getRawAxis(1),
+                                -m_driverController.getRawAxis(5),
+                                -m_driverController.getRawAxis(3),
                         true), m_robotDrive));
 
         /*   m_robotDrive.setDefaultCommand(
@@ -100,9 +101,10 @@ public class RobotContainer {
         }
 
     private void configureWheels() {
-        m_robotDrive.setInverted(kWheels.FrontLeft);
-        m_robotDrive.setInverted(kWheels.RearLeft);
-
+        //m_robotDrive.setInverted(kWheels.FrontLeft);
+        //m_robotDrive.setInverted(kWheels.FrontRight);
+        //m_robotDrive.setInverted(kWheels.RearLeft);
+        //m_robotDrive.setInverted(kWheels.RearRight);
     }
         public static final Pose2d kZeroPose2d = new Pose2d();
         public static final Rotation2d kZeroRotation2d = new Rotation2d();

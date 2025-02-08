@@ -70,21 +70,24 @@ public class DriveTrain extends SubsystemBase {
 
         //Inverted
         sparkInvertedConfig.inverted(true);
-
+        //m_FrontLeft.setInverted(true);
+        //m_FrontRight.setInverted(true);
+        //m_RearLeft.setInverted(true);
+        //m_RearRight.setInverted(true);
         m_frontLeftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_rearLeftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_frontRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_rearRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse); 
         
-       // m_FrontRight.configure(sparkInvertedConfig,null, null);
-       // m_FrontLeft.configure(sparkInvertedConfig, null, null);
+        m_FrontLeft.configure(sparkInvertedConfig,null, null);
+        m_RearLeft.configure(sparkInvertedConfig, null, null);
 
         m_robotDrive.feed();
     }
     
-    public void setInverted (kWheels wheel) {
-        m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
-    }
+    //public void setInverted (kWheels wheel) {
+        //m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
+   // }
 
     public void setMaxOutput(double maxOutput) {
         System.out.println("SetMaxOutput" + maxOutput);
@@ -92,10 +95,10 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void setMotors(double leftSpeed, double rightSpeed) {
-        m_FrontLeft.set(-leftSpeed);
-        m_RearLeft.set(-leftSpeed);
-        m_FrontRight.set(-rightSpeed);
-        m_RearRight.set(-rightSpeed);
+        m_FrontLeft.set(leftSpeed);
+        m_RearLeft.set(leftSpeed);
+        m_FrontRight.set(rightSpeed);
+        m_RearRight.set(rightSpeed);
     }
 
     public void setStrafeMotors(double leftSpeed, double rightSpeed) {
@@ -181,11 +184,13 @@ public class DriveTrain extends SubsystemBase {
         //System.out.println("xSpeed" + xSpeed);
         //System.out.println("ySpeed" + ySpeed);
         //System.out.println("rot" + rot);
+        System.out.println("(xSpd, ySpd, rot, frInv, rrInv, flInv, frInv): " + xSpeed + " | " + ySpeed + " | " + rot + " | " + m_FrontRight.configAccessor.getInverted() + " | " + m_RearRight.configAccessor.getInverted() + " | " + m_FrontLeft.configAccessor.getInverted() + " | " + m_RearLeft.configAccessor.getInverted());
   /*       if (fieldRelative) {
             m_robotDrive.driveCartesian(xSpeed, ySpeed, rot, m_gyro.getRotation2d());
         }*/
     
         m_robotDrive.driveCartesian(xSpeed, ySpeed, rot);
-        //this.setMotors(0.5, 0.5);
+        //this.setMotors(0.2, 0.2);
+    
     }
 }
