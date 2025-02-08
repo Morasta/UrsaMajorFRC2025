@@ -27,11 +27,13 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.IntakeSetCmd;
 import frc.robot.commands.ElevatorJoystickCmd;
 import frc.robot.commands.MecanumDriveCmd;
+import frc.robot.commands.DriveForwardCmd;
 
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.kWheels;
 import frc.robot.Constants.OIConstants;
+
 
 public class RobotContainer {
     // Drive Trains and Controllers
@@ -87,16 +89,28 @@ public class RobotContainer {
         // Testing: Trigger button controller
         // Trigger xButton = xc.x();
         // xc.x().onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)));
-        // xc.x().onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
+
+        System.out.println("Configuring Button Bindings");
+
+        /*m_driverController.button(1).whileTrue(Commands.startEnd(
+            () -> new PrintCommand("A button START"),
+            () -> new PrintCommand("A button END"))
+           // m_robotDrive)
+            );
+        */
+
+        m_driverController.a().whileTrue(new DriveForwardCmd(m_robotDrive, 5));
 
         m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
-        m_driverController.x().onTrue(new InstantCommand(() -> m_robotDrive.drive(0.05, 0.5, 0, true)));
-        m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
+        //m_driverController.x().whileTrue(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
+        //m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
+
+        
     }
 
     private void configureWheels() {
-        //m_robotDrive.setInverted(kWheels.frontLeft);
-        //m_robotDrive.setInverted(kWheels.rearLeft);
+        m_robotDrive.setInverted(kWheels.frontLeft);
+        m_robotDrive.setInverted(kWheels.rearLeft);
     }
 
     public Command getAutonomousCommand() {

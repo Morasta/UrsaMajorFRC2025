@@ -85,15 +85,15 @@ public class DriveTrain extends SubsystemBase {
         m_frontRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
         m_rearRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse); 
         
-        m_frontLeft.configure(sparkInvertedConfig, null, null);
-        m_rearLeft.configure(sparkInvertedConfig, null, null);
+        //m_frontLeft.configure(sparkInvertedConfig, null, null);
+        //m_rearLeft.configure(sparkInvertedConfig, null, null);
 
         m_robotDrive.feed();
     }
     
-    //public void setInverted (kWheels wheel) {
-        //m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
-    //}
+    public void setInverted (kWheels wheel) {
+        m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
+    }
 
     public void setMaxOutput(double maxOutput) {
         System.out.println("SetMaxOutput" + maxOutput);
@@ -187,7 +187,7 @@ public class DriveTrain extends SubsystemBase {
     }
 
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-        System.out.println("(xSpd, ySpd, rot, frInv, rrInv, flInv, frInv): " + xSpeed + " | " + ySpeed + " | " + rot + " | " + m_frontRight.configAccessor.getInverted() + " | " + m_rearRight.configAccessor.getInverted() + " | " + m_frontLeft.configAccessor.getInverted() + " | " + m_rearLeft.configAccessor.getInverted());
+        //System.out.println("(xSpd, ySpd, rot, frInv, rrInv, flInv, frInv): " + xSpeed + " | " + ySpeed + " | " + rot + " | " + m_frontRight.configAccessor.getInverted() + " | " + m_rearRight.configAccessor.getInverted() + " | " + m_frontLeft.configAccessor.getInverted() + " | " + m_rearLeft.configAccessor.getInverted());
         /* if (fieldRelative) {
             m_robotDrive.driveCartesian(xSpeed, ySpeed, rot, m_gyro.getRotation2d());
         }*/
