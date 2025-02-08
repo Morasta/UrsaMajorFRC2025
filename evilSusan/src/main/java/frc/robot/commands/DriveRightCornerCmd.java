@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -29,7 +29,7 @@ public class DriveRightCornerCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(DriveConstants.kAutoDriveRightCornerSpeed, DriveConstants.kAutoDriveRightCornerSpeed);
+        driveSubsystem.setMotors(AutoConstants.kAutoDriveRightCornerSpeed, AutoConstants.kAutoDriveRightCornerSpeed);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -29,13 +29,13 @@ public class DriveDiagonalCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(DriveConstants.kAutoDriveDiagonalSpeed, DriveConstants.kAutoDriveDiagonalSpeed);
+        driveSubsystem.setMotors(AutoConstants.kAutoDriveDiagonalSpeed, AutoConstants.kAutoDriveDiagonalSpeed);
     }
 
     @Override
     public void end(boolean interrupted) {
         printStatus("end");
-        driveSubsystem.setMotors(1, 0, 0, 1);
+        //driveSubsystem.setMotors(1, 0, 0, 1);
         System.out.println(this.getClass().getSimpleName() + " executed");
     }
 }

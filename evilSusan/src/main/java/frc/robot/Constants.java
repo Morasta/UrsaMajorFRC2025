@@ -37,6 +37,12 @@ public final class Constants {
         public static final double kPYController = 0.5;
         public static final double kPThetaController = 0.5;
 
+        public static final double kAutoDriveDiagonalSpeed = 0.25;
+        public static final double kAutoDriveLeftCornerSpeed = 0.25;
+        public static final double kAutoDriveRightCornerSpeed = 0.25;
+        public static final double kAutoDriveRoundTurnSpeed = 0.25;
+        public static final double kAutoDriveSidewaysSpeed = 0.25;
+
         // Constraint for the motion profilied robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared
@@ -46,6 +52,7 @@ public final class Constants {
     // TODO: Confirm all ports match the actual intake motors (based on wiring)
     public static final class DriveConstants {
         public static final double kAutoDriveForwardSpeed = 0.5;
+        public static final double kAutoDriveRearTurnSpeed = 0.5;
         public static final double kAutoDriveForwardDistance = 0.5;
 
         public static final int kFrontLeftVel = 1;
