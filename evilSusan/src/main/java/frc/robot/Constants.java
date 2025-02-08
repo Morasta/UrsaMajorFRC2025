@@ -1,11 +1,5 @@
 package frc.robot;
 
-import java.util.HashMap;
-
-import com.revrobotics.spark.SparkMax;
-
-//import java.lang.reflect.Array;
-
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
@@ -49,12 +43,11 @@ public final class Constants {
 
     // TODO: Confirm all ports match the actual intake motors (based on wiring)
     public static final class DriveConstants {
-
         public static enum kWheels {
-            FrontLeft
-            , FrontRight
-            , RearLeft
-            , RearRight
+            frontLeft
+            , frontRight
+            , rearLeft
+            , rearRight
         };
 
         public static final double kAutoDriveForwardSpeed = 0.5;
