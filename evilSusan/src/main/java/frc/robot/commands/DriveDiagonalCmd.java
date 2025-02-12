@@ -30,12 +30,13 @@ public class DriveDiagonalCmd extends Command {
     public void execute() {
         printStatus("executed");
         driveSubsystem.setMotors(AutoConstants.kAutoDriveDiagonalSpeed, AutoConstants.kAutoDriveDiagonalSpeed);
+        driveSubsystem.setMotors(1, 0, 0, 1);
     }
 
     @Override
     public void end(boolean interrupted) {
         printStatus("end");
-        //driveSubsystem.setMotors(1, 0, 0, 1);
+        driveSubsystem.setMotors(1, 0, 0, 1);
         System.out.println(this.getClass().getSimpleName() + " executed");
     }
 }
