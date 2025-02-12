@@ -36,7 +36,6 @@ public class DriveDiagonalCmd extends Command {
     @Override
     public void end(boolean interrupted) {
         printStatus("end");
-        driveSubsystem.setMotors(1, 0, 0, 1);
         System.out.println(this.getClass().getSimpleName() + " executed");
     }
 }
