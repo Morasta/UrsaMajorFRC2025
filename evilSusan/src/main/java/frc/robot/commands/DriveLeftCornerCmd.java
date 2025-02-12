@@ -30,12 +30,12 @@ public class DriveLeftCornerCmd extends Command {
     public void execute() {
         printStatus("executed");
         driveSubsystem.setMotors(AutoConstants.kAutoDriveLeftCornerSpeed, AutoConstants.kAutoDriveLeftCornerSpeed);
+        riveSubsystem.setMotors(0, 1, 0, 1);
     }
 
     @Override
     public void end(boolean interrupted) {
         printStatus("end");
-        driveSubsystem.setMotors(0, 1, 0, 1);
         System.out.println(this.getClass().getSimpleName() + " executed");
     }
 }
