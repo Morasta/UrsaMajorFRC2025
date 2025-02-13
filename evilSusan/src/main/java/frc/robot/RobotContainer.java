@@ -25,7 +25,8 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 import frc.robot.commands.IntakeSetCmd;
-import frc.robot.commands.ElevatorJoystickCmd;
+import frc.robot.commands.ElevatorSlideCmd;
+import frc.robot.commands.ElevatorVerticalCmd;
 import frc.robot.commands.MecanumDriveCmd;
 import frc.robot.commands.DriveForwardCmd;
 
@@ -100,7 +101,8 @@ public class RobotContainer {
         */
 
         m_driverController.a().whileTrue(new DriveForwardCmd(m_robotDrive, 5));
-        m_driverController.y().whileTrue(new ElevatorJoystickCmd(elevatorSubsystem, 0.5));
+        m_driverController.y().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
+        m_driverController.b().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
 
         //m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
         //m_driverController.x().whileTrue(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
