@@ -29,13 +29,12 @@ public class DriveRoundTurnCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(AutoConstants.kAutoDriveRoundTurnSpeed, AutoConstants.kAutoDriveRoundTurnSpeed);
+        driveSubsystem.setMotors(1, -1, 1, -1);
     }
 
     @Override
     public void end(boolean interrupted) {
         printStatus("end");
-        driveSubsystem.setMotors(1, -1, 1, -1);
         System.out.println(this.getClass().getSimpleName() + " executed");
     }
 }

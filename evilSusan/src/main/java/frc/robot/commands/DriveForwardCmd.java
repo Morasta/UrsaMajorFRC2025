@@ -29,13 +29,12 @@ public class DriveForwardCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(DriveConstants.kAutoDriveForwardSpeed, DriveConstants.kAutoDriveForwardSpeed);
+        driveSubsystem.setMotors(0, 0);
     }
 
     @Override
     public void end(boolean interrupted) {
         printStatus("end");
-        driveSubsystem.setMotors(0, 0);
         System.out.println(this.getClass().getSimpleName() + " executed");
     }
 }
