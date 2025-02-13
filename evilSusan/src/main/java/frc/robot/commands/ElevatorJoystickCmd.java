@@ -22,12 +22,13 @@ public class ElevatorJoystickCmd extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setMotor(speed);
+        elevatorSubsystem.setSlideMotor(speed);
+        System.out.println("executing elevator joystick command, " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.setMotor(0);
+        elevatorSubsystem.setSlideMotor(0);
         System.out.println("ElevatorJoystickCmd ended!");
     }
 

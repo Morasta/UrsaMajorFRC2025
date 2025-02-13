@@ -41,7 +41,7 @@ public class RobotContainer {
     CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverJoystickPort);
 
     // Robot Subsystems: create one instance of each
-    // private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+    private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
     // Orientation Vars
@@ -100,8 +100,9 @@ public class RobotContainer {
         */
 
         m_driverController.a().whileTrue(new DriveForwardCmd(m_robotDrive, 5));
+        m_driverController.y().whileTrue(new ElevatorJoystickCmd(elevatorSubsystem, 0.5));
 
-        m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
+        //m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
         //m_driverController.x().whileTrue(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
         //m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
 

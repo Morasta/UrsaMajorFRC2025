@@ -29,7 +29,7 @@ public class DriveLeftCornerCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        riveSubsystem.setMotors(0, 1, 0, 1);
+        driveSubsystem.setMotors(0, 1, 0, 1);
     }
 
     @Override
