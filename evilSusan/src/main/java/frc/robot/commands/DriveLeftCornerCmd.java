@@ -29,7 +29,6 @@ public class DriveLeftCornerCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(AutoConstants.kAutoDriveLeftCornerSpeed, AutoConstants.kAutoDriveLeftCornerSpeed);
         riveSubsystem.setMotors(0, 1, 0, 1);
     }
 
