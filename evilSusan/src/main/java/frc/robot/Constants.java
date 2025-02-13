@@ -103,7 +103,8 @@ public final class Constants {
 
     // TODO: Map these ports to the actual intake motors (based on wiring)
     public static final class ElevatorConstants {
-        public static final int kMotorPort = 4;
+        public static final int kVerticalMotorPort = 5;
+        public static final int kSlideMotorPort = 4;
         public static final int kEncoderChannelA = 8;
         public static final int kEncoderChannelB = 9;
         public static final double kEncoderTick2Meter = 1.0 / 4096.0 * 0.1 * Math.PI;

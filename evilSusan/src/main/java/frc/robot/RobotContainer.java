@@ -6,10 +6,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -24,9 +22,9 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-import frc.robot.commands.IntakeSetCmd;
-import frc.robot.commands.ElevatorJoystickCmd;
-import frc.robot.commands.MecanumDriveCmd;
+import frc.robot.commands.IntakeSetOpenCmd;
+import frc.robot.commands.ElevatorSlideCmd;
+import frc.robot.commands.ElevatorVerticalCmd;
 import frc.robot.commands.DriveForwardCmd;
 
 import frc.robot.Constants.AutoConstants;
@@ -41,7 +39,7 @@ public class RobotContainer {
     CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverJoystickPort);
 
     // Robot Subsystems: create one instance of each
-    // private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
+    private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
     // Orientation Vars
@@ -100,8 +98,10 @@ public class RobotContainer {
         */
 
         m_driverController.a().whileTrue(new DriveForwardCmd(m_robotDrive, 5));
+        m_driverController.y().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
+        m_driverController.b().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
 
-        m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
+        //m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
         //m_driverController.x().whileTrue(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
         //m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
 
@@ -114,7 +114,7 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        new IntakeSetCmd(intakeSubsystem, false);
+        new IntakeSetOpenCmd(intakeSubsystem, false);
         // Create config for trajectory
         // Add kinematics to ensure max speed is actually obeyed
         TrajectoryConfig config = new TrajectoryConfig(2.2, 2.2)

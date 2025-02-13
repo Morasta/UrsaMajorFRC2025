@@ -5,11 +5,11 @@ import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class IntakeSetCmd extends Command{
+public class IntakeSetOpenCmd extends Command{
     private final IntakeSubsystem intakeSubsystem;
     private final boolean open;
 
-    public IntakeSetCmd(IntakeSubsystem intakeSubsystem, boolean open) {
+    public IntakeSetOpenCmd(IntakeSubsystem intakeSubsystem, boolean open) {
         this.open = open;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(intakeSubsystem);
@@ -23,7 +23,7 @@ public class IntakeSetCmd extends Command{
     @Override
     public void execute() {
         //System.out.println("executing IntakeSetCmd!");
-        intakeSubsystem.setPosition(open);
+        intakeSubsystem.setOpen();
     }
 
     @Override

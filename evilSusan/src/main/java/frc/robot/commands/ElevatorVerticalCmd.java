@@ -5,11 +5,11 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class ElevatorJoystickCmd extends Command{
+public class ElevatorVerticalCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
     private final double speed;
 
-    public ElevatorJoystickCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
+    public ElevatorVerticalCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
@@ -22,12 +22,13 @@ public class ElevatorJoystickCmd extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setMotor(speed);
+        elevatorSubsystem.setSlideMotor(speed);
+        System.out.println("executing elevator joystick command, " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.setMotor(0);
+        elevatorSubsystem.setVerticalMotor(0);
         System.out.println("ElevatorJoystickCmd ended!");
     }
 

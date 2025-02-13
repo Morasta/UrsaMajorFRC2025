@@ -10,8 +10,11 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 
 public class ElevatorSubsystem extends SubsystemBase{
-    //private SparkMax elevatorMotor = new SparkMax(ElevatorConstants.kMotorPort, MotorType.kBrushed);
-    private Encoder encoder = new Encoder(//
+    private final SparkMax m_slideMotor = new SparkMax(ElevatorConstants.kSlideMotorPort, MotorType.kBrushed);
+    private final SparkMax m_verticalMotor = new SparkMax(ElevatorConstants.kVerticalMotorPort, MotorType.kBrushed);
+
+
+    private Encoder encoder = new Encoder(
             ElevatorConstants.kEncoderChannelA, ElevatorConstants.kEncoderChannelB);
 
     public ElevatorSubsystem() {
@@ -22,8 +25,12 @@ public class ElevatorSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("Elevator encoder value", getEncoderMeters());
     }
 
-    public void setMotor(double speed) {
-       // elevatorMotor.set(speed);
+    public void setSlideMotor(double speed) {
+        m_slideMotor.set(speed);
+    }
+
+    public void setVerticalMotor(double speed) {
+        m_verticalMotor.set(speed);
     }
 
     public double getEncoderMeters() {
