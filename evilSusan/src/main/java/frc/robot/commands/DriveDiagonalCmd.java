@@ -29,7 +29,6 @@ public class DriveDiagonalCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(AutoConstants.kAutoDriveDiagonalSpeed, AutoConstants.kAutoDriveDiagonalSpeed);
         driveSubsystem.setMotors(1, 0, 0, 1);
     }
 
