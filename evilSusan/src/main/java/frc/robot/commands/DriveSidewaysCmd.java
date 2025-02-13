@@ -29,7 +29,6 @@ public class DriveSidewaysCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(AutoConstants.kAutoDriveSidewaysSpeed, AutoConstants.kAutoDriveSidewaysSpeed);
         driveSubsystem.setMotors(1, -1, -1, 1);
     }
 
