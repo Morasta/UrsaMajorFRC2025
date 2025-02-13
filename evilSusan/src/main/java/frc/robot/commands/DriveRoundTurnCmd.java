@@ -29,7 +29,6 @@ public class DriveRoundTurnCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(AutoConstants.kAutoDriveRoundTurnSpeed, AutoConstants.kAutoDriveRoundTurnSpeed);
         driveSubsystem.setMotors(1, -1, 1, -1);
     }
 
