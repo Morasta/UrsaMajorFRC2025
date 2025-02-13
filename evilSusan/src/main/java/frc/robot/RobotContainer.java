@@ -6,10 +6,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -24,10 +22,9 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-import frc.robot.commands.IntakeSetCmd;
+import frc.robot.commands.IntakeSetOpenCmd;
 import frc.robot.commands.ElevatorSlideCmd;
 import frc.robot.commands.ElevatorVerticalCmd;
-import frc.robot.commands.MecanumDriveCmd;
 import frc.robot.commands.DriveForwardCmd;
 
 import frc.robot.Constants.AutoConstants;
@@ -117,7 +114,7 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        new IntakeSetCmd(intakeSubsystem, false);
+        new IntakeSetOpenCmd(intakeSubsystem, false);
         // Create config for trajectory
         // Add kinematics to ensure max speed is actually obeyed
         TrajectoryConfig config = new TrajectoryConfig(2.2, 2.2)
