@@ -30,7 +30,6 @@ public class DriveRearTurnCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(DriveConstants.kAutoDriveRearTurnSpeed, DriveConstants.kAutoDriveRearTurnSpeed);
         driveSubsystem.setMotors(1, -1, 0, 0);
     }
 
