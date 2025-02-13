@@ -29,7 +29,6 @@ public class DriveForwardCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(DriveConstants.kAutoDriveForwardSpeed, DriveConstants.kAutoDriveForwardSpeed);
         driveSubsystem.setMotors(0, 0);
     }
 
