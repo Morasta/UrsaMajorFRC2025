@@ -13,6 +13,7 @@ public final class Constants {
     public static final class OIConstants {
         //Joystick ports
         public static final int kDriverJoystickPort = 0;
+        public static final int kClawJoystickPort = 1;
 
         public static final int kArcadeDriveSpeedAxis = 1;
         public static final int kArcadeDriveTurnAxis = 4;
@@ -119,7 +120,7 @@ public final class Constants {
 
     // TODO: Map these ports to the actual intake motors (based on wiring)
     public static final class IntakeConstants {
-        public static final int kLeftMotorPort = 8;
+        public static final int kLeftMotorPort = 15;
         public static final int kRightMotorPort = 9;
         public static final double kOpenSpeed = -1;
         public static final double kCloseSpeed = 1;

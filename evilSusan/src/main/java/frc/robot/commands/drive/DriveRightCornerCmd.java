@@ -1,10 +1,10 @@
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class DriveSidewaysCmd extends Command {
+public class DriveRightCornerCmd extends Command {
     private final DriveTrain driveSubsystem;
     private final double distance;
   
@@ -12,7 +12,7 @@ public class DriveSidewaysCmd extends Command {
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public DriveSidewaysCmd(DriveTrain driveTrain, double distance) {
+    public DriveRightCornerCmd(DriveTrain driveTrain, double distance) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.distance = 1; //TODO: Fix me
@@ -29,7 +29,7 @@ public class DriveSidewaysCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(1, -1, -1, 1);
+        driveSubsystem.setMotors(1, 0, 1, 0);
     }
 
     @Override

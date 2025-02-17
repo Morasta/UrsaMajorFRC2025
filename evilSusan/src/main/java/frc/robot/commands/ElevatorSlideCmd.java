@@ -23,7 +23,7 @@ public class ElevatorSlideCmd extends Command{
     @Override
     public void execute() {
         elevatorSubsystem.setSlideMotor(speed);
-        System.out.println("executing elevator joystick command, " + speed);
+        System.out.println("executing elevator slide command, " + speed);
     }
 
     @Override

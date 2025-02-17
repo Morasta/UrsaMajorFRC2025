@@ -23,10 +23,10 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 import frc.robot.commands.IntakeSetOpenCmd;
+import frc.robot.commands.drive.DriveForwardCmd;
+import frc.robot.commands.drive.MecanumDriveCmd;
 import frc.robot.commands.ElevatorSlideCmd;
 import frc.robot.commands.ElevatorVerticalCmd;
-import frc.robot.commands.DriveForwardCmd;
-
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.kWheels;
@@ -37,6 +37,7 @@ public class RobotContainer {
     // Drive Trains and Controllers
     private final DriveTrain m_robotDrive = new DriveTrain();
     CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverJoystickPort);
+    CommandXboxController m_clawController = new CommandXboxController(OIConstants.kClawJoystickPort);
 
     // Robot Subsystems: create one instance of each
     private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
@@ -97,9 +98,13 @@ public class RobotContainer {
             );
         */
 
-        m_driverController.a().whileTrue(new DriveForwardCmd(m_robotDrive, 5));
-        m_driverController.y().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
-        m_driverController.b().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
+        //m_driverController.a().whileTrue(new DriveForwardCmd(m_robotDrive, 5));
+
+        //TODO: change to fixed position
+        m_clawController.a().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
+
+        m_clawController.leftTrigger().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
+        m_clawController.rightTrigger().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
 
         //m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
         //m_driverController.x().whileTrue(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
