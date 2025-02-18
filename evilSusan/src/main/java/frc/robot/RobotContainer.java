@@ -31,6 +31,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.kWheels;
 import frc.robot.Constants.OIConstants;
+import frc.robot.utils.GamepadAxisButton;
 
 
 public class RobotContainer {
@@ -46,11 +47,13 @@ public class RobotContainer {
     // Orientation Vars
     public static final Pose2d kZeroPose2d = new Pose2d();
     public static final Rotation2d kZeroRotation2d = new Rotation2d();
+    private GamepadAxisButton rClawUp;
 
     public RobotContainer() {
         configureWheels();
         //TODO: figure out what speed is best
         m_robotDrive.setMaxOutput(0.3);
+        rClawUp = new GamepadAxisButton(this.axis2ThreshouldGreaterThanPoints5);
         configureButtonBindings();
 
         // elevatorSubsystem.setDefaultCommand(new
@@ -161,5 +164,8 @@ public class RobotContainer {
             mecanumControllerCommand,
             new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false))
         );
+    }
+    public boolean axis2ThreshouldGreaterThanPoints5(){
+        return Math.abs(m_clawController.getRawAxis(3)) > 0.5;
     }
 }
