@@ -49,11 +49,11 @@ public class RobotContainer {
     // Orientation Vars
     public static final Pose2d kZeroPose2d = new Pose2d();
     public static final Rotation2d kZeroRotation2d = new Rotation2d();
-    private final GamepadAxisButton lClawUp = new GamepadAxisButton(this::axis1ThresholdGreaterThanPoints5);
-    private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(this::axis2Threshold);
-    private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(this::axis2Threshold);
-    private final GamepadAxisButton rElevator = new GamepadAxisButton(this::axis3ThresholdGreaterThanPoints5);
-
+    private final GamepadAxisButton lClawUp = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 1, 0.5, false));
+    private final GamepadAxisButton lClawDown = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 1, -0.5, true));
+    private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 2, 0.5, false));
+    private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.5, false));
+    private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.5, false));
 
     public RobotContainer() {
         configureWheels();
@@ -69,20 +69,10 @@ public class RobotContainer {
             new RunCommand(() -> m_robotDrive.drive(
                 -m_driverController.getRawAxis(1),
                 -m_driverController.getRawAxis(5),
-                -m_driverController.getRawAxis(3),
+                -m_driverController.getRawAxis(4),
                 true), m_robotDrive
             )
         );
-
-        /*
-         * m_robotDrive.setDefaultCommand(
-         * new RunCommand(() -> m_robotDrive.drive(
-            * -m_driverController.getLeftY(),
-            * -m_driverController.getRightX(),
-            * -m_driverController.getLeftX(),
-            * false), m_robotDrive)
-         * );
-         */
     }
 
     private void configureButtonBindings() {
@@ -93,20 +83,7 @@ public class RobotContainer {
          * .whenActive(new ExampleCommand());
          */
 
-        // Testing: Trigger button controller
-        // Trigger xButton = xc.x();
-        // xc.x().onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)));
-
         System.out.println("Configuring Button Bindings");
-
-        /*m_driverController.button(1).whileTrue(Commands.startEnd(
-            () -> new PrintCommand("A button START"),
-            () -> new PrintCommand("A button END"))
-           // m_robotDrive)
-            );
-        */
-
-        //m_driverController.a().whileTrue(new DriveForwardCmd(m_robotDrive, 5));
 
         //TODO: change to fixed position
         m_clawController.a().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
@@ -116,14 +93,9 @@ public class RobotContainer {
         //driveTrain Controls
         m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0.5));
         lClawUp.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
+        lClawDown.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
         lCrabwalk.whileTrue(new DriveSidewaysCmd(m_robotDrive, 0.5));
         rCrabwalk.whileTrue(new DriveSidewaysCmd(m_robotDrive, 0.5));
-
-        //m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
-        //m_driverController.x().whileTrue(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
-        //m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
-
-        
     }
 
     private void configureWheels() {
@@ -175,17 +147,20 @@ public class RobotContainer {
             new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false))
         );
     }
-    public boolean axis1ThresholdGreaterThanPoints5(){
 
-        return Math.abs(m_clawController.getRawAxis(1)) > 0.5;
-    }
-    public boolean axis3ThresholdGreaterThanPoints5(){
-        return Math.abs(m_clawController.getRawAxis(3)) > 0.5;
-    }
-    public boolean axis2Threshold(){
-        return Math.abs(m_driverController.getRawAxis(2)) > 0.5;
-    }
-    public boolean axis3Threshold(){
-        return Math.abs(m_driverController.getRawAxis(3)) > 0.5;
+    /**
+	 * Create a gamepad axis for triggering commands as if it were a button.
+	 *
+	 * @param controller    The controller whose axis is being monitored for input
+	 * @param axisNumber    The controller's stick axis number
+	 * @param threshold     How far the stick must move to trigger a command (0.0 - 1.0)
+	 * @param isDownDir    Is this measurement in the down direction? (Note the threshold should likely be negated as well
+	 */ 
+    private boolean axisOverThreshold(CommandXboxController controller, int axis, double threshold, boolean isDownDir) {
+        if(isDownDir == true){
+            return controller.getRawAxis(axis) <= threshold;
+        }
+
+        return controller.getRawAxis(axis) >= threshold;
     }
 }
