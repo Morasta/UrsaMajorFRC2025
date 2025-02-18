@@ -22,7 +22,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-import frc.robot.commands.IntakeSetOpenCmd;
+import frc.robot.commands.intake.IntakeSetOpenCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveSidewaysCmd;
