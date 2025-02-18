@@ -24,6 +24,8 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 import frc.robot.commands.IntakeSetOpenCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
+import frc.robot.commands.drive.DriveRoundTurnCmd;
+import frc.robot.commands.drive.DriveSidewaysCmd;
 import frc.robot.commands.drive.MecanumDriveCmd;
 import frc.robot.commands.ElevatorSlideCmd;
 import frc.robot.commands.ElevatorVerticalCmd;
@@ -47,13 +49,16 @@ public class RobotContainer {
     // Orientation Vars
     public static final Pose2d kZeroPose2d = new Pose2d();
     public static final Rotation2d kZeroRotation2d = new Rotation2d();
-    private GamepadAxisButton rClawUp;
+    private final GamepadAxisButton lClawUp = new GamepadAxisButton(this::axis1ThresholdGreaterThanPoints5);
+    private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(this::axis2Threshold);
+    private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(this::axis2Threshold);
+    private final GamepadAxisButton rElevator = new GamepadAxisButton(this::axis3ThresholdGreaterThanPoints5);
+
 
     public RobotContainer() {
         configureWheels();
         //TODO: figure out what speed is best
         m_robotDrive.setMaxOutput(0.3);
-        rClawUp = new GamepadAxisButton(this.axis2ThreshouldGreaterThanPoints5);
         configureButtonBindings();
 
         // elevatorSubsystem.setDefaultCommand(new
@@ -105,9 +110,14 @@ public class RobotContainer {
 
         //TODO: change to fixed position
         m_clawController.a().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
-
-        m_clawController.leftTrigger().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
-        m_clawController.rightTrigger().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
+        rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
+        m_clawController.leftTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
+        m_clawController.rightTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
+        //driveTrain Controls
+        m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0.5));
+        lClawUp.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
+        lCrabwalk.whileTrue(new DriveSidewaysCmd(m_robotDrive, 0.5));
+        rCrabwalk.whileTrue(new DriveSidewaysCmd(m_robotDrive, 0.5));
 
         //m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
         //m_driverController.x().whileTrue(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
@@ -165,7 +175,17 @@ public class RobotContainer {
             new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false))
         );
     }
-    public boolean axis2ThreshouldGreaterThanPoints5(){
+    public boolean axis1ThresholdGreaterThanPoints5(){
+
+        return Math.abs(m_clawController.getRawAxis(1)) > 0.5;
+    }
+    public boolean axis3ThresholdGreaterThanPoints5(){
         return Math.abs(m_clawController.getRawAxis(3)) > 0.5;
+    }
+    public boolean axis2Threshold(){
+        return Math.abs(m_driverController.getRawAxis(2)) > 0.5;
+    }
+    public boolean axis3Threshold(){
+        return Math.abs(m_driverController.getRawAxis(3)) > 0.5;
     }
 }
