@@ -33,20 +33,15 @@ public class DriveTrain extends SubsystemBase {
     private final SparkMax m_rearLeft = new SparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushed);
     private final SparkMax m_rearRight = new SparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushed);
 
-    Encoder enc;
+    //TODO: change to whatever wheel the encoder is on
+    private final Encoder enc = new Encoder(DriveConstants.kFrontLeftEncoderPortA, DriveConstants.kFrontLeftEncoderPortB);
 
     HashMap<kWheels, SparkMax> m_wheels = new HashMap<kWheels, SparkMax>();
-
     private final MecanumDrive m_robotDrive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
-
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
     public DriveTrain() {
-
-        //TODO: change to whatever wheel the encoder is on
-        enc = new Encoder(DriveConstants.kFrontLeftEncoderPortA, DriveConstants.kFrontLeftEncoderPortB);
         enc.setDistancePerPulse(Math.PI*OIConstants.wheelDiameter/OIConstants.SRXMagEncoderCPR);
-
 
         SendableRegistry.addChild(m_robotDrive, m_frontLeft);
         SendableRegistry.addChild(m_robotDrive, m_frontRight);
