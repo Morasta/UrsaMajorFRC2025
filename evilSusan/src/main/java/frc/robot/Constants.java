@@ -134,5 +134,9 @@ public final class Constants {
         public static final int kRightMotorPort = 9;
         public static final double kOpenSpeed = -1;
         public static final double kCloseSpeed = 1;
+        public static final int kLeftEncoderA = 10;
+        public static final int kLeftEncoderB = 11;
+        public static final int kRightEncoderA = 12;
+        public static final int kRightEncoderB = 13;
     }
 }
