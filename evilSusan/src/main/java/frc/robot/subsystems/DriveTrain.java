@@ -108,6 +108,9 @@ public class DriveTrain extends SubsystemBase {
     public void setMaxOutput(double maxOutput) {
         System.out.println("SetMaxOutput" + maxOutput);
         m_robotDrive.setMaxOutput(maxOutput);
+        Shuffleboard.getTab("Drive")
+            .add("Max Output", maxOutput)
+            .getEntry();
     }
 
     public void setMotors(double leftSpeed, double rightSpeed) {
@@ -115,6 +118,12 @@ public class DriveTrain extends SubsystemBase {
         m_rearLeft.set(leftSpeed);
         m_frontRight.set(rightSpeed);
         m_rearRight.set(rightSpeed);
+        Shuffleboard.getTab("Drive")
+        .add("frontLeftMotor", m_frontLeft)
+        .add("rearLeftMotor", m_rearLeft)
+        .add("frontRighttMotor", m_frontRight)
+        .add("rearRightMotor", m_rearRight)
+        
     }
   
     public void setMotors(double frontLeftSpeed, double rearLeftSpeed, double frontRightSpeed, double rearRightSpeed) {
