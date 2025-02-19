@@ -10,6 +10,9 @@ import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 
 import edu.wpi.first.util.sendable.SendableRegistry;
 
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -93,6 +96,13 @@ public class DriveTrain extends SubsystemBase {
     
     public void setInverted (kWheels wheel) {
         m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
+    }
+
+    private void configureDashboard () {
+        Shuffleboard.getTab("Drive")
+            .add("Max Speed", 1)
+            .withWidget(BuiltInWidgets.kNumberSlider) // specify the widget here
+            .getEntry();
     }
 
     public void setMaxOutput(double maxOutput) {
