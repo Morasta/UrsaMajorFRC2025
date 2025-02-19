@@ -29,6 +29,10 @@ public class IntakeSubsystem extends SubsystemBase {
             intakeLeftMotor.set(IntakeConstants.kCloseSpeed);
             intakeRightMotor.set(IntakeConstants.kCloseSpeed);
         }
+
+        Shuffleboard.getTab("Intake")
+            .add Position("open", open)
+            .getEntry();
     }
     
     public void setOpen() {
