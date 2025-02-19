@@ -22,13 +22,13 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-import frc.robot.commands.IntakeSetOpenCmd;
+import frc.robot.commands.intake.IntakeSetOpenCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveSidewaysCmd;
 import frc.robot.commands.drive.MecanumDriveCmd;
-import frc.robot.commands.ElevatorSlideCmd;
-import frc.robot.commands.ElevatorVerticalCmd;
+import frc.robot.commands.elevator.ElevatorSlideCmd;
+import frc.robot.commands.elevator.ElevatorVerticalCmd;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.kWheels;
