@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.kWheels;
+import frc.robot.Constants.OIConstants;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -32,37 +33,16 @@ public class DriveTrain extends SubsystemBase {
     private final SparkMax m_rearLeft = new SparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushed);
     private final SparkMax m_rearRight = new SparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushed);
 
+    //TODO: change to whatever wheel the encoder is on
+    private final Encoder enc = new Encoder(DriveConstants.kFrontLeftEncoderPortA, DriveConstants.kFrontLeftEncoderPortB);
+
     HashMap<kWheels, SparkMax> m_wheels = new HashMap<kWheels, SparkMax>();
-
     private final MecanumDrive m_robotDrive = new MecanumDrive(m_frontLeft, m_rearLeft, m_frontRight, m_rearRight);
-
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
-    private final Encoder m_frontLeftEncoder = new Encoder(
-        DriveConstants.kFrontLeftEncoderPorts[0],
-        DriveConstants.kFrontLeftEncoderPorts[1],
-        DriveConstants.kFrontLeftEncoderReversed
-    );
-
-    private final Encoder m_rearLeftEncoder = new Encoder(
-        DriveConstants.kRearLeftEncoderPorts[0],
-        DriveConstants.kRearLeftEncoderPorts[1],
-        DriveConstants.kRearLeftEncoderReversed
-    );
-
-    private final Encoder m_frontRightEncoder = new Encoder(
-        DriveConstants.kFrontRightEncoderPorts[0],
-        DriveConstants.kFrontRightEncoderPorts[1],
-        DriveConstants.kFrontRightEncoderReversed
-    );
-
-    private final Encoder m_rearRightEncoder = new Encoder(
-        DriveConstants.kRearRightEncoderPorts[0],
-        DriveConstants.kRearRightEncoderPorts[1],
-        DriveConstants.kRearRightEncoderReversed
-    );
-
     public DriveTrain() {
+        enc.setDistancePerPulse(Math.PI*OIConstants.wheelDiameter/OIConstants.SRXMagEncoderCPR);
+
         SendableRegistry.addChild(m_robotDrive, m_frontLeft);
         SendableRegistry.addChild(m_robotDrive, m_frontRight);
         SendableRegistry.addChild(m_robotDrive, m_rearLeft);
@@ -80,10 +60,6 @@ public class DriveTrain extends SubsystemBase {
         //m_FrontRight.setInverted(true);
         //m_RearLeft.setInverted(true);
         //m_RearRight.setInverted(true);
-        m_frontLeftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-        m_rearLeftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-        m_frontRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-        m_rearRightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse); 
         
         //m_frontLeft.configure(sparkInvertedConfig, null, null);
         //m_rearLeft.configure(sparkInvertedConfig, null, null);
@@ -131,58 +107,11 @@ public class DriveTrain extends SubsystemBase {
         System.out.println("resetOdometry called");
     }
 
-    public void resetEncoders() {
-        m_frontLeftEncoder.reset();
-        m_rearLeftEncoder.reset();
-        m_frontRightEncoder.reset();
-        m_rearRightEncoder.reset();
-    }
-
-    public Encoder getFrontLeftEncoder() {
-        return m_frontLeftEncoder;
-    }
-
-    public Encoder getRearLeftEncoder() {
-        return m_rearLeftEncoder;
-    }
-
-    public Encoder getFrontRightEncoder() {
-        return m_frontRightEncoder;
-    }
-
-    public Encoder getRearRightEncoder() {
-        return m_rearRightEncoder;
-    }
-
     MecanumDriveOdometry m_odometry = new MecanumDriveOdometry(DriveConstants.kDriveKinematics, m_gyro.getRotation2d(), new MecanumDriveWheelPositions());
 
     Rotation2d desiredRotation = new Rotation2d();
     public Pose2d getPose() {
         return m_odometry.getPoseMeters();
-    }
-
-    public MecanumDriveWheelSpeeds getCurrentWheelSpeeds() {
-        return new MecanumDriveWheelSpeeds(
-                m_frontLeftEncoder.getRate(),
-                m_rearLeftEncoder.getRate(),
-                m_frontRightEncoder.getRate(),
-                m_rearRightEncoder.getRate());
-    }
-
-    public MecanumDriveWheelPositions getCurrentWheelDistances() {
-        return new MecanumDriveWheelPositions(
-                m_frontLeftEncoder.getDistance(),
-                m_rearLeftEncoder.getDistance(),
-                m_frontRightEncoder.getDistance(),
-                m_rearRightEncoder.getDistance());
-    }
-
-    public MecanumDriveWheelPositions getCurrentWheelPositions() {
-        return new MecanumDriveWheelPositions(
-                m_frontLeftEncoder.getDistance(),
-                m_rearLeftEncoder.getDistance(),
-                m_frontRightEncoder.getDistance(),
-                m_rearRightEncoder.getDistance());
     }
 
     /** Sets the wheel speeds */
@@ -198,6 +127,9 @@ public class DriveTrain extends SubsystemBase {
         /* if (fieldRelative) {
             m_robotDrive.driveCartesian(xSpeed, ySpeed, rot, m_gyro.getRotation2d());
         }*/
+        double dist = enc.getDistance();
+
+        //SmartDashboard.putNumber("Encoder", dist);
     
         m_robotDrive.driveCartesian(xSpeed, ySpeed, rot);
         //this.setMotors(0.2, 0.2);

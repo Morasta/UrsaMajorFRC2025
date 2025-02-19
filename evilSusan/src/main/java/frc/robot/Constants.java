@@ -4,6 +4,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 
@@ -13,6 +14,7 @@ public final class Constants {
     public static final class OIConstants {
         //Joystick ports
         public static final int kDriverJoystickPort = 0;
+        public static final int kClawJoystickPort = 1;
 
         public static final int kArcadeDriveSpeedAxis = 1;
         public static final int kArcadeDriveTurnAxis = 4;
@@ -23,6 +25,11 @@ public final class Constants {
 
         //Intake buttons
         public static final int kIntakeCloseButtonIdx = 5;
+
+
+        // CPR = counts per revoulution
+        public static final double SRXMagEncoderCPR = 1024; //if am-3445
+        public static final double wheelDiameter = 8; //for 8 inch wheel
     }
 
     public static final class AutoConstants {
@@ -69,10 +76,14 @@ public final class Constants {
         public static final int kFrontRightMotorPort = 7;
         public static final int kRearLeftMotorPort = 13;
         public static final int kRearRightMotorPort = 1;
-        public static final int[] kFrontLeftEncoderPorts = new int[] {0, 1};
-        public static final int[] kFrontRightEncoderPorts = new int[] {2, 3};
-        public static final int[] kRearLeftEncoderPorts = new int[] {4, 5};
-        public static final int[] kRearRightEncoderPorts = new int[] {6, 7};
+        public static final int kFrontLeftEncoderPortA = 0;
+        public static final int kFrontLeftEncoderPortB = 1;
+        public static final int kFrontRightEncoderPortA = 2;
+        public static final int kFrontRightEncoderPortB = 3;
+        public static final int kRearLeftEncoderPortA = 4;
+        public static final int kRearLeftEncoderPortB = 5;
+        public static final int kRearRightEncoderPorts = 6;
+        public static final int kRearLeftEncoderPorts = 7;
 
         public static final boolean kFrontRightEncoderReversed = true;
         public static final boolean kFrontLeftEncoderReversed = false;
@@ -119,9 +130,13 @@ public final class Constants {
 
     // TODO: Map these ports to the actual intake motors (based on wiring)
     public static final class IntakeConstants {
-        public static final int kLeftMotorPort = 8;
+        public static final int kLeftMotorPort = 15;
         public static final int kRightMotorPort = 9;
         public static final double kOpenSpeed = -1;
         public static final double kCloseSpeed = 1;
+        public static final int kLeftEncoderA = 10;
+        public static final int kLeftEncoderB = 11;
+        public static final int kRightEncoderA = 12;
+        public static final int kRightEncoderB = 13;
     }
 }

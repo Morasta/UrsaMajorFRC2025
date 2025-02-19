@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.elevator;
 
 //import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -23,7 +23,7 @@ public class ElevatorSlideCmd extends Command{
     @Override
     public void execute() {
         elevatorSubsystem.setSlideMotor(speed);
-        System.out.println("executing elevator joystick command, " + speed);
+        System.out.println("executing elevator slide command, " + speed);
     }
 
     @Override
