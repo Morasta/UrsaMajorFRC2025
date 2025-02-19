@@ -74,7 +74,7 @@ public class DriveTrain extends SubsystemBase {
         m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
     }
 
-    private void configureDashboard () {
+    private void configureDashboard() {
         Shuffleboard.getTab("Drive")
             .add("Max Speed", 1)
             .withWidget(BuiltInWidgets.kNumberSlider) // specify the widget here
@@ -94,12 +94,14 @@ public class DriveTrain extends SubsystemBase {
         m_rearLeft.set(leftSpeed);
         m_frontRight.set(rightSpeed);
         m_rearRight.set(rightSpeed);
+
+        // TODO: abstract this out into a helper function we import from utils
         Shuffleboard.getTab("Drive")
-        .add("frontLeftMotor", m_frontLeft)
-        .add("rearLeftMotor", m_rearLeft)
-        .add("frontRighttMotor", m_frontRight)
-        .add("rearRightMotor", m_rearRight)
-        
+            .add("frontLeftMotor", m_frontLeft)
+            .add("rearLeftMotor", m_rearLeft)
+            .add("frontRighttMotor", m_frontRight)
+            .add("rearRightMotor", m_rearRight)
+        ; 
     }
   
     public void setMotors(double frontLeftSpeed, double rearLeftSpeed, double frontRightSpeed, double rearRightSpeed) {
@@ -151,6 +153,5 @@ public class DriveTrain extends SubsystemBase {
         //SmartDashboard.putNumber("Encoder", dist);
     
         m_robotDrive.driveCartesian(xSpeed, ySpeed, rot);
-        //this.setMotors(0.2, 0.2);
     }
 }
