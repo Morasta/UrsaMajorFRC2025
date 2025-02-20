@@ -1,3 +1,6 @@
 public class test {
-  public void addToDashboard(
+  public T void addToDashboard(String tab, String text, T value) {
+    /* do the work here. this is an example code. */
+    
+  }
 }
