@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import edu.wpi.first.net.PortForwarder;
+
 //import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj2.command.Command;
@@ -39,6 +41,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    //Port Forwarding
+    for (int port = 5800; port <= 5809; port++) {
+      PortForwarder.add(port, "limeloght local", port);
+    }
     // Instantiate a RobotContainer. This will bind all  bindings, and put an
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();

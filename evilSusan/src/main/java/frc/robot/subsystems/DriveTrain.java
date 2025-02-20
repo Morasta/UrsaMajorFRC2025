@@ -39,28 +39,16 @@ public class DriveTrain extends SubsystemBase {
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
     private final Encoder m_frontLeftEncoder = new Encoder(
-        DriveConstants.kFrontLeftEncoderPorts[0],
-        DriveConstants.kFrontLeftEncoderPorts[1],
-        DriveConstants.kFrontLeftEncoderReversed
-    );
+        DriveConstants.kFrontLeftEncoderPortA, DriveConstants.kFrontLeftEncoderPortB);
 
     private final Encoder m_rearLeftEncoder = new Encoder(
-        DriveConstants.kRearLeftEncoderPorts[0],
-        DriveConstants.kRearLeftEncoderPorts[1],
-        DriveConstants.kRearLeftEncoderReversed
-    );
+        DriveConstants.kRearLeftEncoderPortA, DriveConstants.kRearLeftEncoderPortB);
 
     private final Encoder m_frontRightEncoder = new Encoder(
-        DriveConstants.kFrontRightEncoderPorts[0],
-        DriveConstants.kFrontRightEncoderPorts[1],
-        DriveConstants.kFrontRightEncoderReversed
-    );
+        DriveConstants.kFrontRightEncoderPortA, DriveConstants.kFrontRightEncoderPortB);
 
     private final Encoder m_rearRightEncoder = new Encoder(
-        DriveConstants.kRearRightEncoderPorts[0],
-        DriveConstants.kRearRightEncoderPorts[1],
-        DriveConstants.kRearRightEncoderReversed
-    );
+        DriveConstants.kRearRightEncoderPortA, DriveConstants.kRearRightEncoderPortB);
 
     public DriveTrain() {
         SendableRegistry.addChild(m_robotDrive, m_frontLeft);
