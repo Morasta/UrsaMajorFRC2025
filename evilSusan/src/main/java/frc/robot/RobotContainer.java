@@ -113,6 +113,10 @@ public class RobotContainer {
         m_robotDrive.setInverted(kWheels.rearLeft);
     }
 
+    public Pose2d getAutoPose() {
+        return m_robotDrive.getPose2d();
+    }
+
     public Command getAutonomousCommand() {
         new IntakeSetOpenCmd(intakeSubsystem, false);
         // Create config for trajectory
