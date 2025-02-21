@@ -17,7 +17,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -31,7 +31,6 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.kWheels;
 import frc.robot.Constants.OIConstants;
-
 
 public class RobotContainer {
     // Drive Trains and Controllers
@@ -48,7 +47,7 @@ public class RobotContainer {
 
     public RobotContainer() {
         configureWheels();
-        //TODO: figure out what speed is best
+        // TODO: figure out what speed is best
         m_robotDrive.setMaxOutput(0.3);
         configureButtonBindings();
 
@@ -57,21 +56,19 @@ public class RobotContainer {
         // intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
 
         m_robotDrive.setDefaultCommand(
-            new RunCommand(() -> m_robotDrive.drive(
-                -m_driverController.getRawAxis(1),
-                -m_driverController.getRawAxis(5),
-                -m_driverController.getRawAxis(3),
-                true), m_robotDrive
-            )
-        );
+                new RunCommand(() -> m_robotDrive.drive(
+                        -m_driverController.getRawAxis(1),
+                        -m_driverController.getRawAxis(5),
+                        -m_driverController.getRawAxis(3),
+                        true), m_robotDrive));
 
         /*
          * m_robotDrive.setDefaultCommand(
          * new RunCommand(() -> m_robotDrive.drive(
-            * -m_driverController.getLeftY(),
-            * -m_driverController.getRightX(),
-            * -m_driverController.getLeftX(),
-            * false), m_robotDrive)
+         * -m_driverController.getLeftY(),
+         * -m_driverController.getRightX(),
+         * -m_driverController.getLeftX(),
+         * false), m_robotDrive)
          * );
          */
     }
@@ -90,22 +87,24 @@ public class RobotContainer {
 
         System.out.println("Configuring Button Bindings");
 
-        /*m_driverController.button(1).whileTrue(Commands.startEnd(
-            () -> new PrintCommand("A button START"),
-            () -> new PrintCommand("A button END"))
-           // m_robotDrive)
-            );
-        */
+        /*
+         * m_driverController.button(1).whileTrue(Commands.startEnd(
+         * () -> new PrintCommand("A button START"),
+         * () -> new PrintCommand("A button END"))
+         * // m_robotDrive)
+         * );
+         */
 
         m_driverController.a().whileTrue(new DriveForwardCmd(m_robotDrive, 5));
         m_driverController.y().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
         m_driverController.b().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
 
-        //m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
-        //m_driverController.x().whileTrue(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
-        //m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, true)));
+        // m_driverController.x().whileTrue(new PrintCommand("Getting X button"));
+        // m_driverController.x().whileTrue(new InstantCommand(() ->
+        // m_robotDrive.drive(0, 0, 0, true)));
+        // m_driverController.x().onFalse(new InstantCommand(() -> m_robotDrive.drive(0,
+        // 0, 0, true)));
 
-        
     }
 
     private void configureWheels() {
@@ -118,10 +117,12 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        new IntakeSetOpenCmd(intakeSubsystem, false);
+        new IntakeSetOpenCmd(intakeSubsystem, false);        
+        SmartDashboard.putString("getAutonomousCommand", "Init");
+
         // Create config for trajectory
         // Add kinematics to ensure max speed is actually obeyed
-        TrajectoryConfig config = new TrajectoryConfig(2.2, 2.2)
+        TrajectoryConfig config = new TrajectoryConfig(0.2, 0.2)
             .setKinematics(DriveConstants.kDriveKinematics);
 
         // An example trajectory to follow. All units in meters.
@@ -131,7 +132,7 @@ public class RobotContainer {
             // Pass through these two interior waypoints, making an 's' curve path
             List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
             // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(3, 0, RobotContainer.kZeroRotation2d),
+            new Pose2d(1, 0, RobotContainer.kZeroRotation2d),
             config);
 
         // Position controllers
@@ -150,15 +151,31 @@ public class RobotContainer {
 
         MecanumControllerCommand mecanumControllerCommand = new MecanumControllerCommand(
             exampleTrajectory, m_robotDrive::getPose2d, DriveConstants.kDriveKinematics, kPXController,
-            kPYController, kPThetaController, AutoConstants.kMaxSpeedMetersPerSecond,
+            kPYController, kPThetaController, 0.1,
             m_robotDrive::setOutputWheelSpeeds, m_robotDrive
         );
 
         // Reset odometry to the initial pose of the trajectory, run path following command, then stop at the end.
+
+        var trajectory = exampleTrajectory.getInitialPose();
+        System.out.println("calling trajectory.ToString()");
+        System.out.println(trajectory.toString());
+
         return Commands.sequence(
-            new InstantCommand(() -> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose())),
+            new InstantCommand(() -> {
+                SmartDashboard.putBoolean("BeforeReset", true);
+                SmartDashboard.putString("getAutonomousCommand", "Before resetOdometry");
+                m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose());
+                SmartDashboard.putString("getAutonomousCommand", "After resetOdo");
+        }),
             mecanumControllerCommand,
-            new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false))
+            new InstantCommand(() -> {
+                SmartDashboard.putString("m_robotDrive Drive", "brfore");
+                m_robotDrive.drive(0, 0, 0, false);
+                SmartDashboard.putString("m_robotDrive Drive", "after");
+                
+            })
         );
     }
+
 }

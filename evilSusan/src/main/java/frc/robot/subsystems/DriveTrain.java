@@ -2,12 +2,15 @@ package frc.robot.subsystems;
 
 import java.util.HashMap;
 
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
+import edu.wpi.first.math.estimator.MecanumDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelPositions;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
-
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.SendableRegistry;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
@@ -50,7 +53,11 @@ public class DriveTrain extends SubsystemBase {
     private final Encoder m_rearRightEncoder = new Encoder(
         DriveConstants.kRearRightEncoderPortA, DriveConstants.kRearRightEncoderPortB);
 
+    //private final MecanumDrivePoseEstimator m_poseEstimater = new MecanumDrivePoseEstimator(
+      //  null, m_gyro.getRotation2d(), getCurrentWheelPositions(), getPose());
+
     public DriveTrain() {
+
         SendableRegistry.addChild(m_robotDrive, m_frontLeft);
         SendableRegistry.addChild(m_robotDrive, m_frontRight);
         SendableRegistry.addChild(m_robotDrive, m_rearLeft);
