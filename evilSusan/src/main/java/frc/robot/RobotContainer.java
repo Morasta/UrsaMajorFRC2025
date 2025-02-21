@@ -113,7 +113,7 @@ public class RobotContainer {
         m_robotDrive.setInverted(kWheels.rearLeft);
     }
 
-    public Pose2d getAutoPose() {
+    public Pose2d getPose() {
         return m_robotDrive.getPose2d();
     }
 

@@ -17,8 +17,8 @@ public class Camera {
 
     Thread m_visionThread;
 
-    private final MecanumDrivePoseEstimator m_poseEstimater = new MecanumDrivePoseEstimator(
-    null, m_gyro.getRotation2d(), getCurrentWheelPositions(), getPose());
+   // private final MecanumDrivePoseEstimator m_poseEstimater = new MecanumDrivePoseEstimator(
+    //null, m_gyro.getRotation2d(), getCurrentWheelPositions(), getPose());
 
     public void camera () {
 
