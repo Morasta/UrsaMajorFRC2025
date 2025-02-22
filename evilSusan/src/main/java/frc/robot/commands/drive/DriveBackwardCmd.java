@@ -13,11 +13,15 @@ public class DriveBackwardCmd extends Command {
     }
 
     public DriveBackwardCmd(DriveTrain driveTrain, double distance) {
+        this(driveTrain, distance, 1.0);
+    }
+
+    public DriveBackwardCmd(DriveTrain driveTrain, double distance, double speed) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.distance = 1; //TODO: Fix me
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
-        // addRequirements(DriveTrain);
+        addRequirements(driveSubsystem);
     }
 
     @Override
@@ -30,7 +34,7 @@ public class DriveBackwardCmd extends Command {
     public void execute() {
         printStatus("executed");
         //set all motors at forward speed
-        driveSubsystem.setMotors(-1, -1);
+        driveSubsystem.setMotors(-0.3, -0.3);
     }
 
     @Override

@@ -2,11 +2,15 @@ package frc.robot;
 
 import java.util.List;
 
+import javax.sound.midi.Sequence;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.MecanumControllerCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -24,19 +28,23 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 import frc.robot.commands.intake.IntakeSetOpenCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
+import frc.robot.commands.drive.DriveLeftDiagonalCmd;
+import frc.robot.commands.drive.DriveLeftSidewaysCmd;
 import frc.robot.commands.drive.DriveBackwardCmd;
-import frc.robot.commands.drive.DriveDiagonalCmd;
-import frc.robot.commands.drive.DriveRightCornerCmd;
-import frc.robot.commands.drive.DriveLeftCornerCmd;
+import frc.robot.commands.drive.DriveRightDiagonalCmd;
+import frc.robot.commands.drive.WideRightTurnCmd;
+import frc.robot.commands.drive.WideLeftTurnCmd;
 import frc.robot.commands.drive.DriveRearTurnCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
-import frc.robot.commands.drive.DriveSidewaysCmd;
+import frc.robot.commands.drive.DriveRightSidewaysCmd;
 import frc.robot.commands.drive.MecanumDriveCmd;
+import frc.robot.commands.drive.StopCmd;
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.kWheels;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.utils.GamepadAxisButton;
 
@@ -59,13 +67,18 @@ public class RobotContainer {
     private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 2, 0.5, false));
     private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.5, false));
     private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.5, false));
+    
+    private static final boolean toggleDefaultAutoButtons = false;
 
     public RobotContainer() {
         configureWheels();
         //TODO: figure out what speed is best
         m_robotDrive.setMaxOutput(0.3);
-        configureButtonBindings();
-        //configureButtonsForAutoTesting();
+        if(toggleDefaultAutoButtons == true) {
+            configureButtonsForAutoTesting();
+        } else {
+            configureButtonBindings();
+        }
 
         // elevatorSubsystem.setDefaultCommand(new
         // ElevatorJoystickCmd(elevatorSubsystem, 0));
@@ -100,29 +113,40 @@ public class RobotContainer {
         m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0.5));
         lClawUp.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
         lClawDown.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
-        lCrabwalk.whileTrue(new DriveSidewaysCmd(m_robotDrive, 0.5));
-        rCrabwalk.whileTrue(new DriveSidewaysCmd(m_robotDrive, 0.5));
+        lCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
+        rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
     }
 
     private void configureButtonsForAutoTesting() {
+        m_clawController.a().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
+        m_clawController.x().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
+        m_clawController.y().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
+        m_clawController.b().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
 
-        System.out.println("Configuring Button Bindings");
+        //Went Forward
+        m_driverController.rightTrigger().whileTrue(new DriveForwardCmd(m_robotDrive, 1));
+        //Went Backward
+        m_driverController.leftTrigger().whileTrue(new DriveBackwardCmd(m_robotDrive, 1));
+        //Sorta Works
+        m_driverController.rightBumper().whileTrue(new WideRightTurnCmd(m_robotDrive, 1));
+        //Sorta Works
+        m_driverController.leftBumper().whileTrue(new WideLeftTurnCmd(m_robotDrive, 1));
+        //TODO: Add anther file for Left?
+        //Test in Library. Looks OK
+        m_driverController.back().whileTrue(new DriveRearTurnCmd(m_robotDrive, 1));
+        //TODO: Add anther file for Left?
+        //Test in Library. Looks OK
+        m_driverController.start().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 1));
+        //Forward Right
+        m_driverController.a().whileTrue(new DriveRightDiagonalCmd(m_robotDrive, 1));
+        //Sideways Right
+        m_driverController.x().whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 1));
+        //TODO: Check that this moves Left
+        m_driverController.b().whileTrue(new DriveLeftDiagonalCmd(m_robotDrive, -1));
+        //TODO: Check that this moves Left
+        m_driverController.y().whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, -1));
 
-        m_clawController.a().onTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
-        m_clawController.x().onTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
-        m_clawController.y().onTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
-        m_clawController.b().onTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
-
-        m_driverController.rightTrigger().onTrue(new DriveForwardCmd(m_robotDrive, 1));
-        m_driverController.leftTrigger().onTrue(new DriveBackwardCmd(m_robotDrive, 1));
-        m_driverController.rightBumper().onTrue(new DriveRightCornerCmd(m_robotDrive, 1));
-        m_driverController.leftBumper().onTrue(new DriveLeftCornerCmd(m_robotDrive, 1));
-        m_driverController.back().onTrue(new DriveRearTurnCmd(m_robotDrive, 1));
-        m_driverController.start().onTrue(new DriveRoundTurnCmd(m_robotDrive, 1));
-        m_driverController.a().onTrue(new DriveDiagonalCmd(m_robotDrive, 1));
-        m_driverController.x().onTrue(new DriveSidewaysCmd(m_robotDrive, 1));
-        m_driverController.b().onTrue(new DriveDiagonalCmd(m_robotDrive, -1));
-        m_driverController.y().onTrue(new DriveSidewaysCmd(m_robotDrive, -1));
+        m_clawController.rightTrigger().whileTrue(new StopCmd(m_robotDrive, 0));
 
     }
 
@@ -132,10 +156,20 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        new IntakeSetOpenCmd(intakeSubsystem, false);
+         
+        //Dummy test sequence
+        return Commands.sequence(
+            new DriveForwardCmd(m_robotDrive, 0).withTimeout(2),
+            new StopCmd(m_robotDrive, 0).withTimeout(2), 
+            new DriveBackwardCmd(m_robotDrive, 0).withTimeout(2)
+
+        );  
+
+        //TODO: Figure out
+         //new IntakeSetOpenCmd(intakeSubsystem, false);
         // Create config for trajectory
         // Add kinematics to ensure max speed is actually obeyed
-        TrajectoryConfig config = new TrajectoryConfig(2.2, 2.2)
+        /*TrajectoryConfig config = new TrajectoryConfig(2.2, 2.2)
             .setKinematics(DriveConstants.kDriveKinematics);
 
         // An example trajectory to follow. All units in meters.
@@ -173,7 +207,7 @@ public class RobotContainer {
             new InstantCommand(() -> m_robotDrive.resetOdometry(exampleTrajectory.getInitialPose())),
             mecanumControllerCommand,
             new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false))
-        );
+        );*/
     }
 
     /**
