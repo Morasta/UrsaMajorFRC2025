@@ -13,11 +13,15 @@ public class DriveRoundTurnCmd extends Command {
     }
 
     public DriveRoundTurnCmd(DriveTrain driveTrain, double distance) {
+        this(driveTrain, distance, 1.0);
+    }
+
+    public DriveRoundTurnCmd(DriveTrain driveTrain, double distance, double speed) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.distance = 1; //TODO: Fix me
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
-        // addRequirements(DriveTrain);
+        addRequirements(driveSubsystem);
     }
 
     @Override
@@ -29,7 +33,7 @@ public class DriveRoundTurnCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(1, -1, 1, -1);
+        driveSubsystem.setMotors(0.3, -0.3, 0.3, -0.3);
     }
 
     @Override

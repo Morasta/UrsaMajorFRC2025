@@ -4,7 +4,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class DriveSidewaysCmd extends Command {
+public class DriveRightDiagonalCmd extends Command {
     private final DriveTrain driveSubsystem;
     private final double distance;
   
@@ -12,12 +12,16 @@ public class DriveSidewaysCmd extends Command {
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public DriveSidewaysCmd(DriveTrain driveTrain, double distance) {
+    public DriveRightDiagonalCmd(DriveTrain driveTrain, double distance) {
+        this(driveTrain, distance, 1.0);
+    }
+
+    public DriveRightDiagonalCmd(DriveTrain driveTrain, double distance, double speed) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.distance = 1; //TODO: Fix me
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
-        // addRequirements(DriveTrain);
+        addRequirements(driveSubsystem);
     }
 
     @Override
@@ -29,7 +33,7 @@ public class DriveSidewaysCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        driveSubsystem.setMotors(1, -1, -1, 1);
+        driveSubsystem.setMotors(0.3, 0, 0, 0.3);
     }
 
     @Override
