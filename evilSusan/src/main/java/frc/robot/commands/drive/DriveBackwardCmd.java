@@ -4,7 +4,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class DriveForwardCmd extends Command {
+public class DriveBackwardCmd extends Command {
     private final DriveTrain driveSubsystem;
     private final double distance;
   
@@ -12,7 +12,7 @@ public class DriveForwardCmd extends Command {
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public DriveForwardCmd(DriveTrain driveTrain, double distance) {
+    public DriveBackwardCmd(DriveTrain driveTrain, double distance) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.distance = 1; //TODO: Fix me
@@ -30,7 +30,7 @@ public class DriveForwardCmd extends Command {
     public void execute() {
         printStatus("executed");
         //set all motors at forward speed
-        driveSubsystem.setMotors(1, 1);
+        driveSubsystem.setMotors(-1, -1);
     }
 
     @Override

@@ -24,6 +24,11 @@ import frc.robot.subsystems.IntakeSubsystem;
 
 import frc.robot.commands.intake.IntakeSetOpenCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
+import frc.robot.commands.drive.DriveBackwardCmd;
+import frc.robot.commands.drive.DriveDiagonalCmd;
+import frc.robot.commands.drive.DriveRightCornerCmd;
+import frc.robot.commands.drive.DriveLeftCornerCmd;
+import frc.robot.commands.drive.DriveRearTurnCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveSidewaysCmd;
 import frc.robot.commands.drive.MecanumDriveCmd;
@@ -60,6 +65,7 @@ public class RobotContainer {
         //TODO: figure out what speed is best
         m_robotDrive.setMaxOutput(0.3);
         configureButtonBindings();
+        //configureButtonsForAutoTesting();
 
         // elevatorSubsystem.setDefaultCommand(new
         // ElevatorJoystickCmd(elevatorSubsystem, 0));
@@ -96,6 +102,28 @@ public class RobotContainer {
         lClawDown.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
         lCrabwalk.whileTrue(new DriveSidewaysCmd(m_robotDrive, 0.5));
         rCrabwalk.whileTrue(new DriveSidewaysCmd(m_robotDrive, 0.5));
+    }
+
+    private void configureButtonsForAutoTesting() {
+
+        System.out.println("Configuring Button Bindings");
+
+        m_clawController.a().onTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
+        m_clawController.x().onTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
+        m_clawController.y().onTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
+        m_clawController.b().onTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
+
+        m_driverController.rightTrigger().onTrue(new DriveForwardCmd(m_robotDrive, 1));
+        m_driverController.leftTrigger().onTrue(new DriveBackwardCmd(m_robotDrive, 1));
+        m_driverController.rightBumper().onTrue(new DriveRightCornerCmd(m_robotDrive, 1));
+        m_driverController.leftBumper().onTrue(new DriveLeftCornerCmd(m_robotDrive, 1));
+        m_driverController.back().onTrue(new DriveRearTurnCmd(m_robotDrive, 1));
+        m_driverController.start().onTrue(new DriveRoundTurnCmd(m_robotDrive, 1));
+        m_driverController.a().onTrue(new DriveDiagonalCmd(m_robotDrive, 1));
+        m_driverController.x().onTrue(new DriveSidewaysCmd(m_robotDrive, 1));
+        m_driverController.b().onTrue(new DriveDiagonalCmd(m_robotDrive, -1));
+        m_driverController.y().onTrue(new DriveSidewaysCmd(m_robotDrive, -1));
+
     }
 
     private void configureWheels() {
