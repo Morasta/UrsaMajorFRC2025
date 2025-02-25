@@ -1,9 +1,17 @@
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Inches;
+import static edu.wpi.first.units.Units.Meters;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
@@ -25,11 +33,6 @@ public final class Constants {
 
         //Intake buttons
         public static final int kIntakeCloseButtonIdx = 5;
-
-
-        // CPR = counts per revoulution
-        public static final double SRXMagEncoderCPR = 1024; //if am-3445
-        public static final double wheelDiameter = 8; //for 8 inch wheel
     }
 
     public static final class AutoConstants {
@@ -52,6 +55,45 @@ public final class Constants {
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared
         );
+    }
+
+    public static final class RobotChassis {
+        //TODO: change to correct size
+        public static final double WHEEL_BASE = Meters.convertFrom(18.00, Inches);
+        // CPR = counts per revoulution
+        public static final double SRXMagEncoderCPR = 1024; //if am-3445
+        public static final double wheelDiameter = 8; //for 8 inch wheel
+    }
+
+    public static final class VisionHelperConstants {
+        public static final double distanceBetweenReefPoles = Units.inchesToMeters(12.94);
+        public static final double bumperWidth = Units.inchesToMeters(2.5);
+        public static class RobotPoseConstants {
+            public static Map<String, Pose2d> visionRobotPoses = new HashMap<String, Pose2d>();
+            public static Map<Integer, String> tagNumberToKey = new HashMap<Integer, String>();
+        }
+    }
+
+    public static final class LimelightVisionConstants {
+        public static enum LimelightCamera {
+               LimelightFront (
+                "limelight-front"
+            ), LimelightBack (
+                "limelight-back"
+            ), LimelightLeft (
+                "limelight-left"
+            ), LimelightRight (
+                "limelight-right"
+            );
+
+            private String cameraName;
+            LimelightCamera(String cn) {
+                this.cameraName = cn;
+            }
+            public String getCameraName() {
+                return cameraName;
+            }
+        }
     }
 
     // TODO: Confirm all ports match the actual intake motors (based on wiring)

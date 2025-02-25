@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.RobotChassis;
+
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -20,7 +22,7 @@ public class IntakeSubsystem extends SubsystemBase {
     public IntakeSubsystem() {
         enc = new Encoder(IntakeConstants.kLeftEncoderA, IntakeConstants.kLeftEncoderB);
         enc = new Encoder(IntakeConstants.kRightEncoderA, IntakeConstants.kRightEncoderB);
-        enc.setDistancePerPulse(Math.PI*OIConstants.wheelDiameter/OIConstants.SRXMagEncoderCPR);
+        enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
     }
 
     @Override

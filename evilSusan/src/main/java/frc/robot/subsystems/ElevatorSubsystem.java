@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.RobotChassis;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkRelativeEncoder;
@@ -23,7 +24,7 @@ public class ElevatorSubsystem extends SubsystemBase{
 
     public ElevatorSubsystem() {
         enc = new Encoder(ElevatorConstants.kEncoderChannelA, ElevatorConstants.kEncoderChannelB);
-        enc.setDistancePerPulse(Math.PI*OIConstants.wheelDiameter/OIConstants.SRXMagEncoderCPR);
+        enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
 
         //sparkEncoder.getPosition();
     }
