@@ -101,15 +101,16 @@ public final class Constants {
 
     public static final class LimelightVisionConstants {
         public static enum LimelightCamera {
-               LimelightFront (
+            LimelightFront (
                 "limelight-front"
-            ), LimelightBack (
+            );
+            /*, LimelightBack (
                 "limelight-back"
             ), LimelightLeft (
                 "limelight-left"
             ), LimelightRight (
                 "limelight-right"
-            );
+            )*/
 
             private String cameraName;
             LimelightCamera(String cn) {
