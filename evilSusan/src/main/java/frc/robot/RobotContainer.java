@@ -118,14 +118,10 @@ public class RobotContainer {
         m_clawController.rightTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
         m_clawController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
         m_clawController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
-        m_robotDrive.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
-        m_robotDrive.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         //driveTrain Controls
         m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0.5));
         m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
         m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
-        m_robotDrive.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
-        m_robotDrive.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         lClawUp.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
         lClawDown.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
         lCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
