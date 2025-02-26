@@ -5,7 +5,6 @@ import static edu.wpi.first.units.Units.Meters;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -50,6 +49,32 @@ public final class Constants {
         public static final double kAutoDriveRightCornerSpeed = 0.25;
         public static final double kAutoDriveRoundTurnSpeed = 0.25;
         public static final double kAutoDriveSidewaysSpeed = 0.25;
+
+        public static final class AprilTagDists {
+            //TODO: fix to correct dists
+            public static final double ToReefStation = 3.0;
+            public static final double ToCoralStation = 5.0;
+            public static final double ToBarge = 6.0;
+        }
+
+        public static final class TargetTagsCoralStation {
+            public static final class Red {
+                public static final int ReefTopLeft = 19;
+                public static final int ReefTopRight = 20;
+                public static final int ReefLeft = 18;
+                public static final int ReefRight = 21;
+                public static final int ReefBottomLeft = 17;
+                public static final int ReefBottomRight = 22;
+            }
+            public static final class Blue {
+                public static final int ReefTopLeft = 9;
+                public static final int ReefTopRight = 8;
+                public static final int ReefLeft = 10;
+                public static final int ReefRight = 7;
+                public static final int ReefBottomLeft = 11;
+                public static final int ReefBottom = 6;
+            }
+        }
 
         // Constraint for the motion profilied robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(

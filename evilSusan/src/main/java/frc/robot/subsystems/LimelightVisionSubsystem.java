@@ -16,10 +16,11 @@ public class LimelightVisionSubsystem extends SubsystemBase{
 public static AprilTagFieldLayout fieldLayout;
 
 public LimelightVisionSubsystem() {
+/* 
     if(!EnabledSubsystems.ll) {
         return;
     }
-
+*/
     try {
         //TODO: make sure this is up to date on competition days
         fieldLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
@@ -39,6 +40,7 @@ public LimelightVisionSubsystem() {
         return null;
     }
 
+    /* 
     public Pose2d getKnownPose(String poseName) {
         if(RobotPoseConstants.visionRobotPoses.containsKey(poseName)) {
             return RobotPoseConstants.visionRobot.get(poseName);
@@ -46,7 +48,7 @@ public LimelightVisionSubsystem() {
             return null;
         }
     }
-
+*/
     public boolean isAprilTagVisable(String cameraName) {
         return LimelightHelpers.getTV(cameraName);
     }
