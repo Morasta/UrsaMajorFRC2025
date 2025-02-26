@@ -84,7 +84,7 @@ public class RobotContainer {
         if(toggleDefaultAutoButtons == true) {
             configureButtonsForAutoTesting();
         } else {
-            configureButtonBindings();
+            configureButtonBindings()
         }
         
         // elevatorSubsystem.setDefaultCommand(new
@@ -116,8 +116,12 @@ public class RobotContainer {
         rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
         m_clawController.leftTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
         m_clawController.rightTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
+        m_clawController.leftBumper().OnTrue(new SetMaxOutput(0.3));
+        m_clawController.leftBumper().OnFalse(new SetMaxOutput(1.0));
         //driveTrain Controls
         m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0.5));
+        m_driverController.leftBumper().OnTrue(new SetMaxOutput(0.3));
+        m_driverController.leftBumper().OnFalse(new SetMaxOutput(1.0));
         lClawUp.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
         lClawDown.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
         lCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
@@ -247,4 +251,24 @@ public class RobotContainer {
             System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
         }   
     }    
+
+
+    public void updateLimelightTelemetry() {
+
+    for (LimelightCamera limelightcamera : LimelightCamera.values()) {
+      String cn = limelightcamera.getCameraName();
+      
+      // Visibility
+      SmartDashboard.putBoolean("LimelightVisible "+cn, RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn));
+
+      // Get tag
+      if (RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn)) {
+        SmartDashboard.putNumber("LimelightID "+cn, LimelightHelpers.getFiducialID(cn));
+        SmartDashboard.putString("LimelightPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).pose.toString());
+        SmartDashboard.putString("LimelightTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef6").toString());
+      }
+
+    }
+
+        
 }
