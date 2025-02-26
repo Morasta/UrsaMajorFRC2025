@@ -3,6 +3,7 @@ package frc.robot;
 import java.util.List;
 
 import javax.sound.midi.Sequence;
+//todo: figure out whatever this thing does
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -48,6 +49,9 @@ import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.utils.GamepadAxisButton;
 
+import frc.robot.subsystems.LimelightVisionSubsystem;
+import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
+
 
 public class RobotContainer {
     // Drive Trains and Controllers
@@ -69,6 +73,8 @@ public class RobotContainer {
     private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.5, false));
     
     private static final boolean toggleDefaultAutoButtons = false;
+
+    public static final LimelightVisionSubsystem limelightVisionSubsystem = new LimelightVisionSubsystem();
 
     public RobotContainer() {
         configureWheels();
@@ -225,4 +231,22 @@ public class RobotContainer {
 
         return controller.getRawAxis(axis) >= threshold;
     }
+
+
+ public void testVisionCoordinates() {
+    System.out.println("****Poses:  ");
+    // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Left"));
+    // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Right"));
+    
+      List<String> keys = new ArrayList<>();
+        for(String k : RobotPoseConstants.visionRobotPoses.keySet()) {
+            keys.add(k);
+        }
+        for (String key : keys) { 
+          System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
+        }
+
+  }
+
+	
 }
