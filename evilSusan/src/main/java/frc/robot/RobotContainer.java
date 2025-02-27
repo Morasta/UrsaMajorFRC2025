@@ -23,15 +23,17 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 import frc.robot.commands.intake.IntakeSetOpenCmd;
+import frc.robot.lib.LimelightHelpers;
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveLeftDiagonalCmd;
 import frc.robot.commands.drive.DriveLeftSidewaysCmd;
+import frc.robot.commands.auto.FindCoralStationCmd;
 import frc.robot.commands.drive.DriveBackwardCmd;
 import frc.robot.commands.drive.DriveRightDiagonalCmd;
 import frc.robot.commands.drive.WideRightTurnCmd;
@@ -44,12 +46,14 @@ import frc.robot.commands.drive.StopCmd;
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
 import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.AutoConstants.AprilTagDists;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.kWheels;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
 import frc.robot.Constants.OIConstants;
 import frc.robot.utils.GamepadAxisButton;
-
+import frc.robot.utils.RobotCameraPose;
 import frc.robot.subsystems.LimelightVisionSubsystem;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 
@@ -84,7 +88,7 @@ public class RobotContainer {
         if(toggleDefaultAutoButtons == true) {
             configureButtonsForAutoTesting();
         } else {
-            configureButtonBindings()
+            configureButtonBindings();
         }
         
         // elevatorSubsystem.setDefaultCommand(new
@@ -171,8 +175,9 @@ public class RobotContainer {
         //Dummy test sequence
         return Commands.sequence(
         new DriveForwardCmd(m_robotDrive, 0).withTimeout(2),
-        new StopCmd(m_robotDrive, 0).withTimeout(2), 
-        new DriveBackwardCmd(m_robotDrive, 0).withTimeout(2)
+        new FindCoralStationCmd(m_robotDrive, AprilTagDists.ToReefStation),
+        new StopCmd(m_robotDrive, 0).withTimeout(2)
+        //new DriveBackwardCmd(m_robotDrive, 0).withTimeout(2)
         
         );  
         
@@ -241,7 +246,7 @@ public class RobotContainer {
     public void testVisionCoordinates() {
         System.out.println("****Poses:  ");
         // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Left"));
-        // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Right"));
+        // System.out.println(LimelightVisionSubsystem.getKnownPose("RobotBluReef1Right"));
         
         List<String> keys = new ArrayList<>();
         for(String k : RobotPoseConstants.visionRobotPoses.keySet()) {
@@ -258,17 +263,18 @@ public class RobotContainer {
     for (LimelightCamera limelightcamera : LimelightCamera.values()) {
       String cn = limelightcamera.getCameraName();
       
-      // Visibility
-      SmartDashboard.putBoolean("LimelightVisible "+cn, RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn));
+    //   // Visibility
+    //   SmartDashboard.putBoolean("LimelightVisible "+cn, RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn));
 
-      // Get tag
-      if (RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn)) {
-        SmartDashboard.putNumber("LimelightID "+cn, LimelightHelpers.getFiducialID(cn));
-        SmartDashboard.putString("LimelightPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).pose.toString());
-        SmartDashboard.putString("LimelightTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef6").toString());
-      }
+    //   // Get tag
+    //   if (RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn)) {
+    //     SmartDashboard.putNumber("LimelightID "+cn, LimelightHelpers.getFiducialID(cn));
+    //     SmartDashboard.putString("LimelightPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).pose.toString());
+    //     SmartDashboard.putString("LimelightTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef6").toString());
+    //   }
 
     }
 
         
+ }
 }
