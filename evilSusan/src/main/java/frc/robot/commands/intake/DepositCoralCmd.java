@@ -1,38 +1,18 @@
 package frc.robot.commands.intake;
 
-//import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.CommandGroup;
+import frc.robot.commands.elevator.ElevatorSlideCmd;
+import frc.robot.commands.elevator.ElevatorVerticalCmd;
+import frc.robot.commands.intake.IntakeSetOpenCmd;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
 
+public class DepositCoralCommandGroup extends CommandGroup {
 
-public class IntakeSetOpenCmd extends Command{
-    private final IntakeSubsystem intakeSubsystem;
-    private final boolean open;
-
-    public IntakeSetOpenCmd(IntakeSubsystem intakeSubsystem, boolean open) {
-        this.open = open;
-        this.intakeSubsystem = intakeSubsystem;
-        addRequirements(intakeSubsystem);
+    public DepositCoralCmd(ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
+        addSequential (new ElevatorVerticalCmd(elevatorSubsystem, double 1.0));
+        addSequential (new ElevatorSlideCmd(elevatorSubsystem, double 1.0));
+        addSequential (new IntakeSetOpenCmd(intakeSubsystem, true));
     }
 
-    @Override
-    public void initialize() {
-        System.out.println("IntakeSetCmd started!");
-    }
-
-    @Override
-    public void execute() {
-        //System.out.println("executing IntakeSetCmd!");
-        intakeSubsystem.setOpen();
-    }
-
-    @Override
-    public void end(boolean interrupted) {
-        System.out.println("IntakeSetCmd ended!");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
 }
