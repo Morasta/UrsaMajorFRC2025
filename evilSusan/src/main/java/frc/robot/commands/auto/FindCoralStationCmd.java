@@ -15,15 +15,13 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightVisionSubsystem;
 import limelight.networktables.LimelightSettings.LEDMode;
 
-public class FindCoralStationCmd extends Command{
+public class FindCoralStationCmd extends Command {
 
     private final DriveTrain driveSubsystem;
     private final LimelightVisionSubsystem visionSubsystem;
-    private final double distance;
+    //private final double distance;
 
     // limelight.pipelineSwitch(0);
-
-
 
     private void printStatus(String stateStatus){
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
@@ -37,10 +35,9 @@ public class FindCoralStationCmd extends Command{
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.visionSubsystem = visionSubsystem;
-        this.distance = 1; //TODO: Fix me
+        //this.distance = distance; //TODO: Fix me
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
-        addRequirements(driveSubsystem);
-        addRequirements(visionSubsystem);
+        addRequirements(driveSubsystem, visionSubsystem);
     }
 
     @Override
@@ -50,18 +47,23 @@ public class FindCoralStationCmd extends Command{
     }
 
     @Override
-    public void execute() {            
-        LimelightResults results = LimelightHelpers.getLatestResults("limelight-evlsusn");
-        RawFiducial[] fiducials = LimelightHelpers.getRawFiducials("limelight-evlsusn");
+    public void execute() {  
+        //printStatus("executed: " + LimelightHelpers.getTX("limelight"));
 
-        visionSubsystem.limelight.getSettings()
-            .withLimelightLEDMode(LEDMode.PipelineControl)
-            .withCameraOffset(Pose3d.kZero)
-            .save();
+        LimelightResults results = LimelightHelpers.getLatestResults("limelight");
+        printStatus("executed: " + visionSubsystem.getTargetTX());
+        
+        //LimelightResults results = LimelightHelpers.getLatestResults("limelight");
+        //RawFiducial[] fiducials = LimelightHelpers.getRawFiducials("limelight");
 
-            
-        printStatus("executed" + visionSubsystem.limelight.getLatestResults().toString());
+        //visionSubsystem.limelight.getSettings()
+        //    .withLimelightLEDMode(LEDMode.PipelineControl)
+        //    .withCameraOffset(Pose3d.kZero)
+        //    .save();
 
+        //printStatus("executed" + visionSubsystem.limelight.getLatestResults().toString());
+
+        /*
         for (LimelightTarget_Fiducial target: results.targets_Fiducials) {
             System.out.println("In for loop. fID: " + target.fiducialID);
             switch ((int)target.fiducialID) {
@@ -82,11 +84,17 @@ public class FindCoralStationCmd extends Command{
                     break;
             }
         }
+        */
     }
 
     @Override
     public void end(boolean interrupted) {
         printStatus("end");
         System.out.println(this.getClass().getSimpleName() + " executed");
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
     }
 }

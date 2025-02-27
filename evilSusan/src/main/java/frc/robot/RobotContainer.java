@@ -43,7 +43,7 @@ import frc.robot.commands.drive.WideLeftTurnCmd;
 import frc.robot.commands.drive.DriveRearTurnCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
-import frc.robot.commands.drive.MecanumDriveCmd;
+//import frc.robot.commands.drive.MecanumDriveCmd;
 import frc.robot.commands.drive.StopCmd;
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
@@ -85,25 +85,26 @@ public class RobotContainer {
     
     public RobotContainer() {
         configureWheels();
+        
         //TODO: figure out what speed is best
         m_robotDrive.setMaxOutput(0.3);
-        if(toggleDefaultAutoButtons == true) {
+
+        if(toggleDefaultAutoButtons == true)
             configureButtonsForAutoTesting();
-        } else {
+        else
             configureButtonBindings();
-        }
         
         // elevatorSubsystem.setDefaultCommand(new
         // ElevatorJoystickCmd(elevatorSubsystem, 0));
         // intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
         
         m_robotDrive.setDefaultCommand(
-        new RunCommand(() -> m_robotDrive.drive(
-        -m_driverController.getRawAxis(1),
-        -m_driverController.getRawAxis(5),
-        -m_driverController.getRawAxis(4),
-        true), m_robotDrive
-        )
+            new RunCommand(() -> m_robotDrive.drive(
+                -m_driverController.getRawAxis(1),
+                -m_driverController.getRawAxis(5),
+                -m_driverController.getRawAxis(4),
+                true), m_robotDrive
+            )
         );
     }
     
@@ -260,23 +261,20 @@ public class RobotContainer {
     }    
 
 
-    public void updateLimelightTelemetry() {
+    /*public void updateLimelightTelemetry() {
+        for (LimelightCamera limelightcamera : LimelightCamera.values()) {
+            String cn = limelightcamera.getCameraName();
+            
+            // Visibility
+            SmartDashboard.putBoolean("LimelightVisible "+cn, RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn));
 
-    for (LimelightCamera limelightcamera : LimelightCamera.values()) {
-      String cn = limelightcamera.getCameraName();
-      
-    //   // Visibility
-    //   SmartDashboard.putBoolean("LimelightVisible "+cn, RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn));
+            // Get tag
+            if (RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn)) {
+                SmartDashboard.putNumber("LimelightID "+cn, LimelightHelpers.getFiducialID(cn));
+                SmartDashboard.putString("LimelightPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).pose.toString());
+                SmartDashboard.putString("LimelightTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef6").toString());
+            }
 
-    //   // Get tag
-    //   if (RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn)) {
-    //     SmartDashboard.putNumber("LimelightID "+cn, LimelightHelpers.getFiducialID(cn));
-    //     SmartDashboard.putString("LimelightPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).pose.toString());
-    //     SmartDashboard.putString("LimelightTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef6").toString());
-    //   }
-
-    }
-
-        
- }
+        }
+    }*/
 }

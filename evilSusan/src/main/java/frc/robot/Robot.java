@@ -5,6 +5,7 @@
 package frc.robot;
 //package frc.robot;
 
+import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -44,6 +45,12 @@ public class Robot extends TimedRobot {
     // Instantiate a RobotContainer. This will bind all  bindings, and put an
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+     // Make sure you only configure port forwarding once in your robot code.
+    // Do not place these function calls in any periodic functions
+    for (int port = 5800; port <= 5809; port++) {
+        PortForwarder.add(port, "limelight.local", port);
+    }
   }
 
   /**
