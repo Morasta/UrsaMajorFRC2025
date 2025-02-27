@@ -28,6 +28,8 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
+import frc.robot.commands.groups.DepositCoralCmdGroup;
+
 import frc.robot.commands.intake.IntakeSetOpenCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveLeftDiagonalCmd;
@@ -84,7 +86,7 @@ public class RobotContainer {
         if(toggleDefaultAutoButtons == true) {
             configureButtonsForAutoTesting();
         } else {
-            configureButtonBindings()
+            configureButtonBindings();
         }
         
         // elevatorSubsystem.setDefaultCommand(new
