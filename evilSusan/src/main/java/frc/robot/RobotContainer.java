@@ -86,7 +86,7 @@ public class RobotContainer {
         if(toggleDefaultAutoButtons == true) {
             configureButtonsForAutoTesting();
         } else {
-            configureButtonBindings()
+            configureButtonBindings();
         }
         
         // elevatorSubsystem.setDefaultCommand(new
