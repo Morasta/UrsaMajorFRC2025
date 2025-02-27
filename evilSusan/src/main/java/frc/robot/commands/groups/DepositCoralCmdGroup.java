@@ -8,8 +8,8 @@ import frc.robot.commands.intake.IntakeSetOpenCmd;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class DepositCoralCommandGroup extends CommandGroup {
-    public DepositCoralCmd(ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
+public class DepositCoralCmdGroup extends CommandGroup {
+    public DepositCoralCmdGroup(ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
         addSequential (new ElevatorVerticalCmd(elevatorSubsystem, 1.0));
         addSequential (new ElevatorSlideCmd(elevatorSubsystem, 1.0));
         addSequential (new IntakeSetOpenCmd(intakeSubsystem, true));
