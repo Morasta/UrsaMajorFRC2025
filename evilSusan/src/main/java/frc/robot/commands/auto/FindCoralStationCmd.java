@@ -1,5 +1,6 @@
 package frc.robot.commands.auto;
 
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AutoConstants.AprilTagDists;
 import frc.robot.Constants.AutoConstants.TargetTagsCoralStation.Red;
@@ -9,11 +10,15 @@ import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.lib.LimelightHelpers;
 import frc.robot.lib.LimelightHelpers.LimelightResults;
 import frc.robot.lib.LimelightHelpers.LimelightTarget_Fiducial;
+import frc.robot.lib.LimelightHelpers.RawFiducial;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.LimelightVisionSubsystem;
+import limelight.networktables.LimelightSettings.LEDMode;
 
 public class FindCoralStationCmd extends Command{
 
     private final DriveTrain driveSubsystem;
+    private final LimelightVisionSubsystem visionSubsystem;
     private final double distance;
 
     // limelight.pipelineSwitch(0);
@@ -24,16 +29,18 @@ public class FindCoralStationCmd extends Command{
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public FindCoralStationCmd(DriveTrain driveTrain, double distance) {
-        this(driveTrain, distance, 1.0);
+    public FindCoralStationCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance) {
+        this(driveTrain, visionSubsystem, distance, 1.0);
     }
 
-    public FindCoralStationCmd(DriveTrain driveTrain, double distance, double speed) {
+    public FindCoralStationCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance, double speed) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
+        this.visionSubsystem = visionSubsystem;
         this.distance = 1; //TODO: Fix me
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
         addRequirements(driveSubsystem);
+        addRequirements(visionSubsystem);
     }
 
     @Override
@@ -44,9 +51,16 @@ public class FindCoralStationCmd extends Command{
 
     @Override
     public void execute() {            
-        LimelightResults results = LimelightHelpers.getLatestResults("limelight-front");
+        LimelightResults results = LimelightHelpers.getLatestResults("limelight-evlsusn");
+        RawFiducial[] fiducials = LimelightHelpers.getRawFiducials("limelight-evlsusn");
 
-        printStatus("executed" + results.toString());
+        visionSubsystem.limelight.getSettings()
+            .withLimelightLEDMode(LEDMode.PipelineControl)
+            .withCameraOffset(Pose3d.kZero)
+            .save();
+
+            
+        printStatus("executed" + visionSubsystem.limelight.getLatestResults().toString());
 
         for (LimelightTarget_Fiducial target: results.targets_Fiducials) {
             System.out.println("In for loop. fID: " + target.fiducialID);

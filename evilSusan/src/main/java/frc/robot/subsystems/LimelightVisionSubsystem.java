@@ -11,9 +11,12 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj.DriverStation;
+import limelight.Limelight;
 
 public class LimelightVisionSubsystem extends SubsystemBase{
 public static AprilTagFieldLayout fieldLayout;
+
+public final Limelight limelight = new Limelight("limelight-evlsusn");
 
 public LimelightVisionSubsystem() {
     /*if(!EnabledSubsystems.ll) {
