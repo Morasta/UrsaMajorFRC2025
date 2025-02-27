@@ -1,4 +1,4 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.CommandGroup;
 import frc.robot.commands.elevator.ElevatorSlideCmd;
