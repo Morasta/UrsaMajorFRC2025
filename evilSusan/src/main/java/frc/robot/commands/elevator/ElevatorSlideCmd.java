@@ -4,6 +4,8 @@ package frc.robot.commands.elevator;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
+import frc.robot.Constants.ElevatorSlidePositions;
+
 
 public class ElevatorSlideCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
@@ -15,6 +17,13 @@ public class ElevatorSlideCmd extends Command{
         addRequirements(elevatorSubsystem);
     }
 
+    public ElevatorSlideCmd(ElevatorSubsystem elevatorSubsystem, ElevatorSlidePositions targetPosition, double speed) {
+        this.elevatorSubsystem = elevatorSubsystem;
+        this.speed = speed;
+        addRequirements(elevatorSubsystem);
+    }
+
+    
     @Override
     public void initialize() {
         System.out.println("ElevatorJoystickCmd started!");
