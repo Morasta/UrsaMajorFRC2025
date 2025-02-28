@@ -69,7 +69,6 @@ public class RobotContainer {
     private final DriveTrain m_robotDrive = new DriveTrain();
     CommandXboxController m_driverController = new CommandXboxController(OIConstants.kDriverJoystickPort);
     CommandXboxController m_clawController = new CommandXboxController(OIConstants.kClawJoystickPort);
-    
     // Robot Subsystems: create one instance of each
     private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
