@@ -11,7 +11,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 
@@ -20,7 +19,7 @@ public final class Constants {
     // This should map to the controller classes we'll define later
 
     public static final class Physics {
-        double GRAVITY_COMPENSATION = 1.0;
+        public static final double GRAVITY_COMPENSATION = 1.0;
     }
     
     public static final class OIConstants {

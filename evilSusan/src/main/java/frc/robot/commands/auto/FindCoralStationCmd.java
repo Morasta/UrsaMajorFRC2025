@@ -93,6 +93,7 @@ public class FindCoralStationCmd extends Command{
 
     @Override
     public boolean isFinished() {
-        return Math.abs(lastValidTargetTY - targetDistance) < distanceTolerance && Math.abs(lastValidTargetAngle - targetAngle)
+        //return Math.abs(lastValidTargetTY - targetDistance) < distanceTolerance && Math.abs(lastValidTargetAngle - targetAngle);
+        return false;
     }
 }

@@ -4,21 +4,20 @@ package frc.robot.commands.elevator;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.Constants.ElevatorVerticalPositions;
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
-
-public class ElevatorVerticalCmd extends Command{
+public class ElevatorVerticalSetBottomCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
     private final double speed;
 
-    public ElevatorVerticalCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
+    public ElevatorVerticalSetBottomCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
     }
 
-    public ElevatorVerticalCmd(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
+    public ElevatorVerticalSetBottomCmd(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
@@ -31,7 +30,7 @@ public class ElevatorVerticalCmd extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setVerticalPosition(kRetractedPosition);
+        elevatorSubsystem.setVerticalPosition(ElevatorConstants.kLoweredPosition);
         System.out.println("executing elevator vertical command, " + speed);
     }
 
