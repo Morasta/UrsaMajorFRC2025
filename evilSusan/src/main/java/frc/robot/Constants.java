@@ -18,6 +18,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public final class Constants {
     // Constant definitions for controller mapping used by the "operator" or driver
     // This should map to the controller classes we'll define later
+
+    public static final class Physics {
+        double GRAVITY_COMPENSATION = 1.0;
+    }
+    
     public static final class OIConstants {
         //Joystick ports
         public static final int kDriverJoystickPort = 0;
@@ -182,6 +187,16 @@ public final class Constants {
 
     // TODO: Map these ports to the actual intake motors (based on wiring)
     public static final class ElevatorConstants {
+        public static enum ElevatorVerticalPositions {
+            bottom
+            , middle
+            , top
+        };
+        public static enum ElevatorSlidePositions {
+            back
+            , middle
+            , front
+        };
         public static final int kVerticalMotorPort = 5;
         public static final int kSlideMotorPort = 4;
         public static final int kEncoderChannelA = 16;
@@ -193,6 +208,8 @@ public final class Constants {
 
         public static final double kRaisedPosition = 1.2;
         public static final double kLoweredPosition = 0;
+        public static final double kExtendedPosition = 1.2;
+        public static final double kRetractedPosition = 0;
         public static final double kJoystickMaxSpeed = 0.5;
     }
 
