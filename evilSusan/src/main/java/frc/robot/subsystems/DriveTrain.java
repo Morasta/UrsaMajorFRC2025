@@ -67,6 +67,10 @@ public class DriveTrain extends SubsystemBase {
 
         m_robotDrive.feed();
     }
+
+    public void feed () {
+        m_robotDrive.feed();
+    }
     
     public void setInverted (kWheels wheel) {
         m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);

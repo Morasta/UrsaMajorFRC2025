@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.lib.LimelightHelpers;
+import frc.robot.Constants.LimelightVisionConstants;
+import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
 //import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.lib.VisionHelpers;
@@ -24,7 +26,7 @@ public static AprilTagFieldLayout fieldLayout;
 
 public LimelightVisionSubsystem() {
 
-    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    NetworkTable table = NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME);
     NetworkTableEntry tx = table.getEntry("tx");
     NetworkTableEntry ty = table.getEntry("ty");
     NetworkTableEntry ta = table.getEntry("ta");
@@ -57,6 +59,19 @@ public LimelightVisionSubsystem() {
     VisionHelpers.addRobotPosesForCoralPlacement();
 
     }   
+
+    public double getXValue () {
+        return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("tx").getDouble(0.0);
+    }
+
+    public double getYValue () {
+        return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("ty").getDouble(0.0);
+    }
+
+    public double getAreaValue () {
+        return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("ta").getDouble(0.0);
+    }
+
 
     public Pose2d getRobotAprilTagPose() {
         return null;

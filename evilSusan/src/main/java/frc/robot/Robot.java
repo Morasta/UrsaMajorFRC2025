@@ -43,15 +43,15 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    // Make sure you only configure port forwarding once in your robot code.
+        // Do not place these function calls in any periodic functions
+        for (int port = 5800; port <= 5809; port++) {
+          PortForwarder.add(port, "limelight.local", port);
+      }
+
     // Instantiate a RobotContainer. This will bind all  bindings, and put an
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
-            // Make sure you only configure port forwarding once in your robot code.
-        // Do not place these function calls in any periodic functions
-        for (int port = 5800; port <= 5809; port++) {
-            PortForwarder.add(port, "limelight.local", port);
-        }
   }
 
   /**

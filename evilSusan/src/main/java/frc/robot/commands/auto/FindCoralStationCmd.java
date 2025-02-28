@@ -16,6 +16,7 @@ import frc.robot.lib.LimelightHelpers.LimelightTarget_Fiducial;
 import frc.robot.lib.LimelightHelpers.RawFiducial;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightVisionSubsystem;
+import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
 // import limelight.networktables.LimelightSettings.LEDMode;
 
 public class FindCoralStationCmd extends Command{
@@ -25,8 +26,6 @@ public class FindCoralStationCmd extends Command{
     private final double distance;
 
     // limelight.pipelineSwitch(0);
-
-
 
     private void printStatus(String stateStatus){
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
@@ -53,14 +52,8 @@ public class FindCoralStationCmd extends Command{
         // double x = tx.getDouble(0.0);
         // double y = ty.getDouble(0.0);
         // double area = ta.getDouble(0.0);
+       
 
-        double x = LimelightHelpers.getTX("limelight");
-        double y = LimelightHelpers.getTY("limelight");
-        double area = LimelightHelpers.getTA("limelight");
-
-        System.out.println("tx value: " + x);
-        System.out.println("ty value: " + y);
-        System.out.println("ta value: " + area);
     }
 
     @Override
@@ -70,10 +63,15 @@ public class FindCoralStationCmd extends Command{
     }
 
     @Override
-    public void execute() {            
-        LimelightResults results = LimelightHelpers.getLatestResults("limelight-evlsusn");
-        RawFiducial[] fiducials = LimelightHelpers.getRawFiducials("limelight-evlsusn");
+    public void execute() {   
+        driveSubsystem.feed(); 
+        LimelightResults results = LimelightHelpers.getLatestResults(LimelightCamera.CAMERA_NAME);
 
+        System.out.println(visionSubsystem.getXValue());
+        System.out.println(visionSubsystem.getYValue());
+        System.out.println(visionSubsystem.getAreaValue());
+        // System.out.println("ty value: " + y);
+        // System.out.println("ta value: " + area);
         // visionSubsystem.limelight.getSettings()
         //     .withLimelightLEDMode(LEDMode.PipelineControl)
         //     .withCameraOffset(Pose3d.kZero)

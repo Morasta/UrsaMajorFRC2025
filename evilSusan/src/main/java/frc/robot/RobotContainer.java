@@ -267,25 +267,5 @@ public class RobotContainer {
             System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
         }   
     }    
-
-
-    public void updateLimelightTelemetry() {
-
-    for (LimelightCamera limelightcamera : LimelightCamera.values()) {
-      String cn = limelightcamera.getCameraName();
-      
-    //   // Visibility
-    //   SmartDashboard.putBoolean("LimelightVisible "+cn, RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn));
-
-    //   // Get tag
-    //   if (RobotContainer.limelightVisionSubsystem.isAprilTagVisible(cn)) {
-    //     SmartDashboard.putNumber("LimelightID "+cn, LimelightHelpers.getFiducialID(cn));
-    //     SmartDashboard.putString("LimelightPose "+cn, LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2(cn).pose.toString());
-    //     SmartDashboard.putString("LimelightTagPose " + cn, RobotPoseConstants.visionRobotPoses.get("TagBluReef6").toString());
-    //   }
-
-    }
-
-        
+   
  }
-}

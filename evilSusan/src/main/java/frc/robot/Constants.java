@@ -104,27 +104,10 @@ public final class Constants {
     }
 
     public static final class LimelightVisionConstants {
-        public static enum LimelightCamera {
-            LimelightFront (
-                "limelight-front"
-            );
-            /*, LimelightBack (
-                "limelight-back"
-            ), LimelightLeft (
-                "limelight-left"
-            ), LimelightRight (
-                "limelight-right"
-            )*/
-
-            private String cameraName;
-            LimelightCamera(String cn) {
-                this.cameraName = cn;
-            }
-            public String getCameraName() {
-                return cameraName;
-            }
-        }
+        public static final class LimelightCamera {
+        public static String CAMERA_NAME = "limelight";
     }
+}
 
     // TODO: Confirm all ports match the actual intake motors (based on wiring)
     public static final class DriveConstants {
