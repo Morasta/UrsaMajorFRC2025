@@ -15,6 +15,8 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants.Physics;
+import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
+import frc.robot.Constants.ElevatorConstants.ElevatorSlidePositions;
 
 
 public class ElevatorSubsystem extends SubsystemBase{
