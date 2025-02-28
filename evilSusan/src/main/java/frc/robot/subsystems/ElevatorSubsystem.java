@@ -6,12 +6,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.RobotChassis;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkRelativeEncoder;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+
+import frc.robot.Constants.Physics;
+import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
+import frc.robot.Constants.ElevatorConstants.ElevatorSlidePositions;
 
 
 public class ElevatorSubsystem extends SubsystemBase{
@@ -23,7 +28,7 @@ public class ElevatorSubsystem extends SubsystemBase{
 
     public ElevatorSubsystem() {
         enc = new Encoder(ElevatorConstants.kEncoderChannelA, ElevatorConstants.kEncoderChannelB);
-        enc.setDistancePerPulse(Math.PI*OIConstants.wheelDiameter/OIConstants.SRXMagEncoderCPR);
+        enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
 
         //sparkEncoder.getPosition();
     }
@@ -35,7 +40,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("Elevator encoder value", getEncoderMeters());
     }
 
-    public void setSlideMotor(double speed) {
+    public void setSlideMotor(double speed) { 
         m_slideMotor.set(speed);
     }
 
@@ -46,4 +51,35 @@ public class ElevatorSubsystem extends SubsystemBase{
     public double getEncoderMeters() {
         return enc.get() * ElevatorConstants.kEncoderTick2Meter;
     }
+
+    public void setVerticalPosition(double targetPosition) {
+        //double pidOutput = pid.calculate(getPosition(), targetPosition);
+
+        // Add gravity compensation
+        // The sign is positive because we need to work against gravity
+        // You might need to flip the sign depending on your motor polarity
+        //double motorOutput = pidOutput + Physics.GRAVITY_COMPENSATION;
+
+        // Clamp the output to valid range
+        //motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
+
+        //setSlideMotor(motorOutput);
+    }
+
+    public void setSlidePosition(double targetPosition) {
+        //double pidOutput = pid.calculate(getPosition(), targetPosition);
+
+        // Add gravity compensation
+        // The sign is positive because we need to work against gravity
+        // You might need to flip the sign depending on your motor polarity
+        //double motorOutput = pidOutput + Physics.GRAVITY_COMPENSATION;
+
+        // Clamp the output to valid range
+        //motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
+
+        //setSlideMotor(motorOutput);
+    }
+
+
+    
 }
