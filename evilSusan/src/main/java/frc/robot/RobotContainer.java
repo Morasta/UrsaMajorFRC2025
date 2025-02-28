@@ -168,7 +168,6 @@ public class RobotContainer {
         //TODO: Check that this moves Left
         m_driverController.y().whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, -1));
         m_clawController.rightTrigger().whileTrue(new StopCmd(m_robotDrive, 0));
-        
     }
     
     private void configureWheels() {
