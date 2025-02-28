@@ -115,7 +115,6 @@ public class RobotContainer {
         * .and(new JoystickButton(m_driverController, XboxController.Button.kY.value))
         * .whenActive(new ExampleCommand());
         */
-        
         System.out.println("Configuring Button Bindings");
         
         //TODO: change to fixed position
