@@ -36,7 +36,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         SmartDashboard.putNumber("Elevator encoder value", getEncoderMeters());
     }
 
-    public void setSlideMotor(double speed) {
+    public void setSlideMotor(double speed) { 
         m_slideMotor.set(speed);
     }
 
@@ -47,4 +47,22 @@ public class ElevatorSubsystem extends SubsystemBase{
     public double getEncoderMeters() {
         return enc.get() * ElevatorConstants.kEncoderTick2Meter;
     }
+
+    public void setVerticalPosition(double targetPosition) {
+        double pidOutput = pid.calculate(getPosition(), targetPosition);
+
+        // Add gravity compensation
+        // The sign is positive because we need to work against gravity
+        // You might need to flip the sign depending on your motor polarity
+        
+        double motorOutput = pidOutput + GRAVITY_COMPENSATION;
+
+        // Clamp the output to valid range
+        motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
+
+        motor.set(motorOutput);
+
+    }
+
+    
 }
