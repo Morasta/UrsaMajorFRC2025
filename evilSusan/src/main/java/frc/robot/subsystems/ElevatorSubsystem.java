@@ -15,6 +15,8 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import frc.robot.Constants.Physics;
+import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
+import frc.robot.Constants.ElevatorConstants.ElevatorSlidePositions;
 
 
 public class ElevatorSubsystem extends SubsystemBase{
@@ -51,33 +53,31 @@ public class ElevatorSubsystem extends SubsystemBase{
     }
 
     public void setVerticalPosition(double targetPosition) {
-        double pidOutput = pid.calculate(getPosition(), targetPosition);
+        //double pidOutput = pid.calculate(getPosition(), targetPosition);
 
         // Add gravity compensation
         // The sign is positive because we need to work against gravity
         // You might need to flip the sign depending on your motor polarity
-        
-        double motorOutput = pidOutput + GRAVITY_COMPENSATION;
+        //double motorOutput = pidOutput + Physics.GRAVITY_COMPENSATION;
 
         // Clamp the output to valid range
-        motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
+        //motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
 
-        setSlideMotor(motorOutput);
+        //setSlideMotor(motorOutput);
     }
 
     public void setSlidePosition(double targetPosition) {
-        double pidOutput = pid.calculate(getPosition(), targetPosition);
+        //double pidOutput = pid.calculate(getPosition(), targetPosition);
 
         // Add gravity compensation
         // The sign is positive because we need to work against gravity
         // You might need to flip the sign depending on your motor polarity
-        
-        double motorOutput = pidOutput + GRAVITY_COMPENSATION;
+        //double motorOutput = pidOutput + Physics.GRAVITY_COMPENSATION;
 
         // Clamp the output to valid range
-        motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
+        //motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
 
-        setSlideMotor(motorOutput);
+        //setSlideMotor(motorOutput);
     }
 
 

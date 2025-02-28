@@ -4,26 +4,26 @@ package frc.robot.commands.elevator;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.Constants.ElevatorConstants.ElevatorSlidePositions;
+import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
 
-public class ElevatorSlideCmd extends Command{
+public class ElevatorSlideExtendedCommand extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
     private final double speed;
 
-    public ElevatorSlideCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
+    public ElevatorSlideExtendedCommand(ElevatorSubsystem elevatorSubsystem, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
     }
 
-    public ElevatorSlideCmd(ElevatorSubsystem elevatorSubsystem, ElevatorSlidePositions targetPosition, double speed) {
+    public ElevatorSlideExtendedCommand(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
     }
 
-    
     @Override
     public void initialize() {
         System.out.println("ElevatorJoystickCmd started!");
@@ -31,13 +31,13 @@ public class ElevatorSlideCmd extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setSlideMotor(speed);
-        System.out.println("executing elevator slide command, " + speed);
+        elevatorSubsystem.setVerticalPosition(ElevatorConstants.kExtendedPosition);
+        System.out.println("executing elevator vertical command, " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.setSlideMotor(0);
+        elevatorSubsystem.setVerticalMotor(0);
         System.out.println("ElevatorJoystickCmd ended!");
     }
 
