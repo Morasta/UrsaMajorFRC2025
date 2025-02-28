@@ -46,7 +46,11 @@ import frc.robot.commands.drive.DriveRightSidewaysCmd;
 import frc.robot.commands.drive.MecanumDriveCmd;
 import frc.robot.commands.drive.StopCmd;
 import frc.robot.commands.elevator.ElevatorSlideCmd;
+import frc.robot.commands.elevator.ElevatorSlideExtendedCommand;
+import frc.robot.commands.elevator.ElevatorSlideRetractedCommand;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
+import frc.robot.commands.elevator.ElevatorVerticalSetBottomCmd;
+import frc.robot.commands.elevator.ElevatorVerticalSetTopCmd;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.AutoConstants.AprilTagDists;
 import frc.robot.Constants.DriveConstants;
@@ -139,6 +143,10 @@ public class RobotContainer {
         m_clawController.x().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
         m_clawController.y().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
         m_clawController.b().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
+        m_clawController.leftTrigger().whileTrue(new ElevatorSlideRetractedCommand(elevatorSubsystem, 0.5));
+        m_clawController.rightTrigger().whileTrue(new ElevatorSlideExtendedCommand(elevatorSubsystem, 0.5));
+        m_clawController.leftBumper().whileTrue(new ElevatorVerticalSetTopCmd(elevatorSubsystem, 0.5));
+        m_clawController.rightBumper().whileTrue(new ElevatorVerticalSetBottomCmd(elevatorSubsystem, 0.5));
         
         //Went Forward
         m_driverController.rightTrigger().whileTrue(new DriveForwardCmd(m_robotDrive, 1));
