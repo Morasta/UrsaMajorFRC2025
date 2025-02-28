@@ -14,6 +14,8 @@ import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import frc.robot.Constants.Physics;
+
 
 public class ElevatorSubsystem extends SubsystemBase{
     private final SparkMax m_slideMotor = new SparkMax(ElevatorConstants.kSlideMotorPort, MotorType.kBrushed);
@@ -60,7 +62,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         // Clamp the output to valid range
         motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
 
-        motor.set(motorOutput);
+        setSlideMotor(motorOutput);
     }
 
     public void setSlidePosition(double targetPosition) {
@@ -75,7 +77,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         // Clamp the output to valid range
         motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
 
-        motor.set(motorOutput);
+        setSlideMotor(motorOutput);
     }
 
 
