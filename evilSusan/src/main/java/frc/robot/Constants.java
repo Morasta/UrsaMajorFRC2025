@@ -105,9 +105,9 @@ public final class Constants {
 
     public static final class LimelightVisionConstants {
         public static final class LimelightCamera {
-        public static String CAMERA_NAME = "limelight";
+            public static String CAMERA_NAME = "limelight";
+        }
     }
-}
 
     // TODO: Confirm all ports match the actual intake motors (based on wiring)
     public static final class DriveConstants {
