@@ -116,7 +116,6 @@ public class RobotContainer {
         * .whenActive(new ExampleCommand());
         */
         System.out.println("Configuring Button Bindings");
-        
         //TODO: change to fixed position
         m_clawController.a().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
         rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
