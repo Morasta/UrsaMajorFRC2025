@@ -31,7 +31,7 @@ public class ElevatorVerticalCmd extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setVerticalPosition(kRaisedPosition);
+        elevatorSubsystem.setVerticalPosition(kExtendedPosition);
         System.out.println("executing elevator vertical command, " + speed);
     }
 
