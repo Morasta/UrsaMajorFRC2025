@@ -169,7 +169,6 @@ public class RobotContainer {
         m_driverController.y().whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, -1));
         m_clawController.rightTrigger().whileTrue(new StopCmd(m_robotDrive, 0));
     }
-    
     private void configureWheels() {
         m_robotDrive.setInverted(kWheels.frontLeft);
         m_robotDrive.setInverted(kWheels.rearLeft);
