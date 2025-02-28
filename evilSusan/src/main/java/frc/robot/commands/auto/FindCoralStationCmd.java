@@ -89,4 +89,9 @@ public class FindCoralStationCmd extends Command{
         printStatus("end");
         System.out.println(this.getClass().getSimpleName() + " executed");
     }
+
+    @Override
+    public boolean isFinished() {
+        return Math.abs(lastValidTargetTY - targetDistance) < distanceTolerance && Math.abs(lastValidTargetAngle - targetAngle)
+    }
 }
