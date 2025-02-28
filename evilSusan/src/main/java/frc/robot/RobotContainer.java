@@ -173,7 +173,6 @@ public class RobotContainer {
         m_robotDrive.setInverted(kWheels.frontLeft);
         m_robotDrive.setInverted(kWheels.rearLeft);
     }
-    
     public Command getAutonomousCommand() {
         
         //Dummy test sequence
