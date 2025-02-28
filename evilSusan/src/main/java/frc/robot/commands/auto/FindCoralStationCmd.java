@@ -13,7 +13,7 @@ import frc.robot.lib.LimelightHelpers.LimelightTarget_Fiducial;
 import frc.robot.lib.LimelightHelpers.RawFiducial;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightVisionSubsystem;
-import limelight.networktables.LimelightSettings.LEDMode;
+// import limelight.networktables.LimelightSettings.LEDMode;
 
 public class FindCoralStationCmd extends Command{
 
@@ -29,9 +29,10 @@ public class FindCoralStationCmd extends Command{
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public FindCoralStationCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance) {
-        this(driveTrain, visionSubsystem, distance, 1.0);
-    }
+    // public FindCoralStationCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance) {
+        //this(driveTrain, visionSubsystem, distance, 1.0);
+    //     System.out.println("FindCoralStationCmd Called");
+    // }
 
     public FindCoralStationCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance, double speed) {
         printStatus("Created");
@@ -54,13 +55,13 @@ public class FindCoralStationCmd extends Command{
         LimelightResults results = LimelightHelpers.getLatestResults("limelight-evlsusn");
         RawFiducial[] fiducials = LimelightHelpers.getRawFiducials("limelight-evlsusn");
 
-        visionSubsystem.limelight.getSettings()
-            .withLimelightLEDMode(LEDMode.PipelineControl)
-            .withCameraOffset(Pose3d.kZero)
-            .save();
+        // visionSubsystem.limelight.getSettings()
+        //     .withLimelightLEDMode(LEDMode.PipelineControl)
+        //     .withCameraOffset(Pose3d.kZero)
+        //     .save();
 
             
-        printStatus("executed" + visionSubsystem.limelight.getLatestResults().toString());
+        //printStatus("executed" + visionSubsystem.limelight.getLatestResults().toString());
 
         for (LimelightTarget_Fiducial target: results.targets_Fiducials) {
             System.out.println("In for loop. fID: " + target.fiducialID);
