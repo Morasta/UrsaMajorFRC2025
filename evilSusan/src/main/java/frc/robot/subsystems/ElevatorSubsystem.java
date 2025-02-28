@@ -61,8 +61,23 @@ public class ElevatorSubsystem extends SubsystemBase{
         motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
 
         motor.set(motorOutput);
-
     }
+
+    public void setSlidePosition(double targetPosition) {
+        double pidOutput = pid.calculate(getPosition(), targetPosition);
+
+        // Add gravity compensation
+        // The sign is positive because we need to work against gravity
+        // You might need to flip the sign depending on your motor polarity
+        
+        double motorOutput = pidOutput + GRAVITY_COMPENSATION;
+
+        // Clamp the output to valid range
+        motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
+
+        motor.set(motorOutput);
+    }
+
 
     
 }
