@@ -203,6 +203,8 @@ public final class Constants {
 
         public static final double kRaisedPosition = 1.2;
         public static final double kLoweredPosition = 0;
+        public static final double kExtendedPosition = 1.2;
+        public static final double kRetractedPosition = 0;
         public static final double kJoystickMaxSpeed = 0.5;
     }
 
