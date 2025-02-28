@@ -1,6 +1,9 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AutoConstants.AprilTagDists;
 import frc.robot.Constants.AutoConstants.TargetTagsCoralStation.Red;
@@ -42,6 +45,22 @@ public class FindCoralStationCmd extends Command{
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
         addRequirements(driveSubsystem);
         addRequirements(visionSubsystem);
+
+        // NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+        // NetworkTableEntry tx = table.getEntry("tx");
+        // NetworkTableEntry ty = table.getEntry("ty");
+        // NetworkTableEntry ta = table.getEntry("ta");
+        // double x = tx.getDouble(0.0);
+        // double y = ty.getDouble(0.0);
+        // double area = ta.getDouble(0.0);
+
+        double x = LimelightHelpers.getTX("limelight");
+        double y = LimelightHelpers.getTY("limelight");
+        double area = LimelightHelpers.getTA("limelight");
+
+        System.out.println("tx value: " + x);
+        System.out.println("ty value: " + y);
+        System.out.println("ta value: " + area);
     }
 
     @Override
@@ -68,15 +87,15 @@ public class FindCoralStationCmd extends Command{
             switch ((int)target.fiducialID) {
                 case Red.ReefTopRight:
                     System.out.println("Reading AprilTag 20");
-                    driveSubsystem.runOnce(() -> new DriveForwardCmd(driveSubsystem, AprilTagDists.ToReefStation));
+                    //driveSubsystem.runOnce(() -> new DriveForwardCmd(driveSubsystem, AprilTagDists.ToReefStation));
                     break;
                 case Red.ReefRight:
                     System.out.println("Reading AprilTag 21");
-                    driveSubsystem.runOnce(() -> new DriveBackwardCmd(driveSubsystem, AprilTagDists.ToReefStation));
+                    //driveSubsystem.runOnce(() -> new DriveBackwardCmd(driveSubsystem, AprilTagDists.ToReefStation));
                     break;
                 case Red.ReefBottomRight:
                     System.out.println("Reading AprilTag 22");
-                    driveSubsystem.runOnce(() -> new DriveRoundTurnCmd(driveSubsystem, AprilTagDists.ToReefStation));
+                    //driveSubsystem.runOnce(() -> new DriveRoundTurnCmd(driveSubsystem, AprilTagDists.ToReefStation));
                     break;
                 default:
                     System.out.println("Default case");
