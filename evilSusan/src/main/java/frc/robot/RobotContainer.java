@@ -139,6 +139,10 @@ public class RobotContainer {
         m_clawController.x().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
         m_clawController.y().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
         m_clawController.b().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
+        m_clawController.leftTrigger().whileTrue(new ElevatorSlideRetractedCommand(elevatorSubsystem, 0.5));
+        m_clawController.rightTrigger().whileTrue(new ElevatorSlideExtendedCommand(elevatorSubsystem, 0.5));
+        m_clawController.leftBumper().whileTrue(new ElevatorVerticalSetTopCommand(elevatorSubsystem, 0.5));
+        m_clawController.rightBumper().whileTrue(new ElevatorVerticalSetTopCommand(elevatorSubsystem, 0.5));
         
         //Went Forward
         m_driverController.rightTrigger().whileTrue(new DriveForwardCmd(m_robotDrive, 1));
