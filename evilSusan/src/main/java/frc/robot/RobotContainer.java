@@ -177,7 +177,7 @@ public class RobotContainer {
         //Dummy test sequence
         return Commands.sequence(
         new DriveForwardCmd(m_robotDrive, 0).withTimeout(2),
-        new FindCoralStationCmd(m_robotDrive, limelightVisionSubsystem, AprilTagDists.ToReefStation),
+        // new FindCoralStationCmd(m_robotDrive, limelightVisionSubsystem, AprilTagDists.ToReefStation),
         new StopCmd(m_robotDrive, 0).withTimeout(2)
         //new DriveBackwardCmd(m_robotDrive, 0).withTimeout(2)
         
