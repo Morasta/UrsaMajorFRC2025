@@ -26,6 +26,7 @@ public class FindCoralStationCmd extends Command {
     private final DriveTrain driveSubsystem;
     private final LimelightVisionSubsystem visionSubsystem;
     private final double distance;
+    private final int targetID;
 
     // limelight.pipelineSwitch(0);
 
@@ -40,11 +41,12 @@ public class FindCoralStationCmd extends Command {
     // }
 
     public FindCoralStationCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance,
-            double speed) {
+            double speed, int targetID) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.visionSubsystem = visionSubsystem;
         this.distance = 1; // TODO: Fix me
+        this.targetID = targetID;
         // * this.distance = DriveTrain.getEncoderMeters() + distance; */
         addRequirements(driveSubsystem, visionSubsystem);
     }
@@ -76,6 +78,17 @@ public class FindCoralStationCmd extends Command {
         // Testing functions:
         System.out.println("Distance to target: " + getDistanceToTarget(20));
         alignToAprilTag();
+
+        // Align or drive until min distance
+        // align target, then drive forward repeatedly
+        // until close to target
+        double distance = getDistanceToTarget(targetID);
+        while (distance > 6) { // TODO: Update to the correct number of inches that we want to be away from the
+                               // target
+            alignToAprilTag();
+            driveSubsystem.runOnce(() -> new DriveForwardCmd(driveSubsystem, 1, 0.3));
+            distance = getDistanceToTarget(targetID); // update distance for next iteration of loop
+        }
 
         for (LimelightTarget_Fiducial target : results.targets_Fiducials) {
             System.out.println("In for loop. fID: " + target.fiducialID);
@@ -164,7 +177,7 @@ public class FindCoralStationCmd extends Command {
      */
     public void alignToAprilTag() {
         double Tx = visionSubsystem.getXValue();
-        double tolerance = 0;
+        double tolerance = 0; // TODO: update tolerance
 
         System.out.println("alignment x value: " + Tx);
         // IF TX+tolerance > ???
