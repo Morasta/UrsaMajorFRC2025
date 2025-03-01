@@ -127,6 +127,7 @@ public final class Constants {
         public static final int kPFrontRightVel = 1;
         public static final int kPRearRightVel = 1;
 
+        //Drivetrain motor ports
         public static final int kFrontLeftMotorPort = 8;
         public static final int kFrontRightMotorPort = 7;
         public static final int kRearLeftMotorPort = 13;
@@ -179,7 +180,8 @@ public final class Constants {
             , middle
             , front
         };
-        public static final int kVerticalMotorPort = 5;
+        public static final int kVerticalLeftMotorPort = 5;
+        public static final int kVerticalRightMotorPort = 2;
         public static final int kSlideMotorPort = 4;
         public static final int kEncoderChannelA = 16;
         public static final int kEncoderChannelB = 17;
