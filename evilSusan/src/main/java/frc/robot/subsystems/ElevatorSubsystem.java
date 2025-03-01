@@ -16,6 +16,10 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import frc.robot.Constants.Physics;
+import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
+import frc.robot.Constants.ElevatorConstants.ElevatorSlidePositions;
+
 
 public class ElevatorSubsystem extends SubsystemBase{
     private final TalonSRX m_verticalMotorB = new TalonSRX(ElevatorConstants.kVerticalMotorPortB);
