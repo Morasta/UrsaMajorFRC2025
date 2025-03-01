@@ -37,7 +37,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     public void periodic() {
         double dist = enc.getDistance();
         //SmartDashboard.puNumber("Encoder", dist);
-        SmartDashboard.putNumber("Elevator encoder value", getEncoderMeters());
+        //SmartDashboard.putNumber("Elevator encoder value", getEncoderMeters());
     }
 
     public void setSlideMotor(double speed) { 
@@ -52,6 +52,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         return enc.get() * ElevatorConstants.kEncoderTick2Meter;
     }
 
+    // TODO: make this set the vertical position as needed, stopping at the proper level
     public void setVerticalPosition(double targetPosition) {
         //double pidOutput = pid.calculate(getPosition(), targetPosition);
 
@@ -66,6 +67,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         //setSlideMotor(motorOutput);
     }
 
+    // TODO: make this set the vertical position as needed, stopping at the proper level
     public void setSlidePosition(double targetPosition) {
         //double pidOutput = pid.calculate(getPosition(), targetPosition);
 

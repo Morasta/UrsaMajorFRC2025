@@ -13,7 +13,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 
 public class IntakeSubsystem extends SubsystemBase {
-    // TODO: Revise this to the number of motors, and their config, that the build team uses
+    // TODO: Revise these to use the newly installed motors, talons?
     private SparkMax intakeLeftMotor = new SparkMax(IntakeConstants.kLeftMotorPort, MotorType.kBrushless);
     private SparkMax intakeRightMotor = new SparkMax(IntakeConstants.kRightMotorPort, MotorType.kBrushless);
 
@@ -31,6 +31,7 @@ public class IntakeSubsystem extends SubsystemBase {
         //SmartDashboard.putNumber("Encoder", dist);
     }
 
+    // TODO: make sure this goes to fully open or fully closed, based on encoders
     private void setPosition(boolean open) {
         if (open) {
             System.out.println("setting intake to open");
