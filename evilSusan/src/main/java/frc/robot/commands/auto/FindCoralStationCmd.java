@@ -42,18 +42,7 @@ public class FindCoralStationCmd extends Command{
         this.visionSubsystem = visionSubsystem;
         this.distance = 1; //TODO: Fix me
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
-        addRequirements(driveSubsystem);
-        addRequirements(visionSubsystem);
-
-        // NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-        // NetworkTableEntry tx = table.getEntry("tx");
-        // NetworkTableEntry ty = table.getEntry("ty");
-        // NetworkTableEntry ta = table.getEntry("ta");
-        // double x = tx.getDouble(0.0);
-        // double y = ty.getDouble(0.0);
-        // double area = ta.getDouble(0.0);
-       
-
+        addRequirements(driveSubsystem, visionSubsystem);
     }
 
     @Override
@@ -112,5 +101,38 @@ public class FindCoralStationCmd extends Command{
     public boolean isFinished() {
         //return Math.abs(lastValidTargetTY - targetDistance) < distanceTolerance && Math.abs(lastValidTargetAngle - targetAngle);
         return false;
+    }
+
+    // From https://docs.limelightvision.io/docs/docs-limelight/tutorials/tutorial-estimating-distance
+    // Replace with the "area" solution if necessary
+    public double getDistanceToTarget(int targetId) {
+        double targetOffsetAngle_Vertical = visionSubsystem.getYValue();
+
+        // how many degrees back is your limelight rotated from perfectly vertical?
+        double limelightMountAngleDegrees = 25.0; 
+    
+        // distance from the center of the Limelight lens to the floor
+        double limelightLensHeightInches = 20.0; 
+    
+        // distance from the target to the floor
+        double goalHeightInches = 60.0; 
+    
+        double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+        double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+    
+        //calculate distance (distanceFromLimelightToGoalInches)
+        return (goalHeightInches - limelightLensHeightInches) / Math.tan(angleToGoalRadians);
+    }
+
+    /*  
+        https://www.chiefdelphi.com/t/aligning-rotation-using-limelight/491164
+        https://www.chiefdelphi.com/t/limelight-autonomous-targeting-with-mecanum-cartesian-drive/403206/8
+        https://www.chiefdelphi.com/t/how-to-get-mecanum-to-work-in-auton/403185/4 
+    */
+    public void alignToAprilTag() {
+        // IF TX+tolerance > ???
+            //strafe another way
+        // IF TX+tolerance > ???
+            //strafe one way
     }
 }
