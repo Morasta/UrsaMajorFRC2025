@@ -37,16 +37,38 @@ public class LimelightVisionSubsystem extends SubsystemBase{
         
     }   
     
-    public double getXValue () {
+    public double getXValue() {
         return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("tx").getDouble(0.0);
     }
     
-    public double getYValue () {
+    public double getYValue() {
         return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("ty").getDouble(0.0);
     }
     
-    public double getAreaValue () {
+    public double getAreaValue() {
         return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("ta").getDouble(0.0);
+    }
+
+    public boolean targetIsVisible() {
+        return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("tv").getDouble(0.0) == 1;
+    }
+
+    /* Set led mode of the limelight
+     *   0 use the LED Mode set in the current pipeline
+     *   1 force off
+     *   2 force blink
+     *   3 force on
+    */
+    public void setLEDMode(int mode) {
+        NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("ledMode").setNumber(mode);
+    }
+
+    /* Set camera mode of the limelight
+     *   0 Vision processor
+     *   1 Driver Camera (Increases exposure, disables vision processing)
+    */
+    public void setCamMode(int mode) {
+        NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("camMode").setNumber(mode);
     }
     
     

@@ -3,8 +3,6 @@ package frc.robot;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.midi.Sequence;
-//todo: figure out whatever this thing does
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -24,18 +22,18 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.lib.LimelightHelpers;
+
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
-import frc.robot.commands.groups.DepositCoralCmdGroup;
-
 import frc.robot.commands.intake.IntakeSetOpenCmd;
-import frc.robot.lib.LimelightHelpers;
+import frc.robot.commands.auto.FindCoralStationCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveLeftDiagonalCmd;
 import frc.robot.commands.drive.DriveLeftSidewaysCmd;
-import frc.robot.commands.auto.FindCoralStationCmd;
 import frc.robot.commands.drive.DriveBackwardCmd;
 import frc.robot.commands.drive.DriveRightDiagonalCmd;
 import frc.robot.commands.drive.WideRightTurnCmd;
@@ -43,7 +41,7 @@ import frc.robot.commands.drive.WideLeftTurnCmd;
 import frc.robot.commands.drive.DriveRearTurnCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
-import frc.robot.commands.drive.MecanumDriveCmd;
+//import frc.robot.commands.drive.MecanumDriveCmd;
 import frc.robot.commands.drive.StopCmd;
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorSlideExtendedCommand;
@@ -51,6 +49,7 @@ import frc.robot.commands.elevator.ElevatorSlideRetractedCommand;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
 import frc.robot.commands.elevator.ElevatorVerticalSetBottomCmd;
 import frc.robot.commands.elevator.ElevatorVerticalSetTopCmd;
+import frc.robot.commands.groups.DepositCoralCmdGroup;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.AutoConstants.AprilTagDists;
 import frc.robot.Constants.DriveConstants;
@@ -99,12 +98,12 @@ public class RobotContainer {
         // ElevatorJoystickCmd(elevatorSubsystem, 0));
         // intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
         m_robotDrive.setDefaultCommand(
-        new RunCommand(() -> m_robotDrive.drive(
-            -m_driverController.getRawAxis(1),
-            -m_driverController.getRawAxis(5),
-            -m_driverController.getRawAxis(4),
-            true), m_robotDrive
-        )
+            new RunCommand(() -> m_robotDrive.drive(
+                -m_driverController.getRawAxis(1),
+                -m_driverController.getRawAxis(5),
+                -m_driverController.getRawAxis(4),
+                true), m_robotDrive
+            )
         );
     }
     
@@ -172,16 +171,16 @@ public class RobotContainer {
         m_robotDrive.setInverted(kWheels.rearLeft);
     }
     public Command getAutonomousCommand() {
-        
         //Dummy test sequence
         return Commands.sequence(
-        //new DriveForwardCmd(m_robotDrive, 0).withTimeout(2),
-        //new FindCoralStationCmd(m_robotDrive, limelightVisionSubsystem, AprilTagDists.ToReefStation)
-        new FindCoralStationCmd(m_robotDrive, limelightVisionSubsystem, AprilTagDists.ToReefStation, 0)
-        //new StopCmd(m_robotDrive, 0).withTimeout(2)
-        //new DriveBackwardCmd(m_robotDrive, 0).withTimeout(2)
-        
-        );  
+            //new DriveForwardCmd(m_robotDrive, 0).withTimeout(2)
+            new FindCoralStationCmd(m_robotDrive, limelightVisionSubsystem, AprilTagDists.ToReefStation, 0)
+            //, new DepositCoralCmdGroup(elevatorSubsystem, intakeSubsystem)
+            //, new StopCmd(m_robotDrive, 0).withTimeout(2)
+            //, new DriveBackwardCmd(m_robotDrive, 0).withTimeout(2)
+        );
+
+
         //TODO: Figure out
         //new IntakeSetOpenCmd(intakeSubsystem, false);
         // Create config for trajectory
