@@ -1,27 +1,21 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.AutoConstants.AprilTagDists;
 import frc.robot.Constants.AutoConstants.TargetTagsCoralStation.Red;
-import frc.robot.commands.drive.DriveBackwardCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveLeftSidewaysCmd;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
-import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.lib.LimelightHelpers;
 import frc.robot.lib.LimelightHelpers.LimelightResults;
 import frc.robot.lib.LimelightHelpers.LimelightTarget_Fiducial;
-import frc.robot.lib.LimelightHelpers.RawFiducial;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightVisionSubsystem;
 import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
 // import limelight.networktables.LimelightSettings.LEDMode;
 
-public class FindCoralStationCmd extends Command {
+public class FindAprilTagCmd extends Command{
 
     private final DriveTrain driveSubsystem;
     private final LimelightVisionSubsystem visionSubsystem;
@@ -40,8 +34,7 @@ public class FindCoralStationCmd extends Command {
     // System.out.println("FindCoralStationCmd Called");
     // }
 
-    public FindCoralStationCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance,
-            double speed, int targetID) {
+    public FindAprilTagCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance, double speed, int targetID) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.visionSubsystem = visionSubsystem;

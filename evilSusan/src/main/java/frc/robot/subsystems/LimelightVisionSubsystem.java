@@ -16,6 +16,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class LimelightVisionSubsystem extends SubsystemBase{
     public static AprilTagFieldLayout fieldLayout;
+    private static int targetID = -1;
     
     public LimelightVisionSubsystem() {
         /*if(!EnabledSubsystems.ll) {
@@ -88,6 +89,14 @@ public class LimelightVisionSubsystem extends SubsystemBase{
     
     public boolean isAprilTagVisable(String cameraName) {
         return LimelightHelpers.getTV(cameraName);
+    }
+
+    public void setTarget(int targetID) {
+        this.targetID = targetID;
+    }
+
+    public int getTarget() {
+        return this.targetID;
     }
     
     @Override

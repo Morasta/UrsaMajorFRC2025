@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.hardware.TalonFX;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,6 +16,9 @@ import com.revrobotics.spark.SparkRelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import frc.robot.Constants.Physics;
 import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 import frc.robot.Constants.ElevatorConstants.ElevatorSlidePositions;
@@ -21,7 +26,8 @@ import frc.robot.Constants.ElevatorConstants.ElevatorSlidePositions;
 
 public class ElevatorSubsystem extends SubsystemBase{
     private final SparkMax m_slideMotor = new SparkMax(ElevatorConstants.kSlideMotorPort, MotorType.kBrushed);
-    private final SparkMax m_verticalMotor = new SparkMax(ElevatorConstants.kVerticalMotorPort, MotorType.kBrushed);
+    private final TalonSRX m_verticalLeftMotor = new TalonSRX(ElevatorConstants.kVerticalLeftMotorPort);
+    private final TalonSRX m_verticalRightMotor = new TalonSRX(ElevatorConstants.kVerticalRightMotorPort);
 
     //private final SparkRelativeEncoder sparkEncoder = m_verticalMotor.get
     Encoder enc;
@@ -45,7 +51,8 @@ public class ElevatorSubsystem extends SubsystemBase{
     }
 
     public void setVerticalMotor(double speed) {
-        m_verticalMotor.set(speed);
+        m_verticalLeftMotor.set(ControlMode.Position, speed);
+        m_verticalRightMotor.set(ControlMode.Position, speed);
     }
 
     public double getEncoderMeters() {

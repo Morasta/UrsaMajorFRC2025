@@ -19,7 +19,7 @@ import frc.robot.Constants.AutoConstants.TargetTagsCoralStation.Red;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
-import frc.robot.commands.auto.FindCoralStationCmd;
+import frc.robot.commands.auto.FindAprilTagCmd;
 import frc.robot.commands.drive.DriveBackwardCmd;
 import frc.robot.subsystems.DriveTrain;
 
