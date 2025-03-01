@@ -8,12 +8,14 @@ import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.OIConstants;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 
 public class IntakeSubsystem extends SubsystemBase {
     // TODO: Revise this to the number of motors, and their config, that the build team uses
-    private SparkMax intakeLeftMotor = new SparkMax(IntakeConstants.kLeftMotorPort, MotorType.kBrushless);
-    private SparkMax intakeRightMotor = new SparkMax(IntakeConstants.kRightMotorPort, MotorType.kBrushless);
+    private TalonSRX intakeLeftMotor = new TalonSRX(IntakeConstants.kLeftMotorPort);
+    private TalonSRX intakeRightMotor = new TalonSRX(IntakeConstants.kRightMotorPort);
 
         Encoder enc;
 
@@ -32,12 +34,12 @@ public class IntakeSubsystem extends SubsystemBase {
     private void setPosition(boolean open) {
         if (open) {
             System.out.println("setting intake to open");
-            intakeLeftMotor.set(IntakeConstants.kOpenSpeed);
-            intakeRightMotor.set(IntakeConstants.kOpenSpeed);
+            intakeLeftMotor.set(ControlMode.Position, IntakeConstants.kOpenSpeed);
+            intakeRightMotor.set(ControlMode.Position, IntakeConstants.kOpenSpeed);
         } else {
             System.out.println("setting intake to closed");
-            intakeLeftMotor.set(IntakeConstants.kCloseSpeed);
-            intakeRightMotor.set(IntakeConstants.kCloseSpeed);
+            intakeLeftMotor.set(ControlMode.Position, IntakeConstants.kCloseSpeed);
+            intakeRightMotor.set(ControlMode.Position, IntakeConstants.kCloseSpeed);
         }
     }
     

@@ -115,6 +115,19 @@ public final class Constants {
     // TODO: Map these ports to the actual intake motors (based on wiring)
     public static final class ElevatorConstants {
         public static final int kVerticalMotorPort = 5;
+        public static enum ElevatorVerticalPositions {
+            bottom
+            , middle
+            , top
+        };
+        public static enum ElevatorSlidePositions {
+            back
+            , middle
+            , front
+        };
+        public static final int kVerticalMotorPortA = 5;
+        public static final int kVerticalMotorPortB = 5;
+
         public static final int kSlideMotorPort = 4;
         public static final int kEncoderChannelA = 8;
         public static final int kEncoderChannelB = 9;
