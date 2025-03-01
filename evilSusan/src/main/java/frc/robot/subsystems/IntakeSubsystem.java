@@ -10,12 +10,14 @@ import frc.robot.Constants.RobotChassis;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 
 public class IntakeSubsystem extends SubsystemBase {
     // TODO: Revise these to use the newly installed motors, talons?
-    private SparkMax intakeLeftMotor = new SparkMax(IntakeConstants.kLeftMotorPort, MotorType.kBrushless);
-    private SparkMax intakeRightMotor = new SparkMax(IntakeConstants.kRightMotorPort, MotorType.kBrushless);
+    private TalonSRX intakeUpMotor = new TalonSRX(IntakeConstants.kLeftMotorPort);
+    private TalonSRX intakeDownMotor = new TalonSRX(IntakeConstants.kRightMotorPort);
 
         Encoder enc;
 
@@ -35,20 +37,32 @@ public class IntakeSubsystem extends SubsystemBase {
     private void setPosition(boolean open) {
         if (open) {
             System.out.println("setting intake to open");
-            intakeLeftMotor.set(IntakeConstants.kOpenSpeed);
-            intakeRightMotor.set(IntakeConstants.kOpenSpeed);
+            intakeUpMotor.set(ControlMode.Position, IntakeConstants.kOpenSpeed);
+            intakeDownMotor.set(ControlMode.Position, IntakeConstants.kOpenSpeed);
         } else {
             System.out.println("setting intake to closed");
-            intakeLeftMotor.set(IntakeConstants.kCloseSpeed);
-            intakeRightMotor.set(IntakeConstants.kCloseSpeed);
+            intakeUpMotor.set(ControlMode.Position, IntakeConstants.kCloseSpeed);
+            intakeDownMotor.set(ControlMode.Position, IntakeConstants.kCloseSpeed);
+        }
+    }
+
+    private void setCoralPosition(boolean open) {
+        if (open) {
+            System.out.println("setting intake to open");
+            intakeUpMotor.set(ControlMode.Position, IntakeConstants.kOpenSpeed);
+        } else {
+            System.out.println("setting intake to closed");
+            intakeUpMotor.set(ControlMode.Position, IntakeConstants.kCloseSpeed);
         }
     }
     
     public void setOpen() {
         this.setPosition(true);
+        this.setCoralPosition(true);
     }
 
     public void setClosed() {
         this.setPosition(false);
+        this.setCoralPosition(false);
     }
 }

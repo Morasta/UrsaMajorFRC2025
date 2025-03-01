@@ -9,7 +9,7 @@ import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.auto.FindCoralStationCmd;
+import frc.robot.commands.auto.FindAprilTagCmd;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.net.PortForwarder;
 

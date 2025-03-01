@@ -19,7 +19,7 @@ import frc.robot.subsystems.LimelightVisionSubsystem;
 import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
 // import limelight.networktables.LimelightSettings.LEDMode;
 
-public class FindCoralStationCmd extends Command{
+public class FindAprilTagCmd extends Command{
 
     private final DriveTrain driveSubsystem;
     private final LimelightVisionSubsystem visionSubsystem;
@@ -36,7 +36,7 @@ public class FindCoralStationCmd extends Command{
     //     System.out.println("FindCoralStationCmd Called");
     // }
 
-    public FindCoralStationCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance, double speed) {
+    public FindAprilTagCmd(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, double distance, double speed) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.visionSubsystem = visionSubsystem;
@@ -68,27 +68,6 @@ public class FindCoralStationCmd extends Command{
 
             
         //printStatus("executed" + visionSubsystem.limelight.getLatestResults().toString());
-
-        for (LimelightTarget_Fiducial target: results.targets_Fiducials) {
-            System.out.println("In for loop. fID: " + target.fiducialID);
-            switch ((int)target.fiducialID) {
-                case Red.ReefTopRight:
-                    System.out.println("Reading AprilTag 20");
-                    //driveSubsystem.runOnce(() -> new DriveForwardCmd(driveSubsystem, AprilTagDists.ToReefStation));
-                    break;
-                case Red.ReefRight:
-                    System.out.println("Reading AprilTag 21");
-                    //driveSubsystem.runOnce(() -> new DriveBackwardCmd(driveSubsystem, AprilTagDists.ToReefStation));
-                    break;
-                case Red.ReefBottomRight:
-                    System.out.println("Reading AprilTag 22");
-                    //driveSubsystem.runOnce(() -> new DriveRoundTurnCmd(driveSubsystem, AprilTagDists.ToReefStation));
-                    break;
-                default:
-                    System.out.println("Default case");
-                    break;
-            }
-        }
     }
 
     @Override
