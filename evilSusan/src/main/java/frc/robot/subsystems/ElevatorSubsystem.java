@@ -51,6 +51,8 @@ public class ElevatorSubsystem extends SubsystemBase{
     }
 
     public void setVerticalMotor(double speed) {
+        if (speed > 0.3) 
+            speed = 0.3;
         m_verticalLeftMotor.set(ControlMode.Position, speed);
         m_verticalRightMotor.set(ControlMode.Position, speed);
     }

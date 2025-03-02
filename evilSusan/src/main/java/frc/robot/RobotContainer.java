@@ -118,8 +118,8 @@ public class RobotContainer {
         System.out.println("Configuring Button Bindings");
         //TODO: change to fixed position
 
-        // m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
-        // m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
+        m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
+        m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
 
         m_clawController.leftBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem, true));
         m_clawController.rightBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem, false));
@@ -127,18 +127,18 @@ public class RobotContainer {
         m_clawController.leftTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
         m_clawController.rightTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
 
-        // lClawUp.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
-        // lClawDown.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
+        lClawUp.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
+        lClawDown.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
         
-        //m_clawController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
-        //m_clawController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
+        m_clawController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
+        m_clawController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         //driveTrain Controls
 
-        // m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0.5));
-        // m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
-        // m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
-        // lCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
-        // rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
+        m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0.5));
+        m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
+        m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
+        lCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
+        rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
     }
     
     private void configureButtonsForAutoTesting() {
@@ -183,7 +183,7 @@ public class RobotContainer {
         //Dummy test sequence
         return Commands.sequence(
             new DriveForwardCmd(m_robotDrive, 0).withTimeout(1.5),
-            new FindAprilTagCmd(m_robotDrive, limelightVisionSubsystem, 0, 0),
+            new FindAprilTagCmd(m_robotDrive, limelightVisionSubsystem, 0, 0, 0),
             new RotateTillTagFoundCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.3),
             new IntakeDropCoralCmd(intakeSubsystem, true),
             new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1.0)
