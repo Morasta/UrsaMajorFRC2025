@@ -40,19 +40,18 @@ public class IntakeSubsystem extends SubsystemBase {
         //SmartDashboard.putNumber("Encoder", dist);
     }
 
-    // TODO: make sure this goes to fully open or fully closed, based on encoders
-    private void setPosition(boolean open) {
-        //TODO: for SparkMax
-            if (open) {
-            System.out.println("setting intake to open");
+    public void setAlgaePosition(boolean consuming) {
+        //CHANGE: for SparkMax
+            if (consuming) {
+            System.out.println("setting setPosition to consuming");
             intakeUpMotor.set(IntakeConstants.kOpenSpeed);
             intakeDownMotor.set(IntakeConstants.kOpenSpeed);
         } else {
-            System.out.println("setting intake to closed");
+            System.out.println("setting intake to spitting");
             intakeUpMotor.set(IntakeConstants.kCloseSpeed);
             intakeDownMotor.set(IntakeConstants.kCloseSpeed);
         }
-        //TODO: for Talon
+        //CHANGE: for Talon
         // if (open) {
         //     System.out.println("setting intake to open");
         //     intakeUpMotor.set(ControlMode.Position, IntakeConstants.kOpenSpeed);
@@ -64,13 +63,13 @@ public class IntakeSubsystem extends SubsystemBase {
         // }
     }
 
-    public void setCoralPosition(boolean open) {
+    public void setCoralPosition(boolean consuming) {
         //TODO: for SparkMax
-        if (open) {
-            System.out.println("setting intake to open");
+        if (consuming) {
+            System.out.println("setting CoralPosition to consuming");
             intakeUpMotor.set(IntakeConstants.kOpenSpeed);
         } else {
-            System.out.println("setting intake to closed");
+            System.out.println("setting CoralPosition to spitting");
             intakeUpMotor.set(IntakeConstants.kCloseSpeed);
         }
         //TODO: for Talon
@@ -83,13 +82,13 @@ public class IntakeSubsystem extends SubsystemBase {
         // }
     }
     
-    public void setOpen() {
-        this.setPosition(true);
+    public void setConsuming() {
+        this.setAlgaePosition(true);
         this.setCoralPosition(true);
     }
 
-    public void setClosed() {
-        this.setPosition(false);
+    public void setSpitting() {
+        this.setAlgaePosition(false);
         this.setCoralPosition(false);
     }
 

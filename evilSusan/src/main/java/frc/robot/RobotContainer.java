@@ -24,18 +24,25 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.lib.LimelightHelpers;
-
+//subsystem imports
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.commands.intake.IntakeDropCoralCmd;
-import frc.robot.commands.intake.IntakeSetOpenCmd;
+import frc.robot.subsystems.LimelightVisionSubsystem;
+//intakeCmd imports
+import frc.robot.commands.intake.AlgaeConsumeCmd;
+import frc.robot.commands.intake.AlgaeSpitOutCmd;
+import frc.robot.commands.intake.CoralConsumeCmd;
+import frc.robot.commands.intake.CoralSpitOutCmd;
+//ButtonDirsCmd imports
 import frc.robot.commands.DriveTrainButtonsDirs.FrontLeft;
 import frc.robot.commands.DriveTrainButtonsDirs.FrontRight;
 import frc.robot.commands.DriveTrainButtonsDirs.RearLeft;
 import frc.robot.commands.DriveTrainButtonsDirs.RearRight;
+//autoCmd imports
 import frc.robot.commands.auto.FindAprilTagCmd;
 import frc.robot.commands.auto.RotateTillTagFoundCmd;
+//driveCmd imports
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveLeftDiagonalCmd;
 import frc.robot.commands.drive.DriveLeftSidewaysCmd;
@@ -48,13 +55,16 @@ import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
 //import frc.robot.commands.drive.MecanumDriveCmd;
 import frc.robot.commands.drive.StopCmd;
+//ElevatorCmd imports
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorSlideExtendedCommand;
 import frc.robot.commands.elevator.ElevatorSlideRetractedCommand;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
 import frc.robot.commands.elevator.ElevatorVerticalSetBottomCmd;
 import frc.robot.commands.elevator.ElevatorVerticalSetTopCmd;
+
 import frc.robot.commands.groups.DepositCoralCmdGroup;
+//constants imports
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.AutoConstants.AprilTagDists;
 import frc.robot.Constants.DriveConstants;
@@ -62,11 +72,10 @@ import frc.robot.Constants.DriveConstants.kWheels;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
 import frc.robot.Constants.OIConstants;
-import frc.robot.utils.GamepadAxisButton;
-import frc.robot.utils.RobotCameraPose;
-import frc.robot.subsystems.LimelightVisionSubsystem;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 
+import frc.robot.utils.GamepadAxisButton;
+import frc.robot.utils.RobotCameraPose;
 
 public class RobotContainer {
     // Drive Trains and Controllers
@@ -84,6 +93,7 @@ public class RobotContainer {
     private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 2, 0.5, false));
     private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.5, false));
     private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.5, false));
+    private final GamepadAxisButton LJoyDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 1, 0.5, false));
     
     private static final boolean toggleDefaultAutoButtons = false;
     
@@ -120,42 +130,44 @@ public class RobotContainer {
         * .whenActive(new ExampleCommand());
         */
         System.out.println("Configuring Button Bindings");
+        //Operator Controls
         //TODO: change to fixed position
-
         m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 1));
         m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -1));
+        //TODO: check if works or needs own joystick
+        m_clawController.leftBumper().whileTrue(new CoralSpitOutCmd(intakeSubsystem, false));
+        m_clawController.rightBumper().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
+        m_clawController.rightBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
+        m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
 
-        m_clawController.leftBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem));
-
-        m_clawController.rightBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem));
         rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
-        // m_clawController.leftTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
-        // m_clawController.rightTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
-
-        lClawUp.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 1));
-        lClawDown.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
-        
-        //m_clawController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
-        //m_clawController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
+        //TODO: is this necessary with rElevator?
+        // lClawUp.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 1));
+        // lClawDown.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
        
-        //driveTrain Controls
-        //m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
+        //Driver Controls
+        //TODO: fix to turn full circle in place
+        m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
         m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
-        lCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
+        lCrabwalk.whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, 0));
         rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
+        //TODO: check this drive forward + backward
+        LJoyDrive.whileTrue(new DriveForwardCmd(m_robotDrive, 0));
+        //TODO: add diagonal movement on joy R?
 
-        m_driverController.a().whileTrue(new FrontLeft(m_robotDrive, 0));
-        m_driverController.b().whileTrue(new FrontRight(m_robotDrive, 0));
-        m_driverController.x().whileTrue(new RearLeft(m_robotDrive, 0));
-        m_driverController.y().whileTrue(new RearRight(m_robotDrive, 0));
+        //CHANGE: for testing Drivetrain wheels directions
+        // m_driverController.a().whileTrue(new FrontLeft(m_robotDrive, 0));
+        // m_driverController.b().whileTrue(new FrontRight(m_robotDrive, 0));
+        // m_driverController.x().whileTrue(new RearLeft(m_robotDrive, 0));
+        // m_driverController.y().whileTrue(new RearRight(m_robotDrive, 0));
     }
-    
+
     private void configureButtonsForAutoTesting() {
         m_clawController.a().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
         m_clawController.x().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
-        m_clawController.y().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
-        m_clawController.b().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
+        m_clawController.y().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
+        m_clawController.b().whileTrue(new CoralConsumeCmd(intakeSubsystem, false));
         m_clawController.leftTrigger().whileTrue(new ElevatorSlideRetractedCommand(elevatorSubsystem, 0.5));
         m_clawController.rightTrigger().whileTrue(new ElevatorSlideExtendedCommand(elevatorSubsystem, 0.5));
         m_clawController.leftBumper().whileTrue(new ElevatorVerticalSetTopCmd(elevatorSubsystem, 0.5));

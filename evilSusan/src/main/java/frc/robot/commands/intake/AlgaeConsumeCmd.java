@@ -1,34 +1,32 @@
 package frc.robot.commands.intake;
 
-//import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-
-public class IntakeSetOpenCmd extends Command{
+public class AlgaeConsumeCmd extends Command{
     private final IntakeSubsystem intakeSubsystem;
-    private final boolean open;
+    private final boolean consuming;
 
-    public IntakeSetOpenCmd(IntakeSubsystem intakeSubsystem, boolean open) {
-        this.open = open;
+    public AlgaeConsumeCmd(IntakeSubsystem intakeSubsystem, boolean consuming) {
+        this.consuming = consuming;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(intakeSubsystem);
     }
 
     @Override
     public void initialize() {
-        System.out.println("IntakeSetCmd started!");
+        System.out.println("AlgaeConsumeCmd started!");
     }
 
     @Override
     public void execute() {
-        //System.out.println("executing IntakeSetCmd!");
-        intakeSubsystem.setOpen();
+        System.out.println("executing AlgaeConsumeCmd!");
+        intakeSubsystem.setAlgaePosition(consuming);
     }
 
     @Override
     public void end(boolean interrupted) {
         intakeSubsystem.stopMotors();
-        System.out.println("IntakeSetCmd ended!");
+        System.out.println("AlgaeConsumeCmd ended!");
     }
 }

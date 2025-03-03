@@ -6,30 +6,30 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeDropCoralCmd extends Command{
+public class CoralSpitOutCmd extends Command{
     private final IntakeSubsystem intakeSubsystem;
-    private final boolean open;
+    private final boolean consuming;
 
-    public IntakeDropCoralCmd(IntakeSubsystem intakeSubsystem, boolean open) {
-        this.open = open;
+    public CoralSpitOutCmd(IntakeSubsystem intakeSubsystem, boolean consuming) {
+        this.consuming = consuming;
         this.intakeSubsystem = intakeSubsystem;
         addRequirements(intakeSubsystem);
     }
 
     @Override
     public void initialize() {
-        System.out.println("IntakeDropCoralCmd started!");
+        System.out.println("CoralSpitOutCmd started!");
     }
 
     @Override
     public void execute() {
-        //System.out.println("executing IntakeSetCmd!");
+        System.out.println("executing CoralSpitOutCmd!");
         intakeSubsystem.setCoralPosition(false);
     }
 
     @Override
     public void end(boolean interrupted) {
         intakeSubsystem.stopMotors();
-        System.out.println("IntakeDropCoralCmd ended!");
+        System.out.println("CoralSpitOutCmd ended!");
     }
 }
