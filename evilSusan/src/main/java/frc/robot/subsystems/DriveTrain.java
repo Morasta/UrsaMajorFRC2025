@@ -21,6 +21,7 @@ import frc.robot.Constants.DriveConstants.kWheels;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.RobotChassis;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -31,8 +32,11 @@ public class DriveTrain extends SubsystemBase {
     private final SparkMaxConfig sparkInvertedConfig = new SparkMaxConfig();
     private final SparkMax m_frontLeft = new SparkMax(DriveConstants.kFrontLeftMotorPort, MotorType.kBrushed);
     private final SparkMax m_frontRight = new SparkMax(DriveConstants.kFrontRightMotorPort, MotorType.kBrushed);
-    private final SparkMax m_rearLeft = new SparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushed);
-    private final SparkMax m_rearRight = new SparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushed);
+    private final WPI_TalonSRX m_rearLeft = new WPI_TalonSRX(DriveConstants.kRearLeftMotorPort);
+    private final WPI_TalonSRX m_rearRight = new WPI_TalonSRX(DriveConstants.kRearRightMotorPort);
+    //TODO: for Spark
+    // private final SparkMax m_rearLeft = new SparkMax(DriveConstants.kRearLeftMotorPort, MotorType.kBrushed);
+    // private final SparkMax m_rearRight = new SparkMax(DriveConstants.kRearRightMotorPort, MotorType.kBrushed);
 
     //TODO: change to whatever wheel the encoder is on
     private final Encoder enc = new Encoder(DriveConstants.kFrontLeftEncoderPortA, DriveConstants.kFrontLeftEncoderPortB);
@@ -52,8 +56,8 @@ public class DriveTrain extends SubsystemBase {
         // Populate HashMap with robot's wheels
         m_wheels.put(kWheels.frontLeft, m_frontLeft);
         m_wheels.put(kWheels.frontRight, m_frontRight);
-        m_wheels.put(kWheels.rearLeft, m_rearLeft);
-        m_wheels.put(kWheels.rearRight, m_rearRight);
+        m_wheels.put(kWheels.rearLeft, m_frontLeft);
+        m_wheels.put(kWheels.rearRight, m_frontLeft);
 
         //Inverted
         sparkInvertedConfig.inverted(true);

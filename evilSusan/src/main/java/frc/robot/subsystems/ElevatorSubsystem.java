@@ -12,7 +12,7 @@ import frc.robot.Constants.RobotChassis;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkRelativeEncoder;
-
+import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
@@ -33,15 +33,18 @@ public class ElevatorSubsystem extends SubsystemBase{
     Encoder enc;
 
     public ElevatorSubsystem() {
-        enc = new Encoder(ElevatorConstants.kEncoderChannelA, ElevatorConstants.kEncoderChannelB);
-        enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
+        // enc = new Encoder(ElevatorConstants.kEncoderChannelA, ElevatorConstants.kEncoderChannelB);
+        // enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
+        m_verticalLeftMotor.setInverted(true);
+        m_verticalRightMotor.setInverted(false);
+        
 
         //sparkEncoder.getPosition();
     }
 
     @Override
     public void periodic() {
-        double dist = enc.getDistance();
+        //double dist = enc.getDistance();
         //SmartDashboard.puNumber("Encoder", dist);
         //SmartDashboard.putNumber("Elevator encoder value", getEncoderMeters());
     }
@@ -51,8 +54,11 @@ public class ElevatorSubsystem extends SubsystemBase{
     }
 
     public void setVerticalMotor(double speed) {
-        m_verticalLeftMotor.set(ControlMode.Position, speed);
-        m_verticalRightMotor.set(ControlMode.Position, speed);
+        // if (speed > 0.3) 
+        //     speed = 0.3;
+        //TODO: find out what ControlMode to use
+        m_verticalLeftMotor.set(ControlMode.PercentOutput, speed);
+        m_verticalRightMotor.set(ControlMode.PercentOutput, speed);
     }
 
     public double getEncoderMeters() {
