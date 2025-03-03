@@ -24,16 +24,12 @@ public class IntakeDropCoralCmd extends Command{
     @Override
     public void execute() {
         //System.out.println("executing IntakeSetCmd!");
-        intakeSubsystem.setOpen();
+        intakeSubsystem.setCoralPosition(false);
     }
 
     @Override
     public void end(boolean interrupted) {
+        intakeSubsystem.stopMotors();
         System.out.println("IntakeDropCoralCmd ended!");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 }

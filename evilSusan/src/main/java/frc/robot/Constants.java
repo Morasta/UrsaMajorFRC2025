@@ -128,10 +128,10 @@ public final class Constants {
         public static final int kPRearRightVel = 1;
 
         //Drivetrain motor ports
-        public static final int kFrontLeftMotorPort = 1;
+        public static final int kFrontLeftMotorPort = 1; 
         public static final int kFrontRightMotorPort = 13;
-        public static final int kRearLeftMotorPort = 8;
-        public static final int kRearRightMotorPort = 7;
+        public static final int kRearLeftMotorPort = 3;
+        public static final int kRearRightMotorPort = 2;
         public static final int kFrontLeftEncoderPortA = 0;
         public static final int kFrontLeftEncoderPortB = 1;
         public static final int kFrontRightEncoderPortA = 2;
@@ -199,8 +199,8 @@ public final class Constants {
 
     // TODO: Map these ports to the actual intake motors (based on wiring)
     public static final class IntakeConstants {
-        public static final int kLeftMotorPort = 2; //TODO: change to top and bottom
-        public static final int kRightMotorPort = 3;
+        public static final int kTopMotorPort = 8; //TODO: change to top
+        public static final int kBottomMotorPort = 10;// and bottom
         public static final double kOpenSpeed = -0.3;
         public static final double kCloseSpeed = 0.3;
         public static final int kLeftEncoderA = 10;

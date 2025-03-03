@@ -1,11 +1,11 @@
-package frc.robot.commands.drive;
+package frc.robot.commands.DriveTrainButtonsDirs;
 
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import java.util.Date;
 
-public class DriveForwardCmd extends Command {
+public class RearRight extends Command {
     private final DriveTrain driveSubsystem;
     private final double distance;
     private Long startTime;
@@ -14,11 +14,11 @@ public class DriveForwardCmd extends Command {
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public DriveForwardCmd(DriveTrain driveTrain, double distance) {
+    public RearRight(DriveTrain driveTrain, double distance) {
         this(driveTrain, distance, 1.0);
     }
 
-    public DriveForwardCmd(DriveTrain driveTrain, double distance, double speed) {
+    public RearRight(DriveTrain driveTrain, double distance, double speed) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.distance = 1; //TODO: Fix me
@@ -39,7 +39,7 @@ public class DriveForwardCmd extends Command {
         //set all motors at forward speed
         //driveSubsystem.setMotors(0.3, 0.3);
         //TODO: drive back 2 motors (TalonSRX)
-        driveSubsystem.setMotors(0, 1, 0, 1);
+        driveSubsystem.setMotors(0, 0, 0, 1);
     }
 
     @Override

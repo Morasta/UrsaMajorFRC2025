@@ -30,6 +30,10 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.commands.intake.IntakeDropCoralCmd;
 import frc.robot.commands.intake.IntakeSetOpenCmd;
+import frc.robot.commands.DriveTrainButtonsDirs.FrontLeft;
+import frc.robot.commands.DriveTrainButtonsDirs.FrontRight;
+import frc.robot.commands.DriveTrainButtonsDirs.RearLeft;
+import frc.robot.commands.DriveTrainButtonsDirs.RearRight;
 import frc.robot.commands.auto.FindAprilTagCmd;
 import frc.robot.commands.auto.RotateTillTagFoundCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
@@ -79,7 +83,7 @@ public class RobotContainer {
     private final GamepadAxisButton lClawDown = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 1, -0.5, true));
     private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 2, 0.5, false));
     private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.5, false));
-    //private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.5, false));
+    private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.5, false));
     
     private static final boolean toggleDefaultAutoButtons = false;
     
@@ -118,27 +122,33 @@ public class RobotContainer {
         System.out.println("Configuring Button Bindings");
         //TODO: change to fixed position
 
-        m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
-        m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
+        m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 1));
+        m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -1));
 
-        m_clawController.leftBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem, true));
-        m_clawController.rightBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem, false));
-        //rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
-        m_clawController.leftTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
-        m_clawController.rightTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
+        m_clawController.leftBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem));
 
-        lClawUp.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
-        lClawDown.whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.5));
+        m_clawController.rightBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem));
+        rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
+        // m_clawController.leftTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
+        // m_clawController.rightTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
+
+        lClawUp.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 1));
+        lClawDown.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
         
-        m_clawController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
-        m_clawController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
+        //m_clawController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
+        //m_clawController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
+       
         //driveTrain Controls
+        //m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
+        m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
+        m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
+        lCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
+        rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
 
-        m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0.5));
-        m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
-        m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
-        lCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
-        rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0.5));
+        m_driverController.a().whileTrue(new FrontLeft(m_robotDrive, 0));
+        m_driverController.b().whileTrue(new FrontRight(m_robotDrive, 0));
+        m_driverController.x().whileTrue(new RearLeft(m_robotDrive, 0));
+        m_driverController.y().whileTrue(new RearRight(m_robotDrive, 0));
     }
     
     private void configureButtonsForAutoTesting() {

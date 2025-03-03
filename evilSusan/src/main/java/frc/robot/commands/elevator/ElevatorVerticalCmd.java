@@ -30,7 +30,7 @@ public class ElevatorVerticalCmd extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setSlideMotor(speed);
+        elevatorSubsystem.setVerticalMotor(speed);
         System.out.println("executing elevator vertical command, " + speed);
     }
 

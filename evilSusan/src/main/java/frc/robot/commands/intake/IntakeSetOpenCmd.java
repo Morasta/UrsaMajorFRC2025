@@ -28,11 +28,7 @@ public class IntakeSetOpenCmd extends Command{
 
     @Override
     public void end(boolean interrupted) {
+        intakeSubsystem.stopMotors();
         System.out.println("IntakeSetCmd ended!");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
     }
 }
