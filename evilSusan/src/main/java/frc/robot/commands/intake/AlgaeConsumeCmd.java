@@ -15,18 +15,18 @@ public class AlgaeConsumeCmd extends Command{
 
     @Override
     public void initialize() {
-        System.out.println("AlgaeConsumeCmd started!");
+        System.out.println("AlgaeConsumeCmd started");
     }
 
     @Override
     public void execute() {
-        System.out.println("executing AlgaeConsumeCmd!");
+        System.out.println("exec AlgaeConsumeCmd");
         intakeSubsystem.setAlgaePosition(consuming);
     }
 
     @Override
     public void end(boolean interrupted) {
         intakeSubsystem.stopMotors();
-        System.out.println("AlgaeConsumeCmd ended!");
+        System.out.println("AlgaeConsumeCmd ended");
     }
 }

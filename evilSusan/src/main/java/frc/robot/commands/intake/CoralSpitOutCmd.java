@@ -18,18 +18,18 @@ public class CoralSpitOutCmd extends Command{
 
     @Override
     public void initialize() {
-        System.out.println("CoralSpitOutCmd started!");
+        System.out.println("CoralSpitOutCmd started");
     }
 
     @Override
     public void execute() {
-        System.out.println("executing CoralSpitOutCmd!");
+        System.out.println("exec CoralSpitOutCmd");
         intakeSubsystem.setCoralPosition(false);
     }
 
     @Override
     public void end(boolean interrupted) {
         intakeSubsystem.stopMotors();
-        System.out.println("CoralSpitOutCmd ended!");
+        System.out.println("CoralSpitOutCmd ended");
     }
 }

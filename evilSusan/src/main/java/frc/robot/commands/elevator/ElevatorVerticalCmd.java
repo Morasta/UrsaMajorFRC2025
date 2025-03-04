@@ -1,10 +1,9 @@
 package frc.robot.commands.elevator;
 
-//import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
+import frc.robot.subsystems.ElevatorSubsystem;
+//import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
 
 public class ElevatorVerticalCmd extends Command{
@@ -17,31 +16,27 @@ public class ElevatorVerticalCmd extends Command{
         addRequirements(elevatorSubsystem);
     }
 
-    public ElevatorVerticalCmd(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
+    //TODO: Re-add this when encoders are implemented
+    /*public ElevatorVerticalCmd(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
-    }
+    }*/
 
     @Override
     public void initialize() {
-        System.out.println("ElevatorJoystickCmd started!");
+        System.out.println("ElevatorVerticalCmd started");
     }
 
     @Override
     public void execute() {
         elevatorSubsystem.setVerticalMotor(speed);
-        System.out.println("executing elevator vertical command, " + speed);
+        System.out.println("Exec ElevatorVerticalCmd: " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.setVerticalMotor(0);
-        System.out.println("ElevatorJoystickCmd ended!");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
+        elevatorSubsystem.stopMotors();
+        System.out.println("ElevatorVerticalCmd ended");
     }
 }

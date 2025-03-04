@@ -25,23 +25,18 @@ public class ElevatorVerticalSetBottomCmd extends Command{
 
     @Override
     public void initialize() {
-        System.out.println("ElevatorJoystickCmd started!");
+        System.out.println("ElevatorVerticalSetBottomCmd started");
     }
 
     @Override
     public void execute() {
         elevatorSubsystem.setVerticalPosition(ElevatorConstants.kLoweredPosition);
-        System.out.println("executing elevator vertical command, " + speed);
+        System.out.println("Exec ElevatorVerticalSetBottomCmd: " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.setVerticalMotor(0);
-        System.out.println("ElevatorJoystickCmd ended!");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
+        elevatorSubsystem.stopMotors();
+        System.out.println("ElevatorVerticalSetBottomCmd ended");
     }
 }

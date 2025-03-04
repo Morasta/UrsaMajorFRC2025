@@ -1,27 +1,14 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.hardware.TalonFX;
-
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.ElevatorConstants;
-import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.RobotChassis;
 
-import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.spark.SparkRelativeEncoder;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import frc.robot.Constants.Physics;
-import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
-import frc.robot.Constants.ElevatorConstants.ElevatorSlidePositions;
+import frc.robot.Constants.ElevatorConstants;
 
 
 public class ElevatorSubsystem extends SubsystemBase{
@@ -29,24 +16,17 @@ public class ElevatorSubsystem extends SubsystemBase{
     private final TalonSRX m_verticalLeftMotor = new TalonSRX(ElevatorConstants.kVerticalLeftMotorPort);
     private final TalonSRX m_verticalRightMotor = new TalonSRX(ElevatorConstants.kVerticalRightMotorPort);
 
-    //private final SparkRelativeEncoder sparkEncoder = m_verticalMotor.get
-    Encoder enc;
+    // private final SparkRelativeEncoder sparkEncoder = m_verticalMotor.get
+    // Encoder enc;
 
     public ElevatorSubsystem() {
         // enc = new Encoder(ElevatorConstants.kEncoderChannelA, ElevatorConstants.kEncoderChannelB);
         // enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
-        m_verticalLeftMotor.setInverted(true);
-        m_verticalRightMotor.setInverted(false);
+        // sparkEncoder.getPosition();
         
-
-        //sparkEncoder.getPosition();
-    }
-
-    @Override
-    public void periodic() {
-        //double dist = enc.getDistance();
-        //SmartDashboard.puNumber("Encoder", dist);
-        //SmartDashboard.putNumber("Elevator encoder value", getEncoderMeters());
+        // Note: the orientation of the motors in the gearbox is such that they should both be spinning the same way
+        m_verticalLeftMotor.setInverted(false);
+        m_verticalRightMotor.setInverted(false);   
     }
 
     public void setSlideMotor(double speed) { 
@@ -54,16 +34,20 @@ public class ElevatorSubsystem extends SubsystemBase{
     }
 
     public void setVerticalMotor(double speed) {
-        // if (speed > 0.3) 
-        //     speed = 0.3;
-        //TODO: find out what ControlMode to use
         m_verticalLeftMotor.set(ControlMode.PercentOutput, speed);
         m_verticalRightMotor.set(ControlMode.PercentOutput, speed);
     }
 
-    public double getEncoderMeters() {
-        return enc.get() * ElevatorConstants.kEncoderTick2Meter;
+    public void stopMotors() {
+        m_slideMotor.set(0);
+        m_verticalLeftMotor.set(ControlMode.PercentOutput, 0);
+        m_verticalRightMotor.set(ControlMode.PercentOutput, 0);
     }
+
+    // TODO: tie this to encoders
+    /*public double getEncoderMeters() {
+        return enc.get() * ElevatorConstants.kEncoderTick2Meter;
+    }*/
 
     // TODO: make this set the vertical position as needed, stopping at the proper level
     public void setVerticalPosition(double targetPosition) {
@@ -94,7 +78,4 @@ public class ElevatorSubsystem extends SubsystemBase{
 
         //setSlideMotor(motorOutput);
     }
-
-
-    
 }

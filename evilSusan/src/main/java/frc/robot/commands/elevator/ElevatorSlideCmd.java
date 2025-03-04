@@ -26,23 +26,18 @@ public class ElevatorSlideCmd extends Command{
     
     @Override
     public void initialize() {
-        System.out.println("ElevatorJoystickCmd started!");
+        System.out.println("ElevatorSlideCmd started");
     }
 
     @Override
     public void execute() {
         elevatorSubsystem.setSlideMotor(speed);
-        System.out.println("executing elevator slide command, " + speed);
+        System.out.println("Exec ElevatorSlideCmd: " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.setSlideMotor(0);
-        System.out.println("ElevatorJoystickCmd ended!");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
+        elevatorSubsystem.stopMotors();
+        System.out.println("ElevatorSlideCmd ended");
     }
 }
