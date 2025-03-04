@@ -3,6 +3,9 @@ package frc.robot;
 //util imports
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import frc.robot.utils.GamepadAxisButton;
 //wpilib command imports
 import edu.wpi.first.wpilibj2.command.Command;
@@ -91,6 +94,12 @@ public class RobotContainer {
                 true), m_robotDrive
             )
         );
+
+        this.setElevatorBrakeMode(NeutralMode.Coast);
+    }
+
+    public void setElevatorBrakeMode(NeutralMode mode) {
+        elevatorSubsystem.setMotorBrakeMode(mode);
     }
     
     private void configureButtonBindings() {
