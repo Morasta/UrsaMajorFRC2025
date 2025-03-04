@@ -24,6 +24,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         // enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
         // sparkEncoder.getPosition();
         
+        // Note: the orientation of the motors in the gearbox is such that they should both be spinning the same way
         m_verticalLeftMotor.setInverted(false);
         m_verticalRightMotor.setInverted(false);   
     }
