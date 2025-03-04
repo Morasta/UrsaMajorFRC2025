@@ -17,18 +17,18 @@ public class CoralConsumeCmd extends Command{
 
     @Override
     public void initialize() {
-        System.out.println("CoralConsumeCmd started!");
+        System.out.println("CoralConsumeCmd started");
     }
 
     @Override
     public void execute() {
-        System.out.println("executing CoralConsumeCmd!");
+        System.out.println("exec CoralConsumeCmd");
         intakeSubsystem.setCoralPosition(consuming);
     }
 
     @Override
     public void end(boolean interrupted) {
         intakeSubsystem.stopMotors();
-        System.out.println("CoralConsumeCmd ended!");
+        System.out.println("CoralConsumeCmd ended");
     }
 }
