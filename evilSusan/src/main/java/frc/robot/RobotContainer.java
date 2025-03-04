@@ -76,6 +76,7 @@ public class RobotContainer {
     // Robot Subsystems: create one instance of each
     private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    public static final LimelightVisionSubsystem limelightVisionSubsystem = new LimelightVisionSubsystem();
     // Orientation Vars
     public static final Pose2d kZeroPose2d = new Pose2d();
     public static final Rotation2d kZeroRotation2d = new Rotation2d();
@@ -86,8 +87,6 @@ public class RobotContainer {
     private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.5, false));
     
     private static final boolean toggleDefaultAutoButtons = false;
-    
-    public static final LimelightVisionSubsystem limelightVisionSubsystem = new LimelightVisionSubsystem();
     
     public RobotContainer() {
         configureWheels();
@@ -195,7 +194,7 @@ public class RobotContainer {
             new DriveForwardCmd(m_robotDrive, 0).withTimeout(1.5),
             new FindAprilTagCmd(m_robotDrive, limelightVisionSubsystem, 0, 0, 0),
             new RotateTillTagFoundCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.3),
-            new IntakeDropCoralCmd(intakeSubsystem, true),
+            new AlgaeSpitOutCmd(m_robotDrive, intakeSubsystem, 0, 0, ),
             new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1.0)
         );
 
