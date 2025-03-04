@@ -190,6 +190,11 @@ public final class Constants {
         public static final double kI = 0;
         public static final double kD = 0.8;
 
+        public static final double kS = 0;
+        public static final double kG = 0;
+        public static final double kV = 0;
+        public static final double kA = 0;
+
         public static final double kRaisedPosition = 1.2;
         public static final double kLoweredPosition = 0;
         public static final double kExtendedPosition = 1.2;

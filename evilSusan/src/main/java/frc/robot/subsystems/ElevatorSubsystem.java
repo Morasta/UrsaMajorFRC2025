@@ -17,6 +17,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     private final SparkMax m_slideMotor = new SparkMax(ElevatorConstants.kSlideMotorPort, MotorType.kBrushed);
     private final TalonSRX m_verticalLeftMotor = new TalonSRX(ElevatorConstants.kVerticalLeftMotorPort);
     private final TalonSRX m_verticalRightMotor = new TalonSRX(ElevatorConstants.kVerticalRightMotorPort);
+    ElevatorFeedforward feedForward = new ElevatorFeedforward(ElevatorConstants.kS, ElevatorConstants.kG, ElevatorConstants.kV, ElevatorConstants.kA);
 
     // private final SparkRelativeEncoder sparkEncoder = m_verticalMotor.get
     // Encoder enc;
@@ -38,8 +39,9 @@ public class ElevatorSubsystem extends SubsystemBase{
         //serenityFeedForward1();
     }
 
-    public void serenityFeedForward1() {
-
+    public void serenityFeedForward1(double leftVelocity, double rightVelocity) {
+        feedForward.calculate(rightVelocity);
+        feedForward.calculate(leftVelocity);
     }
 
     public void setMotorBrakeMode(NeutralMode mode) {

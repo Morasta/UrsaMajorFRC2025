@@ -41,6 +41,7 @@ import frc.robot.commands.drive.DriveRearTurnCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
 import frc.robot.commands.drive.StopDriveCmd;
+import frc.robot.commands.elevator.ElevatorIdleCmd;
 //ElevatorCmd imports
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorSlideExtendedCommand;
@@ -112,8 +113,8 @@ public class RobotContainer {
         System.out.println("Configuring Button Bindings");
         //Operator Controls
         //TODO: change to fixed position
-        m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 1));
-        m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -1));
+        m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.3));
+        m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.3));
         //TODO: check if works or needs own joystick
         m_clawController.leftBumper().whileTrue(new CoralSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
@@ -122,6 +123,8 @@ public class RobotContainer {
 
         rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
         lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 1));
+        rElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, 0.03));
+        lElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, 0.03));
        
         //Driver Controls
         //TODO: fix to turn full circle in place
