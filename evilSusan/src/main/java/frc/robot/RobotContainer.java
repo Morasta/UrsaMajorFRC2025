@@ -37,7 +37,7 @@ import frc.robot.commands.drive.WideLeftTurnCmd;
 import frc.robot.commands.drive.DriveRearTurnCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
-import frc.robot.commands.drive.StopCmd;
+import frc.robot.commands.drive.StopDriveCmd;
 //ElevatorCmd imports
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorSlideExtendedCommand;
@@ -158,7 +158,7 @@ public class RobotContainer {
         m_driverController.b().whileTrue(new DriveLeftDiagonalCmd(m_robotDrive, -1));
         //TODO: Check that this moves Left
         m_driverController.y().whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, -1));
-        m_clawController.rightTrigger().whileTrue(new StopCmd(m_robotDrive, 0));
+        m_clawController.rightTrigger().whileTrue(new StopDriveCmd(m_robotDrive, 0));
     }
     private void configureWheels() {
         m_robotDrive.setInverted(kWheels.frontLeft);

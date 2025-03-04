@@ -3,14 +3,14 @@ package frc.robot.commands.drive;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
 
-public class StopCmd extends Command{
+public class StopDriveCmd extends Command{
     private final DriveTrain driveSubsystem;
 
     private void printStatus(String stateStatus){
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public StopCmd(DriveTrain driveTrain, double distance) {
+    public StopDriveCmd(DriveTrain driveTrain, double distance) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         addRequirements(driveSubsystem);
