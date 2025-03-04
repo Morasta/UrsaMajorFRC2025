@@ -112,16 +112,16 @@ public class RobotContainer {
         System.out.println("Configuring Button Bindings");
         //Operator Controls
         //TODO: change to fixed position
-        m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.4));
-        m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.4));
+        m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 1));
+        m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -1));
         //TODO: check if works or needs own joystick
         m_clawController.leftBumper().whileTrue(new CoralSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
         m_clawController.rightBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
 
-        rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -0.5));
-        lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
+        rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
+        lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 1));
        
         //Driver Controls
         //TODO: fix to turn full circle in place
@@ -178,7 +178,7 @@ public class RobotContainer {
         return Commands.sequence(
             new DriveForwardCmd(m_robotDrive, 0).withTimeout(1.5),
             new FindAprilTagCmd(m_robotDrive, limelightVisionSubsystem, 0, 0, 0),
-            new RotateTillTagFoundCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.3),
+            //new RotateTillTagFoundCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.3),
             new AlgaeSpitOutCmd(intakeSubsystem, true),
             new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1.0)
         );
