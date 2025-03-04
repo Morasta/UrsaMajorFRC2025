@@ -39,9 +39,4 @@ public class ElevatorVerticalCmd extends Command{
         elevatorSubsystem.setVerticalMotor(0);
         System.out.println("ElevatorJoystickCmd ended!");
     }
-
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
 }

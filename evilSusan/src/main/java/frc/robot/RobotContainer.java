@@ -85,6 +85,8 @@ public class RobotContainer {
     private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 2, 0.5, false));
     private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.5, false));
     private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.5, false));
+    private final GamepadAxisButton lElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 2, 0.5, false));
+    private final GamepadAxisButton LJoyDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 1, 0.5, false));
     
     private static final boolean toggleDefaultAutoButtons = false;
     
@@ -123,22 +125,19 @@ public class RobotContainer {
 
         m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 1));
         m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -1));
+        //TODO: check if works or needs own joystick
+        m_clawController.leftBumper().whileTrue(new CoralSpitOutCmd(intakeSubsystem, false));
+        m_clawController.rightBumper().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
+        m_clawController.rightBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
+        m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
 
-        m_clawController.leftBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem));
-
-        m_clawController.rightBumper().whileTrue(new IntakeDropCoralCmd(intakeSubsystem));
-        rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
-        // m_clawController.leftTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, true));
-        // m_clawController.rightTrigger().whileTrue(new IntakeSetOpenCmd(intakeSubsystem, false));
-
-        lClawUp.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 1));
-        lClawDown.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
-        
-        //m_clawController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
-        //m_clawController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
+        //TODO: add a maxLowSpeed won't drive with 0.3
+        rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -0.5));
+        lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
        
-        //driveTrain Controls
-        //m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
+        //Driver Controls
+        //TODO: fix to turn full circle in place
+        m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
         m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
         lCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
@@ -194,7 +193,7 @@ public class RobotContainer {
             new DriveForwardCmd(m_robotDrive, 0).withTimeout(1.5),
             new FindAprilTagCmd(m_robotDrive, limelightVisionSubsystem, 0, 0, 0),
             new RotateTillTagFoundCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.3),
-            new AlgaeSpitOutCmd(m_robotDrive, intakeSubsystem, 0, 0, ),
+            //new IntakeDropCoralCmd(intakeSubsystem, true),
             new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1.0)
         );
 
