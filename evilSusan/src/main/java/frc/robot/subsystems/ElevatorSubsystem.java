@@ -77,7 +77,4 @@ public class ElevatorSubsystem extends SubsystemBase{
 
         //setSlideMotor(motorOutput);
     }
-
-
-    
 }
