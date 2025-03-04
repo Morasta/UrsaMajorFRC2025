@@ -1,10 +1,7 @@
 package frc.robot.commands.elevator;
 
-//import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-
-//import frc.robot.Constants.ElevatorVerticalPositions;
 
 
 public class ElevatorVerticalSetTopCmd extends Command{
@@ -19,22 +16,18 @@ public class ElevatorVerticalSetTopCmd extends Command{
 
     @Override
     public void initialize() {
-        System.out.println("ElevatorJoystickCmd started!");
+        System.out.println("ElevatorVerticalSetTopCmd started");
     }
 
     @Override
     public void execute() {
+        System.out.println("Exec ElevatorVerticalSetTopCmd");
         elevatorSubsystem.setVerticalPosition(frc.robot.Constants.ElevatorConstants.kRaisedPosition);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.setVerticalMotor(0);
-        System.out.println("ElevatorJoystickCmd ended!");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
+        elevatorSubsystem.stopMotors();
+        System.out.println("ElevatorVerticalSetTopCmd ended");
     }
 }

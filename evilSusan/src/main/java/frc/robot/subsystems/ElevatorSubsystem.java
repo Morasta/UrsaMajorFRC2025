@@ -23,10 +23,9 @@ public class ElevatorSubsystem extends SubsystemBase{
         // enc = new Encoder(ElevatorConstants.kEncoderChannelA, ElevatorConstants.kEncoderChannelB);
         // enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
         // sparkEncoder.getPosition();
+        
         m_verticalLeftMotor.setInverted(false);
-        m_verticalRightMotor.setInverted(false);
-        
-        
+        m_verticalRightMotor.setInverted(false);   
     }
 
     public void setSlideMotor(double speed) { 
@@ -78,7 +77,4 @@ public class ElevatorSubsystem extends SubsystemBase{
 
         //setSlideMotor(motorOutput);
     }
-
-
-    
 }

@@ -1,9 +1,8 @@
 package frc.robot.commands.elevator;
 
-//import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
@@ -26,23 +25,18 @@ public class ElevatorSlideRetractedCommand extends Command{
 
     @Override
     public void initialize() {
-        System.out.println("ElevatorJoystickCmd started!");
+        System.out.println("ElevatorSlideRetractedCommand started");
     }
 
     @Override
     public void execute() {
         elevatorSubsystem.setVerticalPosition(ElevatorConstants.kRetractedPosition);
-        System.out.println("executing elevator vertical command, " + speed);
+        System.out.println("Exec ElevatorSlideRetractedCommand: " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.setVerticalMotor(0);
-        System.out.println("ElevatorJoystickCmd ended!");
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
+        elevatorSubsystem.stopMotors();
+        System.out.println("ElevatorSlideRetractedCommand ended");
     }
 }
