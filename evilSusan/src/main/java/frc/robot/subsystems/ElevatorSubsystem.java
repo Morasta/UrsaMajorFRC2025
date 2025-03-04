@@ -7,6 +7,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.Constants.ElevatorConstants;
 
@@ -26,7 +27,12 @@ public class ElevatorSubsystem extends SubsystemBase{
         
         // Note: the orientation of the motors in the gearbox is such that they should both be spinning the same way
         m_verticalLeftMotor.setInverted(false);
-        m_verticalRightMotor.setInverted(false);   
+        m_verticalRightMotor.setInverted(false);
+    }
+
+    public void setMotorBrakeMode(NeutralMode mode) {
+        m_verticalLeftMotor.setNeutralMode(mode);
+        m_verticalRightMotor.setNeutralMode(mode);
     }
 
     public void setSlideMotor(double speed) { 
