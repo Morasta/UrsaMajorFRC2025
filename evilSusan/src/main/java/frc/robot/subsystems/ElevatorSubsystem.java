@@ -35,7 +35,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     public ElevatorSubsystem() {
         // enc = new Encoder(ElevatorConstants.kEncoderChannelA, ElevatorConstants.kEncoderChannelB);
         // enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
-        m_verticalLeftMotor.setInverted(true);
+        m_verticalLeftMotor.setInverted(false);
         m_verticalRightMotor.setInverted(false);
         
 
