@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkMax;
@@ -28,6 +29,17 @@ public class ElevatorSubsystem extends SubsystemBase{
         // Note: the orientation of the motors in the gearbox is such that they should both be spinning the same way
         m_verticalLeftMotor.setInverted(false);
         m_verticalRightMotor.setInverted(false);
+
+        // https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/feedforward.html#elevatorfeedforward
+        // Create a new ElevatorFeedforward with gains kS, kG, kV, and kA
+        //ElevatorFeedforward feedforward = new ElevatorFeedforward(kS, kG, kV, kA);
+        //feedforward.calculate(0);
+        
+        //serenityFeedForward1();
+    }
+
+    public void serenityFeedForward1() {
+
     }
 
     public void setMotorBrakeMode(NeutralMode mode) {
@@ -42,6 +54,8 @@ public class ElevatorSubsystem extends SubsystemBase{
     public void setVerticalMotor(double speed) {
         m_verticalLeftMotor.set(ControlMode.PercentOutput, speed);
         m_verticalRightMotor.set(ControlMode.PercentOutput, speed);
+
+        m_verticalLeftMotor.set(null, speed, null, speed);
     }
 
     public void stopMotors() {
