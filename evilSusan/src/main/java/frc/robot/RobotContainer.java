@@ -93,6 +93,12 @@ public class RobotContainer {
         // elevatorSubsystem.setDefaultCommand(new
         // ElevatorJoystickCmd(elevatorSubsystem, 0));
         // intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
+        setDefaultCommand();
+
+        this.setElevatorBrakeMode(NeutralMode.Coast);
+    }
+
+    public void setDefaultCommand() {
         m_robotDrive.setDefaultCommand(
             new RunCommand(() -> m_robotDrive.drive(
                 -m_driverController.getRawAxis(1),
@@ -101,8 +107,6 @@ public class RobotContainer {
                 true), m_robotDrive
             )
         );
-
-        this.setElevatorBrakeMode(NeutralMode.Coast);
     }
 
     public void setElevatorBrakeMode(NeutralMode mode) {

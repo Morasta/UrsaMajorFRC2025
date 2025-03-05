@@ -89,6 +89,7 @@ public class Robot extends TimedRobot {
         }
 
         m_robotContainer.setElevatorBrakeMode(NeutralMode.Brake);
+        m_robotContainer.setDefaultCommand();
     }
 
     // This function is called periodically during operator control.
