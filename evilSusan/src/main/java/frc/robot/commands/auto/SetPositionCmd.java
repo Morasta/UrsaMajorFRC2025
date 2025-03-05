@@ -29,7 +29,6 @@ public class SetPositionCmd extends Command{
         printStatus("init");
         System.out.println(this.getClass().getSimpleName() + " executed");
         currentRobotPosition = visionSubsystem.getCurrentPosition();
-
     }
 
     @Override
@@ -40,13 +39,21 @@ public class SetPositionCmd extends Command{
         if (currentRobotPosition.tx - AutoConstants.targetTxPosition > AutoConstants.targetCamTolerance) {
             //Crabwalk Right
             driveSubsystem.setMotors(0.3, -0.3, -0.3, 0.3);
-        } else if (currentRobotPosition.tx - AutoConstants.targetTxPosition < AutoConstants.targetCamTolerance) {
+        } else if ((currentRobotPosition.tx - AutoConstants.targetTxPosition) * -1 < AutoConstants.targetCamTolerance) {
             //Crabwalk Left
             driveSubsystem.setMotors(-0.3, 0.3, 0.3, -0.3);
         } else {
-            visionSubsystem.updateCurrentPosition();
             this.targetFound = true;
         }
+
+        visionSubsystem.updateCurrentPosition();
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        printStatus("ended");
+        driveSubsystem.setMotors(0, 0);
+        visionSubsystem.updateCurrentPosition();
     }
 
     @Override

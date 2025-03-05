@@ -12,11 +12,10 @@ public class DriveForwardTillDistRightCmd extends Command {
     private final DriveTrain driveSubsystem;
     private final LimelightVisionSubsystem visionSubsystem;
     private final double distance;
-    private long startTime;
-    private long endTime;
-    private final long executionTime = 1000;
+
     CameraPositions currentRobotPosition = new CameraPositions();
-  
+    private boolean closeEnoughToTarget = false;
+
     private void printStatus(String stateStatus){
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
@@ -38,34 +37,30 @@ public class DriveForwardTillDistRightCmd extends Command {
     public void initialize() {
         printStatus("init");
         System.out.println(this.getClass().getSimpleName() + " executed");
-        startTime = System.currentTimeMillis(); // in init
-        endTime = startTime + executionTime;
+        
         currentRobotPosition = visionSubsystem.getCurrentPosition();
-        driveSubsystem.setMaxOutput(0.3);
     }
 
     @Override
     public void execute() {
-        currentRobotPosition = visionSubsystem.getCurrentPosition();
         printStatus("executed");
+        currentRobotPosition = visionSubsystem.getCurrentPosition();
+        closeEnoughToTarget = Math.abs(AutoConstants.targetArea - visionSubsystem.getAreaValue()) <= AutoConstants.targetAreaGoalTolerance;
+        
         //set all motors at forward speed
-        if (Math.abs(AutoConstants.targetArea - visionSubsystem.getAreaValue()) > AutoConstants.targetAreaGoalTolerance) {
-            driveSubsystem.setMotors(0.3, 0.3);
-        } else {
-            return;
-        }
+        driveSubsystem.setMotors(0.3, 0.3);
     }
 
     @Override
     public void end(boolean interrupted) {
+        printStatus(" finished");
+
         driveSubsystem.setMotors(0, 0);
-        printStatus("end");
-        System.out.println(this.getClass().getSimpleName() + " executed");
-        driveSubsystem.setMaxOutput(0);
     }
 
     @Override
     public boolean isFinished() {
-        return System.currentTimeMillis() >= endTime;
+        printStatus("isfinished? " + !visionSubsystem.targetIsVisible() + " | " + closeEnoughToTarget);
+        return !visionSubsystem.targetIsVisible() || closeEnoughToTarget;
     }
 }
