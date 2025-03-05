@@ -39,7 +39,7 @@ public class DriveForwardCmd extends Command {
         //set all motors at forward speed
         //driveSubsystem.setMotors(0.3, 0.3);
         //TODO: drive back 2 motors (TalonSRX)
-        driveSubsystem.setMotors(0, 1, 0, 1);
+        driveSubsystem.setMotors(1, 1, 1, 1);
     }
 
     @Override

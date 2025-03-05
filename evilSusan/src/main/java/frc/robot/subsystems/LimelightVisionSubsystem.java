@@ -5,6 +5,7 @@ import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
 //import frc.robot.Constants.EnabledSubsystems;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.lib.VisionHelpers;
+import frc.robot.utils.CameraPositions;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -17,6 +18,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class LimelightVisionSubsystem extends SubsystemBase{
     public static AprilTagFieldLayout fieldLayout;
     private static int targetID = -1;
+
+    private final CameraPositions camPos = new CameraPositions();
     
     public LimelightVisionSubsystem() {
         /*if(!EnabledSubsystems.ll) {
@@ -36,7 +39,18 @@ public class LimelightVisionSubsystem extends SubsystemBase{
         // load Pose2d of robot to interact with game elements
         VisionHelpers.addRobotPosesForCoralPlacement();
         
-    }   
+    } 
+    
+    public void updateCurrentPosition() {
+        this.camPos.tx = getXValue();
+        this.camPos.ty = getYValue();
+        this.camPos.ta = getAreaValue();
+        this.camPos.tv = targetIsVisible();
+    }
+
+    public CameraPositions getCurrentPosition() {
+        return this.camPos;
+    }
     
     public double getXValue() {
         return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("tx").getDouble(0.0);

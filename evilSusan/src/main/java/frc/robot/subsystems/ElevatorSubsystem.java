@@ -57,7 +57,7 @@ public class ElevatorSubsystem extends SubsystemBase{
         m_verticalLeftMotor.set(ControlMode.PercentOutput, speed);
         m_verticalRightMotor.set(ControlMode.PercentOutput, speed);
 
-        m_verticalLeftMotor.set(null, speed, null, speed);
+        //m_verticalLeftMotor.set(null, speed, null, speed);
     }
 
     public void stopMotors() {

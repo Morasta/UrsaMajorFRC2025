@@ -122,9 +122,9 @@ public class RobotContainer {
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
 
         rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
-        lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 1));
-        rElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, 0.03));
-        lElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, 0.03));
+        lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.09));
+        rElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, -0.08));
+        //lElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, 0.07));
        
         //Driver Controls
         //TODO: fix to turn full circle in place
@@ -179,7 +179,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         //Dummy test sequence
         return Commands.sequence(
-            new DriveForwardCmd(m_robotDrive, 0).withTimeout(1.5),
+            new DriveForwardCmd(m_robotDrive, 0).withTimeout(1),
             new FindAprilTagCmd(m_robotDrive, limelightVisionSubsystem, 0, 0, 0),
             //new RotateTillTagFoundCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.3),
             new AlgaeSpitOutCmd(intakeSubsystem, true),

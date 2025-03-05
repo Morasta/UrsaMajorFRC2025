@@ -3,7 +3,6 @@ package frc.robot.commands.elevator;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
 public class ElevatorIdleCmd extends Command{

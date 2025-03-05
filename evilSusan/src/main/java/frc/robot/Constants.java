@@ -54,6 +54,12 @@ public final class Constants {
         public static final double kAutoDriveRoundTurnSpeed = 0.25;
         public static final double kAutoDriveSidewaysSpeed = 0.25;
 
+        //TODO: figure out what num this should be
+        public static final double targetTxPosition = 24;
+        public static final double targetArea = 20;
+        public static final double targetAreaGoalTolerance = 1;
+        public static final double targetCamTolerance = 1;
+
         public static final class AprilTagDists {
             //TODO: fix to correct dists
             public static final double ToReefStation = 3.0;
