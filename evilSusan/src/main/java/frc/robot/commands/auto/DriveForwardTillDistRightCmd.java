@@ -43,6 +43,7 @@ public class DriveForwardTillDistRightCmd extends Command {
         this.notFoundCount = 0;
         
         currentRobotPosition = visionSubsystem.getCurrentPosition();
+        driveSubsystem.setMaxOutput(0.3);
     }
 
     @Override

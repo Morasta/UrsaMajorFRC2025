@@ -55,10 +55,10 @@ public final class Constants {
         public static final double kAutoDriveSidewaysSpeed = 0.25;
 
         //TODO: figure out what num this should be
-        public static final double targetTxPosition = 24;
-        public static final double targetArea = 20;
-        public static final double targetAreaGoalTolerance = 1;
-        public static final double targetCamTolerance = 1;
+        public static final double targetTxPosition = 20;
+        public static final double targetArea = 6;
+        public static final double targetAreaGoalTolerance = 1.5;
+        public static final double targetCamTolerance = 1.5;
         public static final int maxAprilTagNotFoundCount = 10;
 
         public static final class AprilTagDists {
@@ -139,6 +139,7 @@ public final class Constants {
         public static final int kFrontRightMotorPort = 13;
         public static final int kRearLeftMotorPort = 3;
         public static final int kRearRightMotorPort = 2;
+        
         public static final int kFrontLeftEncoderPortA = 0;
         public static final int kFrontLeftEncoderPortB = 1;
         public static final int kFrontRightEncoderPortA = 2;
