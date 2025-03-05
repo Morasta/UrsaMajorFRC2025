@@ -10,6 +10,7 @@ public class SetPositionCmd extends Command{
 
     private final LimelightVisionSubsystem visionSubsystem;
     private final DriveTrain driveSubsystem;
+    private double speed = 1;
     private boolean targetFound = false;
     CameraPositions currentRobotPosition = new CameraPositions();
 
@@ -17,10 +18,12 @@ public class SetPositionCmd extends Command{
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public SetPositionCmd(LimelightVisionSubsystem limelightVision, DriveTrain driveTrain, double distance) {
+    public SetPositionCmd(LimelightVisionSubsystem limelightVision, DriveTrain driveTrain, double distance, double speed) {
         printStatus("Created");
         this.visionSubsystem = limelightVision;
         this.driveSubsystem= driveTrain;
+        this.speed = speed;
+
         addRequirements(limelightVision);
     }
 
@@ -38,10 +41,10 @@ public class SetPositionCmd extends Command{
 
         if (currentRobotPosition.tx - AutoConstants.targetTxPosition > AutoConstants.targetCamTolerance) {
             //Crabwalk Right
-            driveSubsystem.setMotors(0.3, -0.3, -0.3, 0.3);
+            driveSubsystem.setMotors(speed, -speed, -speed, speed);
         } else if ((currentRobotPosition.tx - AutoConstants.targetTxPosition) * -1 < AutoConstants.targetCamTolerance) {
             //Crabwalk Left
-            driveSubsystem.setMotors(-0.3, 0.3, 0.3, -0.3);
+            driveSubsystem.setMotors(-speed, speed, speed, -speed);
         } else {
             this.targetFound = true;
         }
