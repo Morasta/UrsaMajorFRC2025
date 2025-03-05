@@ -13,6 +13,7 @@ public class DriveForwardTillDistRightCmd extends Command {
     private final LimelightVisionSubsystem visionSubsystem;
     private final double distance;
     private double speed = 1;
+    private int notFoundCount;
     
     CameraPositions currentRobotPosition = new CameraPositions();
     private boolean closeEnoughToTarget = false;
@@ -39,6 +40,7 @@ public class DriveForwardTillDistRightCmd extends Command {
     public void initialize() {
         printStatus("init");
         System.out.println(this.getClass().getSimpleName() + " executed");
+        this.notFoundCount = 0;
         
         currentRobotPosition = visionSubsystem.getCurrentPosition();
     }
@@ -48,6 +50,11 @@ public class DriveForwardTillDistRightCmd extends Command {
         printStatus("executed");
         currentRobotPosition = visionSubsystem.getCurrentPosition();
         closeEnoughToTarget = Math.abs(AutoConstants.targetArea - visionSubsystem.getAreaValue()) <= AutoConstants.targetAreaGoalTolerance;
+
+        if (!visionSubsystem.targetIsVisible())
+            notFoundCount += 1;
+        else 
+            notFoundCount = 0;
         
         //set all motors at forward speed
         driveSubsystem.setMotors(speed, speed);
@@ -63,6 +70,6 @@ public class DriveForwardTillDistRightCmd extends Command {
     @Override
     public boolean isFinished() {
         printStatus("isfinished? " + !visionSubsystem.targetIsVisible() + " | " + closeEnoughToTarget);
-        return !visionSubsystem.targetIsVisible() || closeEnoughToTarget;
+        return notFoundCount >= AutoConstants.maxAprilTagNotFoundCount || closeEnoughToTarget;
     }
 }

@@ -59,6 +59,7 @@ public final class Constants {
         public static final double targetArea = 20;
         public static final double targetAreaGoalTolerance = 1;
         public static final double targetCamTolerance = 1;
+        public static final int maxAprilTagNotFoundCount = 10;
 
         public static final class AprilTagDists {
             //TODO: fix to correct dists

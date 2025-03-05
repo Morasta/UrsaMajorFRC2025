@@ -12,6 +12,7 @@ public class SetPositionCmd extends Command{
     private final DriveTrain driveSubsystem;
     private double speed = 1;
     private boolean targetFound = false;
+    private int notFoundCount;
     CameraPositions currentRobotPosition = new CameraPositions();
 
     private void printStatus(String stateStatus){
@@ -32,6 +33,7 @@ public class SetPositionCmd extends Command{
         printStatus("init");
         System.out.println(this.getClass().getSimpleName() + " executed");
         currentRobotPosition = visionSubsystem.getCurrentPosition();
+        this.notFoundCount = 0;
     }
 
     @Override
@@ -49,6 +51,11 @@ public class SetPositionCmd extends Command{
             this.targetFound = true;
         }
 
+        if (!visionSubsystem.targetIsVisible())
+            notFoundCount += 1;
+        else 
+            notFoundCount = 0;
+
         visionSubsystem.updateCurrentPosition();
     }
 
@@ -61,6 +68,6 @@ public class SetPositionCmd extends Command{
 
     @Override
     public boolean isFinished() {
-        return !visionSubsystem.targetIsVisible() || this.targetFound;
+        return notFoundCount >= AutoConstants.maxAprilTagNotFoundCount || this.targetFound;
     }
 }
