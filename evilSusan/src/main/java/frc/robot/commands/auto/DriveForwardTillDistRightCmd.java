@@ -12,7 +12,8 @@ public class DriveForwardTillDistRightCmd extends Command {
     private final DriveTrain driveSubsystem;
     private final LimelightVisionSubsystem visionSubsystem;
     private final double distance;
-
+    private double speed = 1;
+    
     CameraPositions currentRobotPosition = new CameraPositions();
     private boolean closeEnoughToTarget = false;
 
@@ -29,6 +30,7 @@ public class DriveForwardTillDistRightCmd extends Command {
         this.driveSubsystem = driveTrain;
         this.visionSubsystem = limelightVision;
         this.distance = 1; //TODO: Fix me
+        this.speed = speed;
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
         addRequirements(driveSubsystem);
     }
@@ -48,7 +50,7 @@ public class DriveForwardTillDistRightCmd extends Command {
         closeEnoughToTarget = Math.abs(AutoConstants.targetArea - visionSubsystem.getAreaValue()) <= AutoConstants.targetAreaGoalTolerance;
         
         //set all motors at forward speed
-        driveSubsystem.setMotors(0.3, 0.3);
+        driveSubsystem.setMotors(speed, speed);
     }
 
     @Override
