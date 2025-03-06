@@ -76,7 +76,9 @@ public class RobotContainer {
     private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.1, false));
     private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.1, false));
     private final GamepadAxisButton lElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 2, 0.1, false));
-    private final GamepadAxisButton LJoyDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 1, 0.3, false));
+    private final GamepadAxisButton LJoyForwardDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 1, 0.3, false));
+    private final GamepadAxisButton RJoyBackDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 5, 0.3, false));
+
     
     private static final boolean toggleDefaultAutoButtons = false;
     
@@ -95,8 +97,8 @@ public class RobotContainer {
         // intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
         setDefaultCommand();
 
-        this.setElevatorBrakeMode(NeutralMode.Coast);
-    }
+         this.setElevatorBrakeMode(NeutralMode.Coast);
+     }
 
     public void setDefaultCommand() {
         m_robotDrive.setDefaultCommand(
@@ -144,14 +146,14 @@ public class RobotContainer {
        
         //Driver Controls
         //TODO: fix to turn full circle in place
-        //m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
+        m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
         m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
         lCrabwalk.whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, 0));
         rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
         //TODO: check this drive forward + backward
-        LJoyDrive.whileTrue(new DriveForwardCmd(m_robotDrive, 0));
-        //TODO: add diagonal movement on joy R?
+        LJoyForwardDrive.whileTrue(new DriveForwardCmd(m_robotDrive, 0));
+        RJoyBackDrive.whileTrue(new DriveBackwardCmd(m_robotDrive, 0));
     }
 
     private void configureButtonsForAutoTesting() {
@@ -196,9 +198,10 @@ public class RobotContainer {
         //Dummy test sequence
         return Commands.sequence(
             //new SetPositionCmd(limelightVisionSubsystem, m_robotDrive, 0, 0.3),
-            new DriveForwardTillDistRightCmd(m_robotDrive, limelightVisionSubsystem, 0, 1),
             new DriveForwardCmd(m_robotDrive, 0).withTimeout(0.5),
-            new CoralSpitOutCmd(intakeSubsystem, true)
+            new DriveForwardTillDistRightCmd(m_robotDrive, limelightVisionSubsystem, 0, 1),
+            new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(0.5),
+            new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1)
         );
 
 
@@ -264,18 +267,18 @@ public class RobotContainer {
     }
     
     
-    public void testVisionCoordinates() {
-        System.out.println("****Poses:  ");
-        // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Left"));
-        // System.out.println(LimelightVisionSubsystem.getKnownPose("RobotBluReef1Right"));
+    // public void testVisionCoordinates() {
+    //     System.out.println("****Poses:  ");
+    //     // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Left"));
+    //     // System.out.println(LimelightVisionSubsystem.getKnownPose("RobotBluReef1Right"));
         
-        List<String> keys = new ArrayList<>();
-        for(String k : RobotPoseConstants.visionRobotPoses.keySet()) {
-            keys.add(k);
-        }
-        for (String key : keys) { 
-            System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
-        }   
-    }    
+    //     List<String> keys = new ArrayList<>();
+    //     for(String k : RobotPoseConstants.visionRobotPoses.keySet()) {
+    //         keys.add(k);
+    //     }
+    //     for (String key : keys) { 
+    //         System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
+    //     }   
+    // }    
    
  }

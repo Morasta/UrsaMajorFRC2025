@@ -12,7 +12,7 @@ public class DriveForwardTillDistRightCmd extends Command {
     private final DriveTrain driveSubsystem;
     private final LimelightVisionSubsystem visionSubsystem;
     private final double distance;
-    private double speed = 1;
+    private double speed = 0.3;
     private int notFoundCount;
     
     CameraPositions currentRobotPosition = new CameraPositions();
@@ -43,7 +43,7 @@ public class DriveForwardTillDistRightCmd extends Command {
         this.notFoundCount = 0;
         
         currentRobotPosition = visionSubsystem.getCurrentPosition();
-        driveSubsystem.setMaxOutput(0.3);
+        //driveSubsystem.setMaxOutput(0.3);
     }
 
     @Override
