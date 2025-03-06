@@ -1,7 +1,5 @@
 package frc.robot.commands.elevator;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -28,7 +26,6 @@ public class ElevatorVerticalCmd extends Command{
     @Override
     public void initialize() {
         System.out.println("ElevatorVerticalCmd started");
-        elevatorSubsystem.setMotorBrakeMode(NeutralMode.Coast);
     }
 
     @Override
@@ -40,7 +37,6 @@ public class ElevatorVerticalCmd extends Command{
     @Override
     public void end(boolean interrupted) {
         elevatorSubsystem.stopMotors();
-        elevatorSubsystem.setMotorBrakeMode(NeutralMode.Brake);
         System.out.println("ElevatorVerticalCmd ended");
     }
 }

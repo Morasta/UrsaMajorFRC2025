@@ -66,7 +66,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-        m_robotContainer.setElevatorBrakeMode(NeutralMode.Coast);
+        m_robotContainer.setElevatorBrakeMode(NeutralMode.Brake);
 
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
@@ -88,7 +88,7 @@ public class Robot extends TimedRobot {
             m_autonomousCommand.cancel();
         }
 
-        m_robotContainer.setElevatorBrakeMode(NeutralMode.Coast);
+        m_robotContainer.setElevatorBrakeMode(NeutralMode.Brake);
         m_robotContainer.setDefaultCommand();
     }
 
