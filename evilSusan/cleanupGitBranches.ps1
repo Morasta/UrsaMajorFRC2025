@@ -1,0 +1,2 @@
+# Run this in powershell first: Set-ExecutionPolicy RemoteSigned –Scope Process
+git for-each-ref --format '%(refname:short)' refs/heads --merged | ForEach-Object { If("develop","master","main" -notcontains $_) { git branch $_ -d } }

@@ -37,7 +37,7 @@ public class ElevatorSlideCmd extends Command{
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.stopMotors();
+        elevatorSubsystem.stopSlideMotors();
         System.out.println("ElevatorSlideCmd ended");
     }
 }

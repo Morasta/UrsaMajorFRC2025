@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.spark.SparkMax;
@@ -7,6 +8,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.Constants.ElevatorConstants;
 
@@ -15,6 +17,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     private final SparkMax m_slideMotor = new SparkMax(ElevatorConstants.kSlideMotorPort, MotorType.kBrushed);
     private final TalonSRX m_verticalLeftMotor = new TalonSRX(ElevatorConstants.kVerticalLeftMotorPort);
     private final TalonSRX m_verticalRightMotor = new TalonSRX(ElevatorConstants.kVerticalRightMotorPort);
+    ElevatorFeedforward feedForward = new ElevatorFeedforward(ElevatorConstants.kS, ElevatorConstants.kG, ElevatorConstants.kV, ElevatorConstants.kA);
 
     // private final SparkRelativeEncoder sparkEncoder = m_verticalMotor.get
     // Encoder enc;
@@ -26,7 +29,24 @@ public class ElevatorSubsystem extends SubsystemBase{
         
         // Note: the orientation of the motors in the gearbox is such that they should both be spinning the same way
         m_verticalLeftMotor.setInverted(false);
-        m_verticalRightMotor.setInverted(false);   
+        m_verticalRightMotor.setInverted(false);
+
+        // https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/feedforward.html#elevatorfeedforward
+        // Create a new ElevatorFeedforward with gains kS, kG, kV, and kA
+        //ElevatorFeedforward feedforward = new ElevatorFeedforward(kS, kG, kV, kA);
+        //feedforward.calculate(0);
+        
+        //serenityFeedForward1();
+    }
+
+    public void serenityFeedForward1(double leftVelocity, double rightVelocity) {
+        feedForward.calculate(rightVelocity);
+        feedForward.calculate(leftVelocity);
+    }
+
+    public void setMotorBrakeMode(NeutralMode mode) {
+        m_verticalLeftMotor.setNeutralMode(mode);
+        m_verticalRightMotor.setNeutralMode(mode);
     }
 
     public void setSlideMotor(double speed) { 
@@ -36,12 +56,17 @@ public class ElevatorSubsystem extends SubsystemBase{
     public void setVerticalMotor(double speed) {
         m_verticalLeftMotor.set(ControlMode.PercentOutput, speed);
         m_verticalRightMotor.set(ControlMode.PercentOutput, speed);
+
+        //m_verticalLeftMotor.set(null, speed, null, speed);
     }
 
-    public void stopMotors() {
-        m_slideMotor.set(0);
+    public void stopVerticalMotors() {
         m_verticalLeftMotor.set(ControlMode.PercentOutput, 0);
         m_verticalRightMotor.set(ControlMode.PercentOutput, 0);
+    }
+
+    public void stopSlideMotors() {
+        m_slideMotor.set(0);
     }
 
     // TODO: tie this to encoders

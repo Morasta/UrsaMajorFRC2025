@@ -54,6 +54,13 @@ public final class Constants {
         public static final double kAutoDriveRoundTurnSpeed = 0.25;
         public static final double kAutoDriveSidewaysSpeed = 0.25;
 
+        //TODO: figure out what num this should be
+        public static final double targetTxPosition = 20;
+        public static final double targetArea = 6;
+        public static final double targetAreaGoalTolerance = 1.5;
+        public static final double targetCamTolerance = 1.5;
+        public static final int maxAprilTagNotFoundCount = 10;
+
         public static final class AprilTagDists {
             //TODO: fix to correct dists
             public static final double ToReefStation = 3.0;
@@ -132,6 +139,7 @@ public final class Constants {
         public static final int kFrontRightMotorPort = 13;
         public static final int kRearLeftMotorPort = 3;
         public static final int kRearRightMotorPort = 2;
+        
         public static final int kFrontLeftEncoderPortA = 0;
         public static final int kFrontLeftEncoderPortB = 1;
         public static final int kFrontRightEncoderPortA = 2;
@@ -190,6 +198,11 @@ public final class Constants {
         public static final double kI = 0;
         public static final double kD = 0.8;
 
+        public static final double kS = 0;
+        public static final double kG = 0;
+        public static final double kV = 0;
+        public static final double kA = 0;
+
         public static final double kRaisedPosition = 1.2;
         public static final double kLoweredPosition = 0;
         public static final double kExtendedPosition = 1.2;
@@ -201,8 +214,8 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kTopMotorPort = 8; //TODO: change to top
         public static final int kBottomMotorPort = 10;// and bottom
-        public static final double kOpenSpeed = -0.3;
-        public static final double kCloseSpeed = 0.3;
+        public static final double kOpenSpeed = -0.1;
+        public static final double kCloseSpeed = 0.1;
         public static final int kLeftEncoderA = 10;
         public static final int kLeftEncoderB = 11;
         public static final int kRightEncoderA = 12;

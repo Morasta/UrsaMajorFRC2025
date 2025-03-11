@@ -1,9 +1,10 @@
-package frc.robot.commands.drive;
+package frc.robot.commands.ButtonDirs;
 
+import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class DriveBackwardCmd extends Command {
+public class FrontRight extends Command {
     private final DriveTrain driveSubsystem;
     private final double distance;
   
@@ -11,11 +12,11 @@ public class DriveBackwardCmd extends Command {
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
     }
 
-    public DriveBackwardCmd(DriveTrain driveTrain, double distance) {
+    public FrontRight(DriveTrain driveTrain, double distance) {
         this(driveTrain, distance, 1.0);
     }
 
-    public DriveBackwardCmd(DriveTrain driveTrain, double distance, double speed) {
+    public FrontRight(DriveTrain driveTrain, double distance, double speed) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
         this.distance = 1; //TODO: Fix me
@@ -32,8 +33,7 @@ public class DriveBackwardCmd extends Command {
     @Override
     public void execute() {
         printStatus("executed");
-        //set all motors at forward speed
-        driveSubsystem.setMotors(-0.3, -0.3);
+        driveSubsystem.setMotors(0, 0, 1, 0);
     }
 
     @Override

@@ -54,10 +54,10 @@ public class DriveTrain extends SubsystemBase {
         SendableRegistry.addChild(m_robotDrive, m_rearRight);
 
         // Populate HashMap with robot's wheels
-        m_wheels.put(kWheels.frontLeft, m_frontLeft);
-        m_wheels.put(kWheels.frontRight, m_frontRight);
-        m_wheels.put(kWheels.rearLeft, m_frontLeft);
-        m_wheels.put(kWheels.rearRight, m_frontLeft);
+        //m_wheels.put(kWheels.frontLeft, m_frontLeft);
+        //m_wheels.put(kWheels.frontRight, m_frontRight);
+        //m_wheels.put(kWheels.rearLeft, m_rearLeft);
+        //m_wheels.put(kWheels.rearRight, m_rearRight);
 
         //Inverted
         sparkInvertedConfig.inverted(true);
@@ -66,8 +66,9 @@ public class DriveTrain extends SubsystemBase {
         //m_RearLeft.setInverted(true);
         //m_RearRight.setInverted(true);
         
-        //m_frontLeft.configure(sparkInvertedConfig, null, null);
+        m_frontLeft.configure(sparkInvertedConfig, null, null);
         //m_rearLeft.configure(sparkInvertedConfig, null, null);
+        m_rearRight.setInverted(true);
 
         m_robotDrive.feed();
     }
@@ -76,9 +77,9 @@ public class DriveTrain extends SubsystemBase {
         m_robotDrive.feed();
     }
     
-    public void setInverted (kWheels wheel) {
-        m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
-    }
+    //public void setInverted (kWheels wheel) {
+    //    m_wheels.get(wheel).configure(sparkInvertedConfig, null, null);
+    //}
 
     public void setMaxOutput(double maxOutput) {
         System.out.println("SetMaxOutput" + maxOutput);

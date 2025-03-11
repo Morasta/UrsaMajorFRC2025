@@ -3,6 +3,9 @@ package frc.robot;
 //util imports
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import frc.robot.utils.GamepadAxisButton;
 //wpilib command imports
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,9 +25,15 @@ import frc.robot.commands.intake.AlgaeConsumeCmd;
 import frc.robot.commands.intake.AlgaeSpitOutCmd;
 import frc.robot.commands.intake.CoralConsumeCmd;
 import frc.robot.commands.intake.CoralSpitOutCmd;
+import frc.robot.commands.ButtonDirs.FrontLeft;
+import frc.robot.commands.ButtonDirs.FrontRight;
+import frc.robot.commands.ButtonDirs.RearLeft;
+import frc.robot.commands.ButtonDirs.RearRight;
+import frc.robot.commands.auto.DriveForwardTillDistRightCmd;
 //autoCmd imports
 import frc.robot.commands.auto.FindAprilTagCmd;
 import frc.robot.commands.auto.RotateTillTagFoundCmd;
+import frc.robot.commands.auto.SetPositionCmd;
 import frc.robot.commands.groups.DepositCoralCmdGroup;
 //driveCmd imports
 import frc.robot.commands.drive.DriveForwardCmd;
@@ -38,6 +47,7 @@ import frc.robot.commands.drive.DriveRearTurnCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
 import frc.robot.commands.drive.StopDriveCmd;
+import frc.robot.commands.elevator.ElevatorIdleCmd;
 //ElevatorCmd imports
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorSlideExtendedCommand;
@@ -62,11 +72,13 @@ public class RobotContainer {
     // Orientation Vars
     public static final Pose2d kZeroPose2d = new Pose2d();
     public static final Rotation2d kZeroRotation2d = new Rotation2d();
-    private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 2, 0.5, false));
-    private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.5, false));
-    private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.5, false));
-    private final GamepadAxisButton lElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 2, 0.5, false));
-    private final GamepadAxisButton LJoyDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 1, 0.5, false));
+    private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 2, 0.1, false));
+    private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.1, false));
+    private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.1, false));
+    private final GamepadAxisButton lElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 2, 0.1, false));
+    private final GamepadAxisButton LJoyForwardDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 1, 0.3, false));
+    private final GamepadAxisButton RJoyBackDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 5, 0.3, false));
+
     
     private static final boolean toggleDefaultAutoButtons = false;
     
@@ -83,6 +95,12 @@ public class RobotContainer {
         // elevatorSubsystem.setDefaultCommand(new
         // ElevatorJoystickCmd(elevatorSubsystem, 0));
         // intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
+        setDefaultCommand();
+
+        this.setElevatorBrakeMode(NeutralMode.Coast);
+     }
+
+    public void setDefaultCommand() {
         m_robotDrive.setDefaultCommand(
             new RunCommand(() -> m_robotDrive.drive(
                 -m_driverController.getRawAxis(1),
@@ -91,6 +109,10 @@ public class RobotContainer {
                 true), m_robotDrive
             )
         );
+    }
+
+    public void setElevatorBrakeMode(NeutralMode mode) {
+        elevatorSubsystem.setMotorBrakeMode(mode);
     }
     
     private void configureButtonBindings() {
@@ -106,24 +128,32 @@ public class RobotContainer {
         m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.4));
         m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.4));
         //TODO: check if works or needs own joystick
-        m_clawController.leftBumper().whileTrue(new CoralSpitOutCmd(intakeSubsystem, false));
-        m_clawController.rightBumper().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
-        m_clawController.rightBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
+        //m_clawController.leftBumper().whileTrue(new CoralSpitOutCmd(intakeSubsystem, false));
+        //m_clawController.rightBumper().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
+        m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
 
-        rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -0.5));
-        lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
+        rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
+        lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.09));
+        double idleSpeed = -0.18;
+        rElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
+        lElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
+
+        // m_driverController.a().onTrue(new FrontLeft(m_robotDrive, 0, 0.3));
+        // m_driverController.b().onTrue(new FrontRight(m_robotDrive, 0, 0.3));
+        // m_driverController.x().onTrue(new RearLeft(m_robotDrive, 0, 0.3));
+        // m_driverController.y().onTrue(new RearRight(m_robotDrive, 0, 0.3));
        
         //Driver Controls
         //TODO: fix to turn full circle in place
         m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
-        m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
-        m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
+        m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
+        m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         lCrabwalk.whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, 0));
         rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
         //TODO: check this drive forward + backward
-        LJoyDrive.whileTrue(new DriveForwardCmd(m_robotDrive, 0));
-        //TODO: add diagonal movement on joy R?
+        LJoyForwardDrive.whileTrue(new DriveForwardCmd(m_robotDrive, 0));
+        RJoyBackDrive.whileTrue(new DriveBackwardCmd(m_robotDrive, 0));
     }
 
     private void configureButtonsForAutoTesting() {
@@ -158,20 +188,20 @@ public class RobotContainer {
         m_driverController.b().whileTrue(new DriveLeftDiagonalCmd(m_robotDrive, -1));
         //TODO: Check that this moves Left
         m_driverController.y().whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, -1));
-        m_clawController.rightTrigger().whileTrue(new StopDriveCmd(m_robotDrive, 0));
+        //m_clawController.rightTrigger().whileTrue(new StopDriveCmd(m_robotDrive, 0));
     }
     private void configureWheels() {
-        m_robotDrive.setInverted(kWheels.frontLeft);
-        m_robotDrive.setInverted(kWheels.rearLeft);
+        //m_robotDrive.setInverted(kWheels.frontLeft);
+        //m_robotDrive.setInverted(kWheels.rearLeft);
     }
     public Command getAutonomousCommand() {
         //Dummy test sequence
         return Commands.sequence(
-            new DriveForwardCmd(m_robotDrive, 0).withTimeout(1.5),
-            new FindAprilTagCmd(m_robotDrive, limelightVisionSubsystem, 0, 0, 0),
-            new RotateTillTagFoundCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.3),
-            new AlgaeSpitOutCmd(intakeSubsystem, true),
-            new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1.0)
+            //new SetPositionCmd(limelightVisionSubsystem, m_robotDrive, 0, 0.3),
+            new DriveForwardCmd(m_robotDrive, 0).withTimeout(0.5),
+            new DriveForwardTillDistRightCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.4),
+            new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(0.5)
+            //new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1)
         );
 
 
@@ -237,18 +267,18 @@ public class RobotContainer {
     }
     
     
-    public void testVisionCoordinates() {
-        System.out.println("****Poses:  ");
-        // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Left"));
-        // System.out.println(LimelightVisionSubsystem.getKnownPose("RobotBluReef1Right"));
+    // public void testVisionCoordinates() {
+    //     System.out.println("****Poses:  ");
+    //     // System.out.println(llVisionSubsystem.getKnownPose("RobotBluReef1Left"));
+    //     // System.out.println(LimelightVisionSubsystem.getKnownPose("RobotBluReef1Right"));
         
-        List<String> keys = new ArrayList<>();
-        for(String k : RobotPoseConstants.visionRobotPoses.keySet()) {
-            keys.add(k);
-        }
-        for (String key : keys) { 
-            System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
-        }   
-    }    
+    //     List<String> keys = new ArrayList<>();
+    //     for(String k : RobotPoseConstants.visionRobotPoses.keySet()) {
+    //         keys.add(k);
+    //     }
+    //     for (String key : keys) { 
+    //         System.out.println(key + RobotPoseConstants.visionRobotPoses.get(key));
+    //     }   
+    // }    
    
  }

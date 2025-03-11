@@ -3,21 +3,19 @@ package frc.robot.commands.elevator;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
-
-public class ElevatorSlideRetractedCommand extends Command{
+public class ElevatorIdleCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
     private final double speed;
 
-    public ElevatorSlideRetractedCommand(ElevatorSubsystem elevatorSubsystem, double speed) {
+    public ElevatorIdleCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
     }
 
-    public ElevatorSlideRetractedCommand(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
+    public ElevatorIdleCmd(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
@@ -25,18 +23,18 @@ public class ElevatorSlideRetractedCommand extends Command{
 
     @Override
     public void initialize() {
-        System.out.println("ElevatorSlideRetractedCommand started");
+        System.out.println("ElevatorIdleCmd started");
     }
 
     @Override
     public void execute() {
-        elevatorSubsystem.setVerticalPosition(ElevatorConstants.kRetractedPosition);
-        System.out.println("Exec ElevatorSlideRetractedCommand: " + speed);
+        elevatorSubsystem.setVerticalMotor(speed);
+        System.out.println("Exec ElevatorIdleCmd: " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
         elevatorSubsystem.stopVerticalMotors();
-        System.out.println("ElevatorSlideRetractedCommand ended");
+        System.out.println("ElevatorIdleCmd ended");
     }
 }
