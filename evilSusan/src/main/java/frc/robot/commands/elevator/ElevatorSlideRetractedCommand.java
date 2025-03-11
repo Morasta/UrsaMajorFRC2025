@@ -30,13 +30,13 @@ public class ElevatorSlideRetractedCommand extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setVerticalPosition(ElevatorConstants.kRetractedPosition);
+        elevatorSubsystem.setSlidePosition(ElevatorConstants.kRetractedPosition);
         System.out.println("Exec ElevatorSlideRetractedCommand: " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.stopVerticalMotors();
+        elevatorSubsystem.stopSlideMotors();
         System.out.println("ElevatorSlideRetractedCommand ended");
     }
 }

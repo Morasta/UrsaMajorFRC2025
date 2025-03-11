@@ -30,7 +30,7 @@ public class ElevatorSlideExtendedCommand extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setVerticalPosition(ElevatorConstants.kExtendedPosition);
+        elevatorSubsystem.setSlidePosition(ElevatorConstants.kExtendedPosition);
         System.out.println("Exec ElevatorSlideExtendedCommand: " + speed);
     }
 
