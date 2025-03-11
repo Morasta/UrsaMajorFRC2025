@@ -24,7 +24,7 @@ public class CoralSpitOutCmd extends Command{
     @Override
     public void execute() {
         System.out.println("exec CoralSpitOutCmd");
-        intakeSubsystem.setCoralPosition(false);
+        intakeSubsystem.setCoralPosition(true);
     }
 
     @Override

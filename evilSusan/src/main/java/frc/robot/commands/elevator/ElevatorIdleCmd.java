@@ -34,7 +34,7 @@ public class ElevatorIdleCmd extends Command{
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.stopMotors();
+        elevatorSubsystem.stopVerticalMotors();
         System.out.println("ElevatorIdleCmd ended");
     }
 }

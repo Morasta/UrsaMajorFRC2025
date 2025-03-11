@@ -97,7 +97,7 @@ public class RobotContainer {
         // intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
         setDefaultCommand();
 
-         this.setElevatorBrakeMode(NeutralMode.Coast);
+        this.setElevatorBrakeMode(NeutralMode.Coast);
      }
 
     public void setDefaultCommand() {
@@ -128,14 +128,14 @@ public class RobotContainer {
         m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.4));
         m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.4));
         //TODO: check if works or needs own joystick
-        m_clawController.leftBumper().whileTrue(new CoralSpitOutCmd(intakeSubsystem, false));
-        m_clawController.rightBumper().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
-        m_clawController.rightBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
+        //m_clawController.leftBumper().whileTrue(new CoralSpitOutCmd(intakeSubsystem, false));
+        //m_clawController.rightBumper().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
+        m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
 
         rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
         lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.09));
-        double idleSpeed = -0.13;
+        double idleSpeed = -0.18;
         rElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
         lElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
 
@@ -147,8 +147,8 @@ public class RobotContainer {
         //Driver Controls
         //TODO: fix to turn full circle in place
         m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
-        m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
-        m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
+        m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
+        m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         lCrabwalk.whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, 0));
         rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
         //TODO: check this drive forward + backward
@@ -188,7 +188,7 @@ public class RobotContainer {
         m_driverController.b().whileTrue(new DriveLeftDiagonalCmd(m_robotDrive, -1));
         //TODO: Check that this moves Left
         m_driverController.y().whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, -1));
-        m_clawController.rightTrigger().whileTrue(new StopDriveCmd(m_robotDrive, 0));
+        //m_clawController.rightTrigger().whileTrue(new StopDriveCmd(m_robotDrive, 0));
     }
     private void configureWheels() {
         //m_robotDrive.setInverted(kWheels.frontLeft);
@@ -199,9 +199,9 @@ public class RobotContainer {
         return Commands.sequence(
             //new SetPositionCmd(limelightVisionSubsystem, m_robotDrive, 0, 0.3),
             new DriveForwardCmd(m_robotDrive, 0).withTimeout(0.5),
-            new DriveForwardTillDistRightCmd(m_robotDrive, limelightVisionSubsystem, 0, 1),
-            new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(0.5),
-            new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1)
+            new DriveForwardTillDistRightCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.4),
+            new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(0.5)
+            //new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1)
         );
 
 

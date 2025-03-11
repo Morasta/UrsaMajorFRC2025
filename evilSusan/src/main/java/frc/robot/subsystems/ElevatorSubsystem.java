@@ -60,10 +60,13 @@ public class ElevatorSubsystem extends SubsystemBase{
         //m_verticalLeftMotor.set(null, speed, null, speed);
     }
 
-    public void stopMotors() {
-        m_slideMotor.set(0);
+    public void stopVerticalMotors() {
         m_verticalLeftMotor.set(ControlMode.PercentOutput, 0);
         m_verticalRightMotor.set(ControlMode.PercentOutput, 0);
+    }
+
+    public void stopSlideMotors() {
+        m_slideMotor.set(0);
     }
 
     // TODO: tie this to encoders
