@@ -146,14 +146,14 @@ public class RobotContainer {
        
         //Driver Controls
         //TODO: fix to turn full circle in place
-        m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
+        m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0)); //DriveRoundTurnCmd broken
         m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
         m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         lCrabwalk.whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, 0));
         rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
         //TODO: check this drive forward + backward
-        LJoyForwardDrive.whileTrue(new DriveForwardCmd(m_robotDrive, 0));
-        RJoyBackDrive.whileTrue(new DriveBackwardCmd(m_robotDrive, 0));
+       // LJoyForwardDrive.whileTrue(new DriveForwardCmd(m_robotDrive, 0));
+        //RJoyBackDrive.whileTrue(new DriveBackwardCmd(m_robotDrive, 0));
     }
 
     private void configureButtonsForAutoTesting() {
