@@ -1,20 +1,24 @@
 package frc.robot.commands.groups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-
+import frc.robot.commands.auto.DriveForwardTillDistRightCmd;
+import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
 import frc.robot.commands.intake.AlgaeSpitOutCmd;
+import frc.robot.commands.intake.CoralSpitOutCmd;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LimelightVisionSubsystem;
+import frc.robot.subsystems.DriveTrain;
 
 public class DepositCoralCmdGroup extends SequentialCommandGroup {
-    public DepositCoralCmdGroup(ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
-        //TODO: use elevator set top and slide extended if possible, or hardcode dists if using existing cmds
+    public DepositCoralCmdGroup(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
+        //DriveForward for half second. with read tag and drive till tag is correct distance. will CoralSpitOut
         addCommands(
-            new ElevatorVerticalCmd(elevatorSubsystem, 1.0)
-            , new ElevatorSlideCmd(elevatorSubsystem, 1.0)
-            , new AlgaeSpitOutCmd(intakeSubsystem, true)
+            new DriveForwardCmd(driveTrain, 0).withTimeout(0.5),
+            new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0),
+            new CoralSpitOutCmd(intakeSubsystem, false).withTimeout(1)
         );
     }
 }
