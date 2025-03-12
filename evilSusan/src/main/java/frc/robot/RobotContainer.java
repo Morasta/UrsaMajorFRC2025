@@ -108,7 +108,7 @@ public class RobotContainer {
             new RunCommand(() -> m_robotDrive.drive(
                 -m_driverController.getRawAxis(1),
                 -m_driverController.getRawAxis(5),
-                -m_driverController.getRawAxis(4),
+                m_driverController.getRawAxis(4),
                 true), m_robotDrive
             )
         );
@@ -130,9 +130,6 @@ public class RobotContainer {
         //TODO: change to fixed position
         m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.4));
         m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.4));
-        //TODO: check if works or needs own joystick
-        //m_clawController.leftBumper().whileTrue(new CoralSpitOutCmd(intakeSubsystem, false));
-        //m_clawController.rightBumper().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
         m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
 
@@ -148,15 +145,10 @@ public class RobotContainer {
         // m_driverController.y().onTrue(new RearRight(m_robotDrive, 0, 0.3));
        
         //Driver Controls
-        //TODO: fix to turn full circle in place
-        //m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0)); //DriveRoundTurnCmd broken
         m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
         m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         lCrabwalk.whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, 0));
         rCrabwalk.whileTrue(new DriveRightSidewaysCmd(m_robotDrive, 0));
-        //TODO: check this drive forward + backward
-       // LJoyForwardDrive.whileTrue(new DriveForwardCmd(m_robotDrive, 0));
-        //RJoyBackDrive.whileTrue(new DriveBackwardCmd(m_robotDrive, 0));
     }
 
     private void configureButtonsForAutoTesting() {

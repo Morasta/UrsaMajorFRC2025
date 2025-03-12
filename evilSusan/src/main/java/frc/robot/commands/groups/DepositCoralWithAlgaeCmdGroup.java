@@ -17,8 +17,8 @@ public class DepositCoralWithAlgaeCmdGroup extends SequentialCommandGroup {
         addCommands(
             new DriveForwardCmd(driveTrain, 0).withTimeout(1)
             ,new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0.4)
-            ,new ElevatorVerticalAutoCmd(elevatorSubsystem, -1).withTimeout(0.5)
-            ,new ElevatorSlideCmd(elevatorSubsystem, 0.3).withTimeout(1)
+            ,new ElevatorVerticalAutoCmd(elevatorSubsystem, -1).withTimeout(0.3)
+            ,new ElevatorSlideCmd(elevatorSubsystem, 0.3).withTimeout(1.5)
             ,new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(1)
         );
     }
