@@ -148,8 +148,8 @@ public class RobotContainer {
         //TODO: fix to turn full circle in place
         m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
         m_driverController.b().whileTrue(new StopDriveCmd(m_robotDrive, 0));
-        m_driverController.x().whileTrue(new CoralConsumeCmd(IntakeSubsystem intakeSubsystem, boolean consuming));
-        m_driverController.y().whileTrue(new CoralSpitOutCmd(IntakeSubsystem intakeSubsystem, boolean consuming));
+        m_driverController.x().whileTrue(new CoralConsumeCmd(IntakeSubsystem intakeSubsystem, consuming false));
+        m_driverController.y().whileTrue(new CoralSpitOutCmd(IntakeSubsystem intakeSubsystem, consuming true));
         m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
         m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         lCrabwalk.whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, 0));
