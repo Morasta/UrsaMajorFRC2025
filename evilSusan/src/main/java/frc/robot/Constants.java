@@ -214,8 +214,8 @@ public final class Constants {
     public static final class IntakeConstants {
         public static final int kTopMotorPort = 8; //TODO: change to top
         public static final int kBottomMotorPort = 10;// and bottom
-        public static final double kOpenSpeed = -0.1;
-        public static final double kCloseSpeed = 0.1;
+        public static final double kOpenSpeed = -0.5;
+        public static final double kCloseSpeed = 0.5;
         public static final int kLeftEncoderA = 10;
         public static final int kLeftEncoderB = 11;
         public static final int kRightEncoderA = 12;

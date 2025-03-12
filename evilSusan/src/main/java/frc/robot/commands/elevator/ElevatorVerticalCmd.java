@@ -31,7 +31,6 @@ public class ElevatorVerticalCmd extends Command{
     public void initialize() {
         System.out.println("ElevatorVerticalCmd started");
         elevatorSubsystem.setMotorBrakeMode(NeutralMode.Coast);
-        elevatorSubsystem.setMotorBrakeMode(NeutralMode.Coast);
     }
 
     @Override

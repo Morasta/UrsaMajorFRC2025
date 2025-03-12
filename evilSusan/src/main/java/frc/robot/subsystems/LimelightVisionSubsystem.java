@@ -55,6 +55,10 @@ public class LimelightVisionSubsystem extends SubsystemBase{
     public double getXValue() {
         return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("tx").getDouble(0.0);
     }
+
+    public double getScewValue() {
+        return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("ts").getDouble(0.0);
+    }
     
     public double getYValue() {
         return NetworkTableInstance.getDefault().getTable(LimelightCamera.CAMERA_NAME).getEntry("ty").getDouble(0.0);

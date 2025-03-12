@@ -45,11 +45,11 @@ public class IntakeSubsystem extends SubsystemBase {
             if (consuming) {
             System.out.println("setting setPosition to consuming");
             intakeUpMotor.set(IntakeConstants.kOpenSpeed);
-            intakeDownMotor.set(1.0);
+            intakeDownMotor.set(0.5);
         } else {
             System.out.println("setting intake to spitting");
             intakeUpMotor.set(IntakeConstants.kCloseSpeed);
-            intakeDownMotor.set(-1.0);
+            intakeDownMotor.set(-0.5);
         }
         //CHANGE: for Talon
         // if (open) {

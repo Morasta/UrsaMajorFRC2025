@@ -34,7 +34,6 @@ import frc.robot.commands.auto.DriveForwardTillDistRightCmd;
 import frc.robot.commands.auto.FindAprilTagCmd;
 import frc.robot.commands.auto.RotateTillTagFoundCmd;
 import frc.robot.commands.auto.SetPositionCmd;
-import frc.robot.commands.groups.DepositCoralCmdGroup;
 //driveCmd imports
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveLeftDiagonalCmd;
@@ -59,6 +58,10 @@ import frc.robot.commands.elevator.ElevatorVerticalSetTopCmd;
 import frc.robot.Constants.DriveConstants.kWheels;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
+//Auto group imports
+import frc.robot.commands.groups.DepositCoralWithAlgaeCmdGroup;
+import frc.robot.commands.groups.DepositCoralCmdGroup;
+import frc.robot.commands.groups.DropCoralThenGrabAlgaeCmdGroup;
 
 public class RobotContainer {
     // Drive Trains and Controllers
@@ -133,7 +136,6 @@ public class RobotContainer {
         m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
 
-
         rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
         lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.09));
         double idleSpeed = -0.18;
@@ -198,11 +200,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         //Dummy test sequence
         return Commands.sequence(
-            //new SetPositionCmd(limelightVisionSubsystem, m_robotDrive, 0, 0.3),
-            new DriveForwardCmd(m_robotDrive, 0).withTimeout(0.5),
-            new DriveForwardTillDistRightCmd(m_robotDrive, limelightVisionSubsystem, 0, 0.4),
-            new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(0.5)
-            //new DriveBackwardCmd(m_robotDrive, 0).withTimeout(1)
+            new DepositCoralWithAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, elevatorSubsystem, intakeSubsystem)
         );
 
 
@@ -250,6 +248,7 @@ public class RobotContainer {
         new InstantCommand(() -> m_robotDrive.drive(0, 0, 0, false))
         );*/
     }
+
     
     /**
     * Create a gamepad axis for triggering commands as if it were a button.
