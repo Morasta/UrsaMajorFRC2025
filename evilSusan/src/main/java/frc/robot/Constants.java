@@ -123,6 +123,7 @@ public final class Constants {
             , frontRight
             , rearLeft
             , rearRight
+            public static final double SetMaxOutput = 0.3;
         };
 
         public static final double kAutoDriveForwardSpeed = 0.5;
