@@ -41,9 +41,9 @@ public class ElevatorVerticalAutoCmd extends Command{
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.stopVerticalMotors();
+        //elevatorSubsystem.stopVerticalMotors();
         elevatorSubsystem.setVerticalMotor(-0.18);
-        elevatorSubsystem.setMotorBrakeMode(NeutralMode.Brake);
+        //elevatorSubsystem.setMotorBrakeMode(NeutralMode.Brake);
         System.out.println("ElevatorVerticalCmd ended");
     }
 }

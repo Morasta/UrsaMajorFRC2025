@@ -29,6 +29,7 @@ import frc.robot.commands.ButtonDirs.FrontLeft;
 import frc.robot.commands.ButtonDirs.FrontRight;
 import frc.robot.commands.ButtonDirs.RearLeft;
 import frc.robot.commands.ButtonDirs.RearRight;
+import frc.robot.commands.auto.AlignToTagCmd;
 import frc.robot.commands.auto.DriveForwardTillDistRightCmd;
 //autoCmd imports
 import frc.robot.commands.auto.FindAprilTagCmd;
@@ -108,7 +109,7 @@ public class RobotContainer {
             new RunCommand(() -> m_robotDrive.drive(
                 -m_driverController.getRawAxis(1),
                 -m_driverController.getRawAxis(5),
-                m_driverController.getRawAxis(4),
+                -m_driverController.getRawAxis(4),
                 true), m_robotDrive
             )
         );
@@ -192,7 +193,8 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         //Dummy test sequence
         return Commands.sequence(
-            new DepositCoralWithAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, elevatorSubsystem, intakeSubsystem)
+            //new DepositCoralWithAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, elevatorSubsystem, intakeSubsystem)
+            new DropCoralThenGrabAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, elevatorSubsystem, intakeSubsystem)
         );
 
 

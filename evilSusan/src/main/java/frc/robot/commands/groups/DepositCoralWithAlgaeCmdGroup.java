@@ -13,12 +13,12 @@ import frc.robot.subsystems.LimelightVisionSubsystem;
 
 public class DepositCoralWithAlgaeCmdGroup extends SequentialCommandGroup {
     public DepositCoralWithAlgaeCmdGroup(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
-        //will drive forward till distance to aprilTag is right. Spins elevator up. Moves slide all the way out. Will grab an algae while also spitting out coral 
+        //will drive forward till distance to aprilTag is right. Spins elevator up to bottom Algae. Moves slide all the way out. Will grab an algae while also spitting out coral 
         addCommands(
             new DriveForwardCmd(driveTrain, 0).withTimeout(1)
-            ,new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0.4)
-            ,new ElevatorVerticalAutoCmd(elevatorSubsystem, -1).withTimeout(0.3)
-            ,new ElevatorSlideCmd(elevatorSubsystem, 0.3).withTimeout(1.5)
+            ,new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0.3)
+            ,new ElevatorVerticalAutoCmd(elevatorSubsystem, -1).withTimeout(0.4)
+            ,new ElevatorSlideCmd(elevatorSubsystem, 0.3).withTimeout(1)
             ,new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(1)
         );
     }
