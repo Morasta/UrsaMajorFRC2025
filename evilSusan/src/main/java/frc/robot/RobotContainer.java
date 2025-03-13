@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 //math imports
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //subsystem imports
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -78,8 +79,8 @@ public class RobotContainer {
     public static final Rotation2d kZeroRotation2d = new Rotation2d();
     private final GamepadAxisButton lCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 2, 0.1, false));
     private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.1, false));
-    private final GamepadAxisButton rElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.1, false));
-    private final GamepadAxisButton lElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 2, 0.1, false));
+    private final GamepadAxisButton rtElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.1, false));
+    private final GamepadAxisButton ltElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 2, 0.1, false));
     private final GamepadAxisButton LJoyForwardDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 1, 0.3, false));
     private final GamepadAxisButton RJoyBackDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 5, 0.3, false));
 
@@ -134,11 +135,17 @@ public class RobotContainer {
         m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
 
-        rElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, -1));
-        lElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.09));
+        // Right Trigger take the elevator up
+        double upSpeed = -1;
+        rtElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, upSpeed));
+        // Left Trigger take the elevator down not crazty fast
+        double dropSpeed = 0.09;
+        ltElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, dropSpeed));
+
+        // How much speed to apply to motors to stall (stay in place)
         double idleSpeed = -0.18;
-        rElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
-        lElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
+        rtElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
+        ltElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
 
         // m_driverController.a().onTrue(new FrontLeft(m_robotDrive, 0, 0.3));
         // m_driverController.b().onTrue(new FrontRight(m_robotDrive, 0, 0.3));

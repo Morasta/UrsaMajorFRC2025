@@ -1,5 +1,6 @@
 package frc.robot.commands.elevator;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -28,8 +29,9 @@ public class ElevatorIdleCmd extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setVerticalMotor(speed);
-        System.out.println("Exec ElevatorIdleCmd: " + speed);
+        double idleSpeed = SmartDashboard.getNumber("ElevatorIdleSpeed", speed);
+        elevatorSubsystem.setVerticalMotor(idleSpeed);
+        System.out.println("Exec ElevatorIdleCmd: " + idleSpeed);
     }
 
     @Override
