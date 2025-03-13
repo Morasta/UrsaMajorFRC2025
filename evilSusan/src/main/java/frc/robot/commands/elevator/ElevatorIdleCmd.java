@@ -1,5 +1,7 @@
 package frc.robot.commands.elevator;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -14,12 +16,14 @@ public class ElevatorIdleCmd extends Command{
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
+        SmartDashboard.putNumber("ElevatorIdleSpeed", speed);
     }
 
     public ElevatorIdleCmd(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
+        SmartDashboard.putNumber("ElevatorIdleSpeed", speed);
     }
 
     @Override
