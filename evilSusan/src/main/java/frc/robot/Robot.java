@@ -38,6 +38,8 @@ public class Robot extends TimedRobot {
         // Instantiate a RobotContainer. This will bind all  bindings, and put an
         // autonomous chooser on the dashboard.
         m_robotContainer = new RobotContainer();
+
+        SmartDashboard.putNumber("ElevatorIdleSpeed", -0.18);
     }
 
     /**

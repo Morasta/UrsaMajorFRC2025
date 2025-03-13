@@ -16,14 +16,12 @@ public class ElevatorIdleCmd extends Command{
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
-        SmartDashboard.putNumber("ElevatorIdleSpeed", speed);
     }
 
     public ElevatorIdleCmd(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
-        SmartDashboard.putNumber("ElevatorIdleSpeed", speed);
     }
 
     @Override
@@ -33,9 +31,12 @@ public class ElevatorIdleCmd extends Command{
 
     @Override
     public void execute() {
-        double idleSpeed = SmartDashboard.getNumber("ElevatorIdleSpeed", speed);
-        elevatorSubsystem.setVerticalMotor(idleSpeed);
-        System.out.println("Exec ElevatorIdleCmd: " + idleSpeed);
+        double rawIdleSpeed = SmartDashboard.getNumber("ElevatorIdleSpeed", speed);
+        
+        // Apply limits (adjust these values based on your system)
+        double limitedSpeed = Math.max(-0.5, Math.min(0.5, rawIdleSpeed));
+        elevatorSubsystem.setVerticalMotor(limitedSpeed);
+        System.out.println("Exec ElevatorIdleCmd: " + limitedSpeed);
     }
 
     @Override
