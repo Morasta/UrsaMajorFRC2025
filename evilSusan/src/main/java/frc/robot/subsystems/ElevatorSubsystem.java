@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.Constants.ElevatorConstants;
+import frc.robot.Constants.IntakeConstants;
 
 
 public class ElevatorSubsystem extends SubsystemBase{
@@ -23,6 +24,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     // Encoder enc;
 
     public ElevatorSubsystem() {
+        
         // enc = new Encoder(ElevatorConstants.kEncoderChannelA, ElevatorConstants.kEncoderChannelB);
         // enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
         // sparkEncoder.getPosition();
@@ -56,8 +58,6 @@ public class ElevatorSubsystem extends SubsystemBase{
     public void setVerticalMotor(double speed) {
         m_verticalLeftMotor.set(ControlMode.PercentOutput, speed);
         m_verticalRightMotor.set(ControlMode.PercentOutput, speed);
-
-        //m_verticalLeftMotor.set(null, speed, null, speed);
     }
 
     public void stopVerticalMotors() {
@@ -67,6 +67,20 @@ public class ElevatorSubsystem extends SubsystemBase{
 
     public void stopSlideMotors() {
         m_slideMotor.set(0);
+    }
+
+    public void setIdleElevator(boolean holdingAlgae) {
+        double idleSpeed = -0.18;
+        double algaeIdleSpeed = -0.187;
+        if (holdingAlgae) {
+            System.out.println("setting ElevatorMotors to holdingAlgae");
+            m_verticalLeftMotor.set(ControlMode.PercentOutput, algaeIdleSpeed);
+            m_verticalRightMotor.set(ControlMode.PercentOutput, algaeIdleSpeed);
+        } else {
+            System.out.println("setting ElevatorMotors to NOT holdingAlgae");
+            m_verticalLeftMotor.set(ControlMode.PercentOutput, idleSpeed);
+            m_verticalRightMotor.set(ControlMode.PercentOutput, idleSpeed);
+        }
     }
 
     // TODO: tie this to encoders

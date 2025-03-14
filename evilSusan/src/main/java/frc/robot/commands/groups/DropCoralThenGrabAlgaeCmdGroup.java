@@ -12,11 +12,12 @@ import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightVisionSubsystem;
-            //if lined up just right coral will be put on branch as elevator lowers
+
 
 public class DropCoralThenGrabAlgaeCmdGroup extends SequentialCommandGroup {
     public DropCoralThenGrabAlgaeCmdGroup(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
-        //will drive forward till distance to aprilTag is right. Spins elevator up. Moves slide all the way out. Will grab an algae while also spitting out coral 
+    //will drive forward till distance to aprilTag is right. Spins elevator up. Moves slide all the way out. Will grab an algae while also spitting out coral 
+    //if lined up just right coral will be put on branch as elevator lowers
         addCommands(
             new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0.3),
             new CoralSpitOutCmd(intakeSubsystem, true).withTimeout(1),

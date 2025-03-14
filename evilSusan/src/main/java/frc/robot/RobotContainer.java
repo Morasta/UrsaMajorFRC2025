@@ -48,6 +48,7 @@ import frc.robot.commands.drive.DriveRearTurnCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
 import frc.robot.commands.drive.StopDriveCmd;
+import frc.robot.commands.elevator.ElevatorHoldAlgaeIdleCmd;
 import frc.robot.commands.elevator.ElevatorIdleCmd;
 //ElevatorCmd imports
 import frc.robot.commands.elevator.ElevatorSlideCmd;
@@ -134,6 +135,7 @@ public class RobotContainer {
         m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.4));
         m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
+        m_clawController.x().whileTrue(new ElevatorHoldAlgaeIdleCmd(elevatorSubsystem, true));
 
         // Right Trigger take the elevator up
         double upSpeed = -1;
@@ -142,8 +144,8 @@ public class RobotContainer {
         double dropSpeed = 0.09;
         ltElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, dropSpeed));
 
-        // How much speed to apply to motors to stall (stay in place)
         double idleSpeed = -0.18;
+        // How much speed to apply to motors to stall (stay in place)
         rtElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
         ltElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
 
