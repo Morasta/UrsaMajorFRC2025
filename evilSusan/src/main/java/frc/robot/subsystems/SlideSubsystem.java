@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-import frc.robot.Constants.IntakeConstants;
+import frc.robot.Constants.SlideConstants;
 
 
 public class SlideSubsystem extends SubsystemBase{

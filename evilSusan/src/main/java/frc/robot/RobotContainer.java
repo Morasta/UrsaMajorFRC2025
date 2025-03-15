@@ -133,8 +133,8 @@ public class RobotContainer {
         System.out.println("Configuring Button Bindings");
         //Operator Controls
         //TODO: change to fixed position
-        m_clawController.a().whileTrue(new ElevatorSlideCmd(slideSubsystem, 0.4));
-        m_clawController.b().whileTrue(new ElevatorSlideCmd(slideSubsystem, -0.4));
+        m_clawController.a().whileTrue(new ElevatorSlideCmd(slideSubsystem, 0.2));
+        m_clawController.b().whileTrue(new ElevatorSlideCmd(slideSubsystem, -0.2));
         m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
         m_clawController.x().whileTrue(new ElevatorHoldAlgaeIdleCmd(elevatorSubsystem, true));

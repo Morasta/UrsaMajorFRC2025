@@ -5,6 +5,7 @@ import frc.robot.commands.auto.DriveForwardTillDistRightCmd;
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorVerticalAutoCmd;
+import frc.robot.commands.elevator.ElevatorVerticalCmd;
 import frc.robot.commands.intake.AlgaeConsumeCmd;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SlideSubsystem;
@@ -21,6 +22,7 @@ public class DepositCoralWithAlgaeCmdGroup extends SequentialCommandGroup {
             ,new ElevatorVerticalAutoCmd(elevatorSubsystem, -1).withTimeout(0.4)
             ,new ElevatorSlideCmd(slideSubsystem, 0.3).withTimeout(1)
             ,new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(1)
+            ,new ElevatorVerticalCmd(elevatorSubsystem, -0.10).withTimeout(2)
         );
     }
 }
