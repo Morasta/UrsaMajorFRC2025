@@ -178,14 +178,8 @@ public final class Constants {
             , middle
             , top
         };
-        public static enum ElevatorSlidePositions {
-            back
-            , middle
-            , front
-        };
         public static final int kVerticalLeftMotorPort = 7;
         public static final int kVerticalRightMotorPort = 6;
-        public static final int kSlideMotorPort = 4;
         public static final int kEncoderChannelA = 16;
         public static final int kEncoderChannelB = 17;
         public static final double kEncoderTick2Meter = 1.0 / 4096.0 * 0.1 * Math.PI;
@@ -200,9 +194,22 @@ public final class Constants {
 
         public static final double kRaisedPosition = 1.2;
         public static final double kLoweredPosition = 0;
+        public static final double kJoystickMaxSpeed = 0.5;
+    }
+
+    public static final class SlideConstants {
+
+        public static enum SlidePositions {
+            back
+            , middle
+            , front
+        }
+    
+        public static final int kSlideMotorPort = 4;
+    
         public static final double kExtendedPosition = 1.2;
         public static final double kRetractedPosition = 0;
-        public static final double kJoystickMaxSpeed = 0.5;
+        
     }
 
     public static final class IntakeConstants {

@@ -30,7 +30,7 @@ public class ElevatorSlideRetractedCommand extends Command{
 
     @Override
     public void execute() {
-        slideSubsystem.setSlidePosition(ElevatorConstants.kRetractedPosition);
+        slideSubsystem.setSlidePosition(SlideConstants.kRetractedPosition);
         System.out.println("Exec ElevatorSlideRetractedCommand: " + speed);
     }
 
