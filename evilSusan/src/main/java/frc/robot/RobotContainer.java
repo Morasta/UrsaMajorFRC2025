@@ -21,6 +21,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LimelightVisionSubsystem;
+import frc.robot.subsystems.SlideSubsystem;
 //intakeCmd imports
 import frc.robot.commands.intake.AlgaeConsumeCmd;
 import frc.robot.commands.intake.AlgaeSpitOutCmd;
@@ -75,6 +76,7 @@ public class RobotContainer {
     private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     public static final LimelightVisionSubsystem limelightVisionSubsystem = new LimelightVisionSubsystem();
+    private final SlideSubsystem slideSubsystem = new SlideSubsystem();
     // Orientation Vars
     public static final Pose2d kZeroPose2d = new Pose2d();
     public static final Rotation2d kZeroRotation2d = new Rotation2d();
@@ -131,8 +133,8 @@ public class RobotContainer {
         System.out.println("Configuring Button Bindings");
         //Operator Controls
         //TODO: change to fixed position
-        m_clawController.a().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.4));
-        m_clawController.b().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, -0.4));
+        m_clawController.a().whileTrue(new ElevatorSlideCmd(slideSubsystem, 0.4));
+        m_clawController.b().whileTrue(new ElevatorSlideCmd(slideSubsystem, -0.4));
         m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
         m_clawController.x().whileTrue(new ElevatorHoldAlgaeIdleCmd(elevatorSubsystem, true));
@@ -163,11 +165,11 @@ public class RobotContainer {
 
     private void configureButtonsForAutoTesting() {
         m_clawController.a().whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, 0.5));
-        m_clawController.x().whileTrue(new ElevatorSlideCmd(elevatorSubsystem, 0.5));
+        m_clawController.x().whileTrue(new ElevatorSlideCmd(slideSubsystem, 0.5));
         m_clawController.y().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
         m_clawController.b().whileTrue(new CoralConsumeCmd(intakeSubsystem, false));
-        m_clawController.leftTrigger().whileTrue(new ElevatorSlideRetractedCommand(elevatorSubsystem, 0.5));
-        m_clawController.rightTrigger().whileTrue(new ElevatorSlideExtendedCommand(elevatorSubsystem, 0.5));
+        m_clawController.leftTrigger().whileTrue(new ElevatorSlideRetractedCommand(slideSubsystem, 0.5));
+        m_clawController.rightTrigger().whileTrue(new ElevatorSlideExtendedCommand(slideSubsystem, 0.5));
         m_clawController.leftBumper().whileTrue(new ElevatorVerticalSetTopCmd(elevatorSubsystem, 0.5));
         m_clawController.rightBumper().whileTrue(new ElevatorVerticalSetBottomCmd(elevatorSubsystem, 0.5));
         
@@ -203,7 +205,7 @@ public class RobotContainer {
         //Dummy test sequence
         return Commands.sequence(
             //new DepositCoralWithAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, elevatorSubsystem, intakeSubsystem)
-            new DropCoralThenGrabAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, elevatorSubsystem, intakeSubsystem)
+            new DropCoralThenGrabAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, slideSubsystem, intakeSubsystem, elevatorSubsystem)
         );
 
 

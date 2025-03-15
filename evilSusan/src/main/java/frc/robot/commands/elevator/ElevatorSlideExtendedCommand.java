@@ -1,26 +1,26 @@
 package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
-
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.subsystems.SlideSubsystem;
+import frc.robot.Constants.SlideConstants;
 import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
 
 public class ElevatorSlideExtendedCommand extends Command{
-    private final ElevatorSubsystem elevatorSubsystem;
+    private final SlideSubsystem slideSubsystem;
     private final double speed;
 
-    public ElevatorSlideExtendedCommand(ElevatorSubsystem elevatorSubsystem, double speed) {
-        this.elevatorSubsystem = elevatorSubsystem;
+    public ElevatorSlideExtendedCommand(SlideSubsystem slideSubsystem, double speed) {
+        this.slideSubsystem = slideSubsystem;
         this.speed = speed;
-        addRequirements(elevatorSubsystem);
+        addRequirements(slideSubsystem);
     }
 
-    public ElevatorSlideExtendedCommand(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
-        this.elevatorSubsystem = elevatorSubsystem;
+    public ElevatorSlideExtendedCommand(SlideSubsystem slideSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
+        this.slideSubsystem = slideSubsystem;
         this.speed = speed;
-        addRequirements(elevatorSubsystem);
+        addRequirements(slideSubsystem);
     }
 
     @Override
@@ -30,13 +30,13 @@ public class ElevatorSlideExtendedCommand extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setSlidePosition(ElevatorConstants.kExtendedPosition);
+        slideSubsystem.setSlidePosition(ElevatorConstants.kExtendedPosition);
         System.out.println("Exec ElevatorSlideExtendedCommand: " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.stopSlideMotors();
+        slideSubsystem.stopSlideMotors();
         System.out.println("ElevatorSlideExtendedCommand ended");
     }
 }

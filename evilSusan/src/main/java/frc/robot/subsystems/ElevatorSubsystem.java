@@ -3,19 +3,13 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
-
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.Constants.ElevatorConstants;
-import frc.robot.Constants.IntakeConstants;
-
 
 public class ElevatorSubsystem extends SubsystemBase{
-    private final SparkMax m_slideMotor = new SparkMax(ElevatorConstants.kSlideMotorPort, MotorType.kBrushed);
     private final TalonSRX m_verticalLeftMotor = new TalonSRX(ElevatorConstants.kVerticalLeftMotorPort);
     private final TalonSRX m_verticalRightMotor = new TalonSRX(ElevatorConstants.kVerticalRightMotorPort);
     ElevatorFeedforward feedForward = new ElevatorFeedforward(ElevatorConstants.kS, ElevatorConstants.kG, ElevatorConstants.kV, ElevatorConstants.kA);
@@ -51,10 +45,6 @@ public class ElevatorSubsystem extends SubsystemBase{
         m_verticalRightMotor.setNeutralMode(mode);
     }
 
-    public void setSlideMotor(double speed) { 
-        m_slideMotor.set(speed);
-    }
-
     public void setVerticalMotor(double speed) {
         m_verticalLeftMotor.set(ControlMode.PercentOutput, speed);
         m_verticalRightMotor.set(ControlMode.PercentOutput, speed);
@@ -63,10 +53,6 @@ public class ElevatorSubsystem extends SubsystemBase{
     public void stopVerticalMotors() {
         m_verticalLeftMotor.set(ControlMode.PercentOutput, 0);
         m_verticalRightMotor.set(ControlMode.PercentOutput, 0);
-    }
-
-    public void stopSlideMotors() {
-        m_slideMotor.set(0);
     }
 
     public void setIdleElevator(boolean holdingAlgae) {
@@ -103,18 +89,4 @@ public class ElevatorSubsystem extends SubsystemBase{
         //setSlideMotor(motorOutput);
     }
 
-    // TODO: make this set the vertical position as needed, stopping at the proper level
-    public void setSlidePosition(double targetPosition) {
-        //double pidOutput = pid.calculate(getPosition(), targetPosition);
-
-        // Add gravity compensation
-        // The sign is positive because we need to work against gravity
-        // You might need to flip the sign depending on your motor polarity
-        //double motorOutput = pidOutput + Physics.GRAVITY_COMPENSATION;
-
-        // Clamp the output to valid range
-        //motorOutput = Math.min(Math.max(motorOutput, -1.0), 1.0);
-
-        //setSlideMotor(motorOutput);
-    }
 }

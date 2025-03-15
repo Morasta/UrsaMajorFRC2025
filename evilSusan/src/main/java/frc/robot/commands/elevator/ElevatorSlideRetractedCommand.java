@@ -2,25 +2,25 @@ package frc.robot.commands.elevator;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.subsystems.SlideSubsystem;
+import frc.robot.Constants.SlideConstants;
 import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
 
 public class ElevatorSlideRetractedCommand extends Command{
-    private final ElevatorSubsystem elevatorSubsystem;
+    private final SlideSubsystem slideSubsystem;
     private final double speed;
 
-    public ElevatorSlideRetractedCommand(ElevatorSubsystem elevatorSubsystem, double speed) {
-        this.elevatorSubsystem = elevatorSubsystem;
+    public ElevatorSlideRetractedCommand(SlideSubsystem slideSubsystem, double speed) {
+        this.slideSubsystem = slideSubsystem;
         this.speed = speed;
-        addRequirements(elevatorSubsystem);
+        addRequirements(slideSubsystem);
     }
 
-    public ElevatorSlideRetractedCommand(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
-        this.elevatorSubsystem = elevatorSubsystem;
+    public ElevatorSlideRetractedCommand(SlideSubsystem slideSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
+        this.slideSubsystem = slideSubsystem;
         this.speed = speed;
-        addRequirements(elevatorSubsystem);
+        addRequirements(slideSubsystem);
     }
 
     @Override
@@ -30,13 +30,13 @@ public class ElevatorSlideRetractedCommand extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setSlidePosition(ElevatorConstants.kRetractedPosition);
+        slideSubsystem.setSlidePosition(ElevatorConstants.kRetractedPosition);
         System.out.println("Exec ElevatorSlideRetractedCommand: " + speed);
     }
 
     @Override
     public void end(boolean interrupted) {
-        elevatorSubsystem.stopSlideMotors();
+        slideSubsystem.stopSlideMotors();
         System.out.println("ElevatorSlideRetractedCommand ended");
     }
 }
