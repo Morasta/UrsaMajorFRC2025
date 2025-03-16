@@ -12,8 +12,6 @@ import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
-
-
 public final class Constants {
     // Constant definitions for controller mapping used by the "operator" or driver
     // This should map to the controller classes we'll define later
@@ -54,7 +52,6 @@ public final class Constants {
         public static final double kAutoDriveRoundTurnSpeed = 0.25;
         public static final double kAutoDriveSidewaysSpeed = 0.25;
 
-        //TODO: figure out what num this should be
         public static final double targetTxPosition = 20;
         public static final double targetArea = 6;
         public static final double targetAreaGoalTolerance = 1.5;
@@ -116,7 +113,6 @@ public final class Constants {
         }
     }
 
-    // TODO: Confirm all ports match the actual intake motors (based on wiring)
     public static final class DriveConstants {
         public static enum kWheels {
             frontLeft
@@ -176,21 +172,14 @@ public final class Constants {
         );
     }
 
-    // TODO: Map these ports to the actual intake motors (based on wiring)
     public static final class ElevatorConstants {
         public static enum ElevatorVerticalPositions {
             bottom
             , middle
             , top
         };
-        public static enum ElevatorSlidePositions {
-            back
-            , middle
-            , front
-        };
         public static final int kVerticalLeftMotorPort = 7;
         public static final int kVerticalRightMotorPort = 6;
-        public static final int kSlideMotorPort = 4;
         public static final int kEncoderChannelA = 16;
         public static final int kEncoderChannelB = 17;
         public static final double kEncoderTick2Meter = 1.0 / 4096.0 * 0.1 * Math.PI;
@@ -205,17 +194,29 @@ public final class Constants {
 
         public static final double kRaisedPosition = 1.2;
         public static final double kLoweredPosition = 0;
-        public static final double kExtendedPosition = 1.2;
-        public static final double kRetractedPosition = 0;
         public static final double kJoystickMaxSpeed = 0.5;
     }
 
-    // TODO: Map these ports to the actual intake motors (based on wiring)
+    public static final class SlideConstants {
+
+        public static enum SlidePositions {
+            back
+            , middle
+            , front
+        }
+    
+        public static final int kSlideMotorPort = 4;
+    
+        public static final double kExtendedPosition = 1.2;
+        public static final double kRetractedPosition = 0;
+        
+    }
+
     public static final class IntakeConstants {
-        public static final int kTopMotorPort = 8; //TODO: change to top
-        public static final int kBottomMotorPort = 10;// and bottom
-        public static final double kOpenSpeed = -0.1;
-        public static final double kCloseSpeed = 0.1;
+        public static final int kTopMotorPort = 8;
+        public static final int kBottomMotorPort = 10;
+        public static final double kOpenSpeed = -0.5;
+        public static final double kCloseSpeed = 0.5;
         public static final int kLeftEncoderA = 10;
         public static final int kLeftEncoderB = 11;
         public static final int kRightEncoderA = 12;

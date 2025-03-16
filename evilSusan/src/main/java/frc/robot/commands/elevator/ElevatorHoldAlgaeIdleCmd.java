@@ -8,25 +8,25 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
-public class ElevatorIdleCmd extends Command{
+public class ElevatorHoldAlgaeIdleCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
-    private final double speed;
+    private final boolean holdingAlgae;
 
-    public ElevatorIdleCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
+    public ElevatorHoldAlgaeIdleCmd(ElevatorSubsystem elevatorSubsystem, boolean holdingAlgae) {
         this.elevatorSubsystem = elevatorSubsystem;
-        this.speed = speed;
+        this.holdingAlgae = holdingAlgae;
         addRequirements(elevatorSubsystem);
     }
 
-    public ElevatorIdleCmd(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, double speed) {
+    public ElevatorHoldAlgaeIdleCmd(ElevatorSubsystem elevatorSubsystem, ElevatorVerticalPositions targetPosition, boolean holdingAlgae) {
         this.elevatorSubsystem = elevatorSubsystem;
-        this.speed = speed;
+        this.holdingAlgae = holdingAlgae;
         addRequirements(elevatorSubsystem);
     }
 
     @Override
     public void initialize() {
-        System.out.println("ElevatorIdleCmd started");
+        System.out.println("ElevatorHoldAlgaeIdleCmd started");
     }
 
     @Override
@@ -35,13 +35,13 @@ public class ElevatorIdleCmd extends Command{
         
         // Apply limits (adjust these values based on your system)
         //double limitedSpeed = Math.max(-0.5, Math.min(0.5, rawIdleSpeed));
-        elevatorSubsystem.setVerticalMotor(speed);
-        //System.out.println("Exec ElevatorIdleCmd: " + limitedSpeed);
+        elevatorSubsystem.setIdleElevator(holdingAlgae);
+        System.out.println("Exec ElevatorHoldAlgaeIdleCmd");
     }
 
     @Override
     public void end(boolean interrupted) {
         elevatorSubsystem.stopVerticalMotors();
-        System.out.println("ElevatorIdleCmd ended");
+        System.out.println("ElevatorHoldAlgaeIdleCmd ended");
     }
 }

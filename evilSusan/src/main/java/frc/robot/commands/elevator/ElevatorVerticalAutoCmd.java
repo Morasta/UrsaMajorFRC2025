@@ -10,11 +10,11 @@ import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
 
 
-public class ElevatorVerticalCmd extends Command{
+public class ElevatorVerticalAutoCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
     private final double speed;
 
-    public ElevatorVerticalCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
+    public ElevatorVerticalAutoCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
@@ -42,8 +42,8 @@ public class ElevatorVerticalCmd extends Command{
     @Override
     public void end(boolean interrupted) {
         //elevatorSubsystem.stopVerticalMotors();
-        elevatorSubsystem.setVerticalMotor(-0.10);
-        elevatorSubsystem.setMotorBrakeMode(NeutralMode.Brake);
+        elevatorSubsystem.setVerticalMotor(-0.18);
+        //elevatorSubsystem.setMotorBrakeMode(NeutralMode.Brake);
         System.out.println("ElevatorVerticalCmd ended");
     }
 }
