@@ -53,11 +53,7 @@ import frc.robot.commands.elevator.ElevatorHoldAlgaeIdleCmd;
 import frc.robot.commands.elevator.ElevatorIdleCmd;
 //ElevatorCmd imports
 import frc.robot.commands.elevator.ElevatorSlideCmd;
-import frc.robot.commands.elevator.ElevatorSlideExtendedCommand;
-import frc.robot.commands.elevator.ElevatorSlideRetractedCommand;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
-import frc.robot.commands.elevator.ElevatorVerticalSetBottomCmd;
-import frc.robot.commands.elevator.ElevatorVerticalSetTopCmd;
 //constants imports
 import frc.robot.constants.DriveConstants.kWheels;
 import frc.robot.constants.OIConstants;
@@ -157,6 +153,11 @@ public class RobotContainer {
         // m_driverController.y().onTrue(new RearRight(m_robotDrive, 0, 0.3));
        
         //Driver Controls
+        //TODO: fix to turn full circle in place
+        m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
+        m_driverController.b().whileTrue(new StopDriveCmd(m_robotDrive, 0));
+        m_clawController.x().whileTrue(new CoralConsumeCmd(intakeSubsystem, false));
+        m_clawController.y().whileTrue(new CoralSpitOutCmd(intakeSubsystem, true));
         m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
         m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         lCrabwalk.whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, 0));
@@ -168,10 +169,10 @@ public class RobotContainer {
         m_clawController.x().whileTrue(new ElevatorSlideCmd(slideSubsystem, 0.5));
         m_clawController.y().whileTrue(new CoralConsumeCmd(intakeSubsystem, true));
         m_clawController.b().whileTrue(new CoralConsumeCmd(intakeSubsystem, false));
-        m_clawController.leftTrigger().whileTrue(new ElevatorSlideRetractedCommand(slideSubsystem, 0.5));
-        m_clawController.rightTrigger().whileTrue(new ElevatorSlideExtendedCommand(slideSubsystem, 0.5));
-        m_clawController.leftBumper().whileTrue(new ElevatorVerticalSetTopCmd(elevatorSubsystem, 0.5));
-        m_clawController.rightBumper().whileTrue(new ElevatorVerticalSetBottomCmd(elevatorSubsystem, 0.5));
+        // m_clawController.leftTrigger().whileTrue(new ElevatorSlideRetractedCommand(slideSubsystem, 0.5));
+        // m_clawController.rightTrigger().whileTrue(new ElevatorSlideExtendedCommand(slideSubsystem, 0.5));
+        // m_clawController.leftBumper().whileTrue(new ElevatorVerticalSetTopCmd(elevatorSubsystem, 0.5));
+        // m_clawController.rightBumper().whileTrue(new ElevatorVerticalSetBottomCmd(elevatorSubsystem, 0.5));
         
         //Went Forward
         m_driverController.rightTrigger().whileTrue(new DriveForwardCmd(m_robotDrive, 1));
