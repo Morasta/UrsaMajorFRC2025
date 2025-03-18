@@ -1,7 +1,7 @@
 package frc.robot.commands.drive;
 
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
+import frc.robot.constants.AutoConstants;
+import frc.robot.constants.DriveConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 

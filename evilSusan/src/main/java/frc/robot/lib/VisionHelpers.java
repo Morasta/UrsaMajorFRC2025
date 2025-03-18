@@ -9,10 +9,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.math.geometry.Pose3d;
-import frc.robot.Constants.RobotChassis;
-import frc.robot.Constants.VisionHelperConstants;
-import frc.robot.Constants.RobotChassis;
-import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
+import frc.robot.constants.VisionHelperConstants;
+import frc.robot.constants.RobotChassisConstants;
+import frc.robot.constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.subsystems.LimelightVisionSubsystem;
 
 public class VisionHelpers {
@@ -135,14 +134,14 @@ public class VisionHelpers {
                     "Robot" + key.substring(3,6) + "Reef" +
                          key.substring(10,11) + "Left",
                          movePoseXY(RobotPoseConstants.visionRobotPoses.get(key).plus(new Transform2d(0, 0, Rotation2d.k180deg)),
-                         -(VisionHelperConstants.bumperWidth + (RobotChassis.WHEEL_BASE / 2.0)),
+                         -(VisionHelperConstants.bumperWidth + (RobotChassisConstants.WHEEL_BASE / 2.0)),
                          VisionHelperConstants.distanceBetweenReefPoles / 2.0)
                 );
                 RobotPoseConstants.visionRobotPoses.put(
                     "Robot" + key.substring(3,6) + "Reef" + key.substring(10,11) + "Right",
                         movePoseXY(
                             RobotPoseConstants.visionRobotPoses.get(key).plus(new Transform2d(0, 0, Rotation2d.k180deg)),
-                            -(VisionHelperConstants.bumperWidth + (RobotChassis.WHEEL_BASE / 2.0)),
+                            -(VisionHelperConstants.bumperWidth + (RobotChassisConstants.WHEEL_BASE / 2.0)),
                             VisionHelperConstants.distanceBetweenReefPoles / 2.0
                         )
                 );
@@ -150,7 +149,7 @@ public class VisionHelpers {
                 RobotPoseConstants.visionRobotPoses.put(
                     "Robot" + key.substring(3),
                     movePoseXY(RobotPoseConstants.visionRobotPoses.get(key).plus(new Transform2d(0,0, Rotation2d.k180deg)),
-                    -(VisionHelperConstants.bumperWidth + (RobotChassis.WHEEL_BASE / 2.0)), 0)
+                    -(VisionHelperConstants.bumperWidth + (RobotChassisConstants.WHEEL_BASE / 2.0)), 0)
                 );
             }
         }

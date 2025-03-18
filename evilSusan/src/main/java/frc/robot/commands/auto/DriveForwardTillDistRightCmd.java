@@ -1,7 +1,7 @@
 package frc.robot.commands.auto;
 
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
+import frc.robot.constants.AutoConstants;
+import frc.robot.constants.DriveConstants;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightVisionSubsystem;
 import frc.robot.utils.CameraPositions;

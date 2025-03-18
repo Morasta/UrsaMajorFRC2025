@@ -3,8 +3,8 @@ package frc.robot.commands.elevator;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.SlideSubsystem;
-import frc.robot.Constants.SlideConstants;
-import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
+import frc.robot.constants.SlideConstants;
+import frc.robot.constants.ElevatorConstants.ElevatorVerticalPositions;
 
 
 public class ElevatorSlideRetractedCommand extends Command{

@@ -22,7 +22,7 @@ public class ElevatorVerticalSetTopCmd extends Command{
     @Override
     public void execute() {
         System.out.println("Exec ElevatorVerticalSetTopCmd");
-        elevatorSubsystem.setVerticalPosition(frc.robot.Constants.ElevatorConstants.kRaisedPosition);
+        elevatorSubsystem.setVerticalPosition(frc.robot.constants.ElevatorConstants.kRaisedPosition);
     }
 
     @Override

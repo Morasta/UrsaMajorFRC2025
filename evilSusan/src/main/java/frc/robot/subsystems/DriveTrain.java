@@ -16,10 +16,10 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 //import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.DriveConstants.kWheels;
-import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.RobotChassis;
+import frc.robot.constants.DriveConstants;
+import frc.robot.constants.DriveConstants.kWheels;
+import frc.robot.constants.OIConstants;
+import frc.robot.constants.RobotChassisConstants;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.spark.SparkMax;
@@ -46,7 +46,7 @@ public class DriveTrain extends SubsystemBase {
     private final ADXRS450_Gyro m_gyro = new ADXRS450_Gyro();
 
     public DriveTrain() {
-        enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
+        enc.setDistancePerPulse(Math.PI*RobotChassisConstants.wheelDiameter/RobotChassisConstants.SRXMagEncoderCPR);
 
         SendableRegistry.addChild(m_robotDrive, m_frontLeft);
         SendableRegistry.addChild(m_robotDrive, m_frontRight);

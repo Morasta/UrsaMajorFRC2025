@@ -1,9 +1,9 @@
 package frc.robot.subsystems;
 
 import frc.robot.lib.LimelightHelpers;
-import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
+import frc.robot.constants.LimelightVisionConstants.LimelightCamera;
 //import frc.robot.Constants.EnabledSubsystems;
-import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
+import frc.robot.constants.VisionHelperConstants.RobotPoseConstants;
 import frc.robot.lib.VisionHelpers;
 import frc.robot.utils.CameraPositions;
 

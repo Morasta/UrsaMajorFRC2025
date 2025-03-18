@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
+import frc.robot.constants.ElevatorConstants.ElevatorVerticalPositions;
 
 public class ElevatorIdleCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
