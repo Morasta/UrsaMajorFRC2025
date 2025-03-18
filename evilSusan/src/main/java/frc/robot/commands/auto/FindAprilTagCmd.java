@@ -2,8 +2,8 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.AutoConstants.AprilTagDists;
-import frc.robot.Constants.AutoConstants.TargetTagsCoralStation.Red;
+import frc.robot.constants.AutoConstants.AprilTagDists;
+import frc.robot.constants.AutoConstants.TargetTagsCoralStation.Red;
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveLeftSidewaysCmd;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
@@ -12,7 +12,7 @@ import frc.robot.lib.LimelightHelpers.LimelightResults;
 import frc.robot.lib.LimelightHelpers.LimelightTarget_Fiducial;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightVisionSubsystem;
-import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
+import frc.robot.constants.LimelightVisionConstants.LimelightCamera;
 // import limelight.networktables.LimelightSettings.LEDMode;
 
 public class FindAprilTagCmd extends Command{

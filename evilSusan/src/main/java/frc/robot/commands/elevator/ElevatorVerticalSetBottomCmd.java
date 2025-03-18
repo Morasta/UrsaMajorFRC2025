@@ -4,8 +4,8 @@ package frc.robot.commands.elevator;
 import frc.robot.subsystems.ElevatorSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.Constants.ElevatorConstants;
-import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
+import frc.robot.constants.ElevatorConstants;
+import frc.robot.constants.ElevatorConstants.ElevatorVerticalPositions;
 
 public class ElevatorVerticalSetBottomCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;

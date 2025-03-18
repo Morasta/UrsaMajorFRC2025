@@ -1,7 +1,7 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
+import frc.robot.constants.LimelightVisionConstants.LimelightCamera;
 import frc.robot.commands.drive.DriveRightSidewaysCmd;
 import frc.robot.commands.drive.DriveRoundTurnCmd;
 import frc.robot.lib.LimelightHelpers;

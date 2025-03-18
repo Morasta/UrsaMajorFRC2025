@@ -59,9 +59,9 @@ import frc.robot.commands.elevator.ElevatorVerticalCmd;
 import frc.robot.commands.elevator.ElevatorVerticalSetBottomCmd;
 import frc.robot.commands.elevator.ElevatorVerticalSetTopCmd;
 //constants imports
-import frc.robot.Constants.DriveConstants.kWheels;
-import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.VisionHelperConstants.RobotPoseConstants;
+import frc.robot.constants.DriveConstants.kWheels;
+import frc.robot.constants.OIConstants;
+import frc.robot.constants.VisionHelperConstants.RobotPoseConstants;
 //Auto group imports
 import frc.robot.commands.groups.DepositCoralWithAlgaeCmdGroup;
 import frc.robot.commands.groups.DepositCoralCmdGroup;

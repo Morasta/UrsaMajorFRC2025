@@ -4,7 +4,7 @@ package frc.robot.commands.elevator;
 import frc.robot.subsystems.SlideSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import frc.robot.Constants.SlideConstants.SlidePositions;;
+import frc.robot.constants.SlideConstants.SlidePositions;;
 
 public class ElevatorSlideCmd extends Command{
     private final SlideSubsystem slideSubsystem;

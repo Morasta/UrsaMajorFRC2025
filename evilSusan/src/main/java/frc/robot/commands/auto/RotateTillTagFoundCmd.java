@@ -1,8 +1,8 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.AutoConstants.TargetTagsCoralStation.Red;
-import frc.robot.Constants.LimelightVisionConstants.LimelightCamera;
+import frc.robot.constants.AutoConstants.TargetTagsCoralStation.Red;
+import frc.robot.constants.LimelightVisionConstants.LimelightCamera;
 import frc.robot.lib.LimelightHelpers;
 import frc.robot.lib.LimelightHelpers.LimelightResults;
 import frc.robot.lib.LimelightHelpers.LimelightTarget_Fiducial;

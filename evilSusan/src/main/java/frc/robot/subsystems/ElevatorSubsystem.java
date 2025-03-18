@@ -7,7 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import frc.robot.Constants.ElevatorConstants;
+import frc.robot.constants.ElevatorConstants;
 
 public class ElevatorSubsystem extends SubsystemBase{
     private final TalonSRX m_verticalLeftMotor = new TalonSRX(ElevatorConstants.kVerticalLeftMotorPort);
