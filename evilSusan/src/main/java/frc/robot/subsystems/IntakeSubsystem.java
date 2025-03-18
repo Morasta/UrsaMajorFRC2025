@@ -45,11 +45,11 @@ public class IntakeSubsystem extends SubsystemBase {
             if (consuming) {
             System.out.println("setting setPosition to consuming");
             intakeUpMotor.set(IntakeConstants.kOpenSpeed);
-            intakeDownMotor.set(IntakeConstants.kOpenSpeed);
+            intakeDownMotor.set(0.5);
         } else {
             System.out.println("setting intake to spitting");
             intakeUpMotor.set(IntakeConstants.kCloseSpeed);
-            intakeDownMotor.set(IntakeConstants.kCloseSpeed);
+            intakeDownMotor.set(-0.5);
         }
         //CHANGE: for Talon
         // if (open) {
@@ -64,7 +64,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void setCoralPosition(boolean consuming) {
-        //TODO: for SparkMax
+        //CHANGE: for SparkMax
         if (consuming) {
             System.out.println("setting CoralPosition to consuming");
             intakeUpMotor.set(IntakeConstants.kOpenSpeed);
@@ -72,7 +72,7 @@ public class IntakeSubsystem extends SubsystemBase {
             System.out.println("setting CoralPosition to spitting");
             intakeUpMotor.set(IntakeConstants.kCloseSpeed);
         }
-        //TODO: for Talon
+        //CHANGE: for Talon
         // if (open) {
         //     System.out.println("setting intake to open");
         //     intakeUpMotor.set(ControlMode.Position, IntakeConstants.kOpenSpeed);
