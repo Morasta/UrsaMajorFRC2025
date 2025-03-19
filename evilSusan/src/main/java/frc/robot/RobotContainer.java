@@ -56,7 +56,9 @@ import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
 //constants imports
 import frc.robot.constants.DriveConstants.kWheels;
+import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.OIConstants;
+import frc.robot.constants.SlideConstants;
 import frc.robot.constants.VisionHelperConstants.RobotPoseConstants;
 //Auto group imports
 import frc.robot.commands.groups.DepositCoralWithAlgaeCmdGroup;
@@ -129,23 +131,19 @@ public class RobotContainer {
         System.out.println("Configuring Button Bindings");
         //Operator Controls
         //TODO: change to fixed position
-        m_clawController.a().whileTrue(new ElevatorSlideCmd(slideSubsystem, 0.2));
-        m_clawController.b().whileTrue(new ElevatorSlideCmd(slideSubsystem, -0.2));
+        m_clawController.a().whileTrue(new ElevatorSlideCmd(slideSubsystem, SlideConstants.slideOutSpeed));
+        m_clawController.b().whileTrue(new ElevatorSlideCmd(slideSubsystem, SlideConstants.slideInSpeed));
         m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
         m_clawController.x().whileTrue(new ElevatorHoldAlgaeIdleCmd(elevatorSubsystem, true));
 
         // Right Trigger take the elevator up
-        double upSpeed = -1;
-        rtElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, upSpeed));
+        rtElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, ElevatorConstants.upSpeed));
         // Left Trigger take the elevator down not crazty fast
-        double dropSpeed = 0.09;
-        ltElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, dropSpeed));
-
-        double idleSpeed = -0.18;
+        ltElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, ElevatorConstants.dropSpeed));
         // How much speed to apply to motors to stall (stay in place)
-        rtElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
-        ltElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, idleSpeed));
+        rtElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, ElevatorConstants.idleSpeed));
+        ltElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, ElevatorConstants.idleSpeed));
 
         // m_driverController.a().onTrue(new FrontLeft(m_robotDrive, 0, 0.3));
         // m_driverController.b().onTrue(new FrontRight(m_robotDrive, 0, 0.3));
