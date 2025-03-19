@@ -1,9 +1,7 @@
 package frc.robot.commands.drive;
 
-import frc.robot.constants.AutoConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.DriveTrain;
 
 public class DriveLeftDiagonalCmd extends Command {
         private final DriveTrain driveSubsystem;

@@ -1,9 +1,7 @@
 package frc.robot.commands.drive;
 
-import frc.robot.constants.DriveConstants;
 import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
-import java.util.Date;
 
 public class DriveForwardCmd extends Command {
     private final DriveTrain driveSubsystem;

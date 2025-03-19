@@ -1,9 +1,5 @@
 package frc.robot;
 
-//util imports
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.robot.utils.GamepadAxisButton;
@@ -15,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 //math imports
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //subsystem imports
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.ElevatorSubsystem;
@@ -27,16 +22,12 @@ import frc.robot.commands.intake.AlgaeConsumeCmd;
 import frc.robot.commands.intake.AlgaeSpitOutCmd;
 import frc.robot.commands.intake.CoralConsumeCmd;
 import frc.robot.commands.intake.CoralSpitOutCmd;
+//Testing DriveTrain directions imports
 import frc.robot.commands.ButtonDirs.FrontLeft;
 import frc.robot.commands.ButtonDirs.FrontRight;
 import frc.robot.commands.ButtonDirs.RearLeft;
 import frc.robot.commands.ButtonDirs.RearRight;
 import frc.robot.commands.auto.AlignToTagCmd;
-import frc.robot.commands.auto.DriveForwardTillDistRightCmd;
-//autoCmd imports
-import frc.robot.commands.auto.FindAprilTagCmd;
-import frc.robot.commands.auto.RotateTillTagFoundCmd;
-import frc.robot.commands.auto.SetPositionCmd;
 //driveCmd imports
 import frc.robot.commands.drive.DriveForwardCmd;
 import frc.robot.commands.drive.DriveLeftDiagonalCmd;
@@ -55,11 +46,9 @@ import frc.robot.commands.elevator.ElevatorIdleCmd;
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
 //constants imports
-import frc.robot.constants.DriveConstants.kWheels;
 import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.OIConstants;
 import frc.robot.constants.SlideConstants;
-import frc.robot.constants.VisionHelperConstants.RobotPoseConstants;
 //Auto group imports
 import frc.robot.commands.groups.DepositCoralWithAlgaeCmdGroup;
 import frc.robot.commands.groups.DepositCoralCmdGroup;
@@ -82,10 +71,7 @@ public class RobotContainer {
     private final GamepadAxisButton rCrabwalk = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 3, 0.1, false));
     private final GamepadAxisButton rtElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 3, 0.1, false));
     private final GamepadAxisButton ltElevator = new GamepadAxisButton(() -> axisOverThreshold(m_clawController, 2, 0.1, false));
-    private final GamepadAxisButton LJoyForwardDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 1, 0.3, false));
-    private final GamepadAxisButton RJoyBackDrive = new GamepadAxisButton(() -> axisOverThreshold(m_driverController, 5, 0.3, false));
 
-    
     private static final boolean toggleDefaultAutoButtons = false;
     
     public RobotContainer() {

@@ -2,13 +2,9 @@ package frc.robot.commands.elevator;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ElevatorSubsystem;
-//import frc.robot.Constants.ElevatorConstants.ElevatorVerticalPositions;
-
 
 public class ElevatorVerticalCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;

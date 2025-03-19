@@ -3,9 +3,6 @@ package frc.robot.commands.intake;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.subsystems.IntakeSubsystem;
-
 public class CoralSpitOutCmd extends Command{
     private final IntakeSubsystem intakeSubsystem;
     private final boolean consuming;

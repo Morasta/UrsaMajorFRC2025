@@ -2,7 +2,6 @@ package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.constants.AutoConstants;
 
 public class DriveLeftSidewaysCmd extends Command{
         private final DriveTrain driveSubsystem;

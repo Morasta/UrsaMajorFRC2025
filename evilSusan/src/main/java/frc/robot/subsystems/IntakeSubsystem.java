@@ -2,18 +2,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.IntakeConstants;
-import frc.robot.constants.OIConstants;
-import frc.robot.constants.RobotChassisConstants;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 
 public class IntakeSubsystem extends SubsystemBase {
     private final SparkMaxConfig sparkInvertedConfig = new SparkMaxConfig();
