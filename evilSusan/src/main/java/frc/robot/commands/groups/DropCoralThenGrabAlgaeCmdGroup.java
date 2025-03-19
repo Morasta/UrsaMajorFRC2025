@@ -18,11 +18,11 @@ public class DropCoralThenGrabAlgaeCmdGroup extends SequentialCommandGroup {
     //will drive forward till distance to aprilTag is right. Spins elevator up. Moves slide all the way out. Will grab an algae while also spitting out coral 
     //if lined up just right coral will be put on branch as elevator lowers
         addCommands(
-            new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0.3),
-            new CoralSpitOutCmd(intakeSubsystem, true).withTimeout(1),
-            new ElevatorVerticalAutoCmd(elevatorSubsystem, -1).withTimeout(0.8),
-            new ElevatorSlideCmd(slideSubsystem, 0.3).withTimeout(1),
-            new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(1)
-            );
+            new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0.3)
+            , new CoralSpitOutCmd(intakeSubsystem, true).withTimeout(1)
+            , new ElevatorVerticalAutoCmd(elevatorSubsystem, -1).withTimeout(0.8)
+            , new ElevatorSlideCmd(slideSubsystem, 0.3).withTimeout(1)
+            , new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(1)
+        );
     }
 }

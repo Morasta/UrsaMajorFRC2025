@@ -13,9 +13,9 @@ public class DepositCoralCmdGroup extends SequentialCommandGroup {
     public DepositCoralCmdGroup(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, ElevatorSubsystem elevatorSubsystem, IntakeSubsystem intakeSubsystem) {
         //DriveForward for half second. with read tag and drive till tag is correct distance. will CoralSpitOut
         addCommands(
-            new DriveForwardCmd(driveTrain, 0).withTimeout(0.5),
-            new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0),
-            new CoralSpitOutCmd(intakeSubsystem, false).withTimeout(1)
+            new DriveForwardCmd(driveTrain, 0).withTimeout(0.5)
+            , new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0)
+            , new CoralSpitOutCmd(intakeSubsystem, false).withTimeout(1)
         );
     }
 }
