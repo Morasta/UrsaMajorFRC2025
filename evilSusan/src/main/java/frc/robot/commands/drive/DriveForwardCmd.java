@@ -21,7 +21,7 @@ public class DriveForwardCmd extends Command {
     public DriveForwardCmd(DriveTrain driveTrain, double distance, double speed) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
-        this.distance = 1; //TODO: Fix me
+        this.distance = 1; 
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
         addRequirements(driveSubsystem);
     }
