@@ -90,7 +90,6 @@ public class RobotContainer {
     
     public RobotContainer() {
         configureWheels();
-        //TODO: figure out what speed is best
         m_robotDrive.setMaxOutput(0.3);
         if(toggleDefaultAutoButtons == true) {
             configureButtonsForAutoTesting();
@@ -98,9 +97,6 @@ public class RobotContainer {
             configureButtonBindings();
         }
         
-        // elevatorSubsystem.setDefaultCommand(new
-        // ElevatorJoystickCmd(elevatorSubsystem, 0));
-        // intakeSubsystem.setDefaultCommand(new IntakeSetCmd(intakeSubsystem, true));
         setDefaultCommand();
 
         this.setElevatorBrakeMode(NeutralMode.Coast);
@@ -139,16 +135,11 @@ public class RobotContainer {
 
         // Right Trigger take the elevator up
         rtElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, ElevatorConstants.upSpeed));
-        // Left Trigger take the elevator down not crazty fast
+        // Left Trigger take the elevator down not crazy fast
         ltElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, ElevatorConstants.dropSpeed));
         // How much speed to apply to motors to stall (stay in place)
         rtElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, ElevatorConstants.idleSpeed));
         ltElevator.whileFalse(new ElevatorIdleCmd(elevatorSubsystem, ElevatorConstants.idleSpeed));
-
-        // m_driverController.a().onTrue(new FrontLeft(m_robotDrive, 0, 0.3));
-        // m_driverController.b().onTrue(new FrontRight(m_robotDrive, 0, 0.3));
-        // m_driverController.x().onTrue(new RearLeft(m_robotDrive, 0, 0.3));
-        // m_driverController.y().onTrue(new RearRight(m_robotDrive, 0, 0.3));
        
         //Driver Controls
         //TODO: fix to turn full circle in place
