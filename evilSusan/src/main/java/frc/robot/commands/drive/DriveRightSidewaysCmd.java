@@ -19,7 +19,7 @@ public class DriveRightSidewaysCmd extends Command {
     public DriveRightSidewaysCmd(DriveTrain driveTrain, double distance, double speed) {
         printStatus("Created");
         this.driveSubsystem = driveTrain;
-        this.distance = 1; //TODO: Fix me
+        this.distance = 1;
         //* this.distance = DriveTrain.getEncoderMeters() + distance; */
         addRequirements(driveSubsystem);
     }
