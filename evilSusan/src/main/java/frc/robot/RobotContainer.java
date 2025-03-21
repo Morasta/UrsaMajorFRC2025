@@ -121,8 +121,10 @@ public class RobotContainer {
         m_clawController.b().whileTrue(new ElevatorSlideCmd(slideSubsystem, SlideConstants.slideInSpeed));
         m_clawController.leftBumper().whileTrue(new AlgaeSpitOutCmd(intakeSubsystem, false));
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
-        m_clawController.x().whileTrue(new ElevatorHoldAlgaeIdleCmd(elevatorSubsystem, true));
-
+        //TODO: test if needed.
+        //m_clawController.x().whileTrue(new ElevatorHoldAlgaeIdleCmd(elevatorSubsystem, true));
+        m_clawController.x().whileTrue(new CoralConsumeCmd(intakeSubsystem, false));
+        m_clawController.y().whileTrue(new CoralSpitOutCmd(intakeSubsystem, true));
         // Right Trigger take the elevator up
         rtElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, ElevatorConstants.upSpeed));
         // Left Trigger take the elevator down not crazty fast
@@ -140,8 +142,6 @@ public class RobotContainer {
         //TODO: fix to turn full circle in place
         m_driverController.a().whileTrue(new DriveRoundTurnCmd(m_robotDrive, 0));
         m_driverController.b().whileTrue(new StopDriveCmd(m_robotDrive, 0));
-        m_clawController.x().whileTrue(new CoralConsumeCmd(intakeSubsystem, false));
-        m_clawController.y().whileTrue(new CoralSpitOutCmd(intakeSubsystem, true));
         m_driverController.leftBumper().onTrue(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(0.3)));
         m_driverController.leftBumper().onFalse(m_robotDrive.runOnce(() -> m_robotDrive.setMaxOutput(1.0)));
         lCrabwalk.whileTrue(new DriveLeftSidewaysCmd(m_robotDrive, 0));
@@ -189,8 +189,8 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         //Dummy test sequence
         return Commands.sequence(
-            //new DepositCoralWithAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, elevatorSubsystem, intakeSubsystem)
-            new DropCoralThenGrabAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, slideSubsystem, intakeSubsystem, elevatorSubsystem)
+            new DepositCoralWithAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, slideSubsystem, intakeSubsystem, elevatorSubsystem)
+            //new DropCoralThenGrabAlgaeCmdGroup(m_robotDrive, limelightVisionSubsystem, slideSubsystem, intakeSubsystem, elevatorSubsystem)
         );
 
 

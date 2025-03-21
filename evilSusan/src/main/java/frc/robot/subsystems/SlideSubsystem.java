@@ -8,7 +8,7 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import frc.robot.constants.SlideConstants;
 
 public class SlideSubsystem extends SubsystemBase{
-    private final SparkMax m_slideMotor = new SparkMax(SlideConstants.kSlideMotorPort, MotorType.kBrushed);
+    private final SparkMax m_slideMotor = new SparkMax(SlideConstants.kSlideMotorPort, MotorType.kBrushless);
 
     public SlideSubsystem() {
         

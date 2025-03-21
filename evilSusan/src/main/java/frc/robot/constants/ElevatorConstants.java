@@ -24,7 +24,8 @@ public class ElevatorConstants {
     public static final double kLoweredPosition = 0;
     public static final double kJoystickMaxSpeed = 0.5;
 
-    public static final double idleSpeed = -0.18;
+    public static final double idleSpeed = -0.2;
     public static final double dropSpeed = 0.09;
     public static final double upSpeed = -1;
+    public static final double autoSpeed = -0.10;
 }

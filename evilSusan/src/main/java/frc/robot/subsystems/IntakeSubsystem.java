@@ -37,12 +37,12 @@ public class IntakeSubsystem extends SubsystemBase {
         //CHANGE: for SparkMax
             if (consuming) {
             System.out.println("setting setPosition to consuming");
-            intakeUpMotor.set(IntakeConstants.kOpenSpeed);
-            intakeDownMotor.set(0.5);
+            intakeDownMotor.set(IntakeConstants.kOpenSpeed);
+            intakeUpMotor.set(0.5);
         } else {
             System.out.println("setting intake to spitting");
-            intakeUpMotor.set(IntakeConstants.kCloseSpeed);
-            intakeDownMotor.set(-0.5);
+            intakeDownMotor.set(IntakeConstants.kCloseSpeed);
+            intakeUpMotor.set(-0.5);
         }
         //CHANGE: for Talon
         // if (open) {

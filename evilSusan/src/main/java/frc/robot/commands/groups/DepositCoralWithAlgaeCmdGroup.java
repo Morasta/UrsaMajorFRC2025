@@ -7,6 +7,9 @@ import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorVerticalAutoCmd;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
 import frc.robot.commands.intake.AlgaeConsumeCmd;
+import frc.robot.commands.intake.CoralSpitOutCmd;
+import frc.robot.constants.ElevatorConstants;
+import frc.robot.constants.SlideConstants;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.SlideSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -18,11 +21,13 @@ public class DepositCoralWithAlgaeCmdGroup extends SequentialCommandGroup {
         //will drive forward till distance to aprilTag is right. Spins elevator up to bottom Algae. Moves slide all the way out. Will grab an algae while also spitting out coral 
         addCommands(
             new DriveForwardCmd(driveTrain, 0).withTimeout(1)
-            ,new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0.3)
-            ,new ElevatorVerticalAutoCmd(elevatorSubsystem, -1).withTimeout(0.4)
-            ,new ElevatorSlideCmd(slideSubsystem, 0.3).withTimeout(1)
-            ,new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(1)
-            ,new ElevatorVerticalCmd(elevatorSubsystem, -0.10).withTimeout(2)
+            , new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0.3)
+            , new ElevatorVerticalAutoCmd(elevatorSubsystem, ElevatorConstants.upSpeed).withTimeout(0.72)
+            , new ElevatorSlideCmd(slideSubsystem, SlideConstants.slideOutSpeed).withTimeout(2)
+            , new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(1)
+            , new ElevatorSlideCmd(slideSubsystem, SlideConstants.slideInSpeed).withTimeout(2)
+            , new ElevatorVerticalCmd(elevatorSubsystem, ElevatorConstants.autoSpeed).withTimeout(2)
+            
         );
     }
 }
