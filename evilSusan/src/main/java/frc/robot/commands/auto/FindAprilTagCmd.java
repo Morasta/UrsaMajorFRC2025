@@ -157,7 +157,7 @@ public class FindAprilTagCmd extends Command{
     // sideways too) and align itself until close to 0
     // drive forward, measure angle, move left right as needed to align, repeat
 
-    // drive forwrd a second (will be part of find coral command group, don't need
+    // drive forward a second (will be part of find coral command group, don't need
     // to add here)
     // start by finding the angle, and move left or right accordingly
     // then move forward for 1 second, then do again
