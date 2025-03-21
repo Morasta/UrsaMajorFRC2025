@@ -1,6 +1,10 @@
 package frc.robot.commands.auto;
 
 import frc.robot.constants.AutoConstants;
+import frc.robot.constants.LimelightVisionConstants.LimelightCamera;
+import frc.robot.lib.LimelightHelpers;
+import frc.robot.lib.LimelightHelpers.LimelightResults;
+import frc.robot.lib.LimelightHelpers.LimelightTarget_Fiducial;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimelightVisionSubsystem;
 import frc.robot.utils.CameraPositions;
@@ -15,9 +19,19 @@ public class DriveForwardTillDistRightCmd extends Command {
     
     CameraPositions currentRobotPosition = new CameraPositions();
     private boolean closeEnoughToTarget = false;
+    private LimelightResults visableTargets;
 
     private void printStatus(String stateStatus){
         System.out.println(this.getClass().getSimpleName() + " " + stateStatus);
+    }
+
+    private boolean targetStationTagVisable() {
+        for(LimelightTarget_Fiducial cameraTarget : visableTargets.targets_Fiducials) {
+            if(AutoConstants.driveForwardDepositTargetList.contains((int)cameraTarget.fiducialID)) {
+                return true;
+            }
+        } 
+        return false;
     }
 
     // public DriveForwardTillDistRightCmd(DriveTrain driveTrain, double distance) {
@@ -41,6 +55,7 @@ public class DriveForwardTillDistRightCmd extends Command {
         this.notFoundCount = 0;
         
         currentRobotPosition = visionSubsystem.getCurrentPosition();
+        visableTargets = LimelightHelpers.getLatestResults(LimelightCamera.CAMERA_NAME);
         //driveSubsystem.setMaxOutput(0.3);
     }
 
@@ -48,9 +63,10 @@ public class DriveForwardTillDistRightCmd extends Command {
     public void execute() {
         printStatus("executed");
         currentRobotPosition = visionSubsystem.getCurrentPosition();
+        visableTargets = LimelightHelpers.getLatestResults(LimelightCamera.CAMERA_NAME);
         closeEnoughToTarget = Math.abs(AutoConstants.targetArea - visionSubsystem.getAreaValue()) <= AutoConstants.targetAreaGoalTolerance;
 
-        if (!visionSubsystem.targetIsVisible())
+        if (!visionSubsystem.targetIsVisible() || !this.targetStationTagVisable())
             notFoundCount += 1;
         else 
             notFoundCount = 0;

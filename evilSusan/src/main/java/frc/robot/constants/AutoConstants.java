@@ -1,5 +1,9 @@
 package frc.robot.constants;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 public class AutoConstants {
@@ -49,6 +53,8 @@ public class AutoConstants {
             public static final int ReefBottom = 6;
         }
     }
+
+    public static final Set<Integer> driveForwardDepositTargetList = new HashSet<>(Arrays.asList(21, 10));
 
 // Constraint for the motion profilied robot angle controller
 public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(
