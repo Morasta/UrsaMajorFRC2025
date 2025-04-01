@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -94,6 +95,8 @@ public class Robot extends TimedRobot {
 
         m_robotContainer.setElevatorBrakeMode(NeutralMode.Coast);
         m_robotContainer.setDefaultCommand();
+
+        //CameraServer.startAutomaticCapture();
     }
 
     // This function is called periodically during operator control.

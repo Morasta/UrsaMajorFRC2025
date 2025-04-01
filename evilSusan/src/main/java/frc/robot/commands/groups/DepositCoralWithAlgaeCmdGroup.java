@@ -20,10 +20,10 @@ public class DepositCoralWithAlgaeCmdGroup extends SequentialCommandGroup {
     public DepositCoralWithAlgaeCmdGroup(DriveTrain driveTrain, LimelightVisionSubsystem visionSubsystem, SlideSubsystem slideSubsystem, IntakeSubsystem intakeSubsystem, ElevatorSubsystem elevatorSubsystem) {
         //will drive forward till distance to aprilTag is right. Spins elevator up to bottom Algae. Moves slide all the way out. Will grab an algae while also spitting out coral 
         addCommands(
-            new DriveForwardCmd(driveTrain, 0).withTimeout(1)
+            new DriveForwardCmd(driveTrain, 0).withTimeout(2)
             , new DriveForwardTillDistRightCmd(driveTrain, visionSubsystem, 0, 0.3)
-            , new ElevatorVerticalAutoCmd(elevatorSubsystem, ElevatorConstants.upSpeed).withTimeout(0.72)
-            , new ElevatorSlideCmd(slideSubsystem, SlideConstants.slideOutSpeed).withTimeout(2)
+            , new ElevatorVerticalAutoCmd(elevatorSubsystem, ElevatorConstants.upSpeed).withTimeout(0.6)
+            , new ElevatorSlideCmd(slideSubsystem, SlideConstants.slideOutSpeed).withTimeout(1)
             , new AlgaeConsumeCmd(intakeSubsystem, true).withTimeout(1)
             , new ElevatorSlideCmd(slideSubsystem, SlideConstants.slideInSpeed).withTimeout(2)
             , new ElevatorVerticalCmd(elevatorSubsystem, ElevatorConstants.autoSpeed).withTimeout(2)

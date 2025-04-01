@@ -45,6 +45,7 @@ import frc.robot.commands.elevator.ElevatorIdleCmd;
 //ElevatorCmd imports
 import frc.robot.commands.elevator.ElevatorSlideCmd;
 import frc.robot.commands.elevator.ElevatorVerticalCmd;
+import frc.robot.commands.elevator.ElevatorVerticalStopCmd;
 //constants imports
 import frc.robot.constants.ElevatorConstants;
 import frc.robot.constants.OIConstants;
@@ -123,8 +124,9 @@ public class RobotContainer {
         m_clawController.rightBumper().whileTrue(new AlgaeConsumeCmd(intakeSubsystem, true));
         //TODO: test if needed.
         //m_clawController.x().whileTrue(new ElevatorHoldAlgaeIdleCmd(elevatorSubsystem, true));
-        m_clawController.x().whileTrue(new CoralConsumeCmd(intakeSubsystem, false));
-        m_clawController.y().whileTrue(new CoralSpitOutCmd(intakeSubsystem, true));
+        //m_clawController.x().whileTrue(new CoralConsumeCmd(intakeSubsystem, false));
+        //m_clawController.y().whileTrue(new CoralSpitOutCmd(intakeSubsystem, true));
+        m_clawController.x().whileTrue(new ElevatorVerticalStopCmd(elevatorSubsystem, 0));
         // Right Trigger take the elevator up
         rtElevator.whileTrue(new ElevatorVerticalCmd(elevatorSubsystem, ElevatorConstants.upSpeed));
         // Left Trigger take the elevator down not crazty fast

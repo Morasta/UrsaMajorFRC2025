@@ -14,6 +14,7 @@ public class ElevatorSubsystem extends SubsystemBase{
     private final TalonSRX m_verticalRightMotor = new TalonSRX(ElevatorConstants.kVerticalRightMotorPort);
     ElevatorFeedforward feedForward = new ElevatorFeedforward(ElevatorConstants.kS, ElevatorConstants.kG, ElevatorConstants.kV, ElevatorConstants.kA);
 
+    private boolean atBottom = true;
     // private final SparkRelativeEncoder sparkEncoder = m_verticalMotor.get
     // Encoder enc;
 
@@ -27,6 +28,13 @@ public class ElevatorSubsystem extends SubsystemBase{
         m_verticalLeftMotor.setInverted(false);
         m_verticalRightMotor.setInverted(false);
 
+        m_verticalLeftMotor.configPeakCurrentLimit(80);
+        m_verticalRightMotor.configPeakCurrentLimit(80);
+        m_verticalLeftMotor.configContinuousCurrentLimit(40);
+        m_verticalRightMotor.configContinuousCurrentLimit(40);
+        m_verticalLeftMotor.enableCurrentLimit(true);
+        m_verticalRightMotor.enableCurrentLimit(true);
+
         // https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/feedforward.html#elevatorfeedforward
         // Create a new ElevatorFeedforward with gains kS, kG, kV, and kA
         //ElevatorFeedforward feedforward = new ElevatorFeedforward(kS, kG, kV, kA);
@@ -34,6 +42,13 @@ public class ElevatorSubsystem extends SubsystemBase{
         
         //serenityFeedForward1();
     }
+
+    public void setBottom(boolean isBottom) {
+        this.atBottom = isBottom;
+    } 
+    public boolean getBottom(boolean isBottom) {
+        return this.atBottom;
+    } 
 
     public void serenityFeedForward1(double leftVelocity, double rightVelocity) {
         feedForward.calculate(rightVelocity);

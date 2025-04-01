@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.ElevatorSubsystem;
 
-public class ElevatorVerticalCmd extends Command{
+public class ElevatorVerticalStopCmd extends Command{
     private final ElevatorSubsystem elevatorSubsystem;
     private final double speed;
 
-    public ElevatorVerticalCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
+    public ElevatorVerticalStopCmd(ElevatorSubsystem elevatorSubsystem, double speed) {
         this.elevatorSubsystem = elevatorSubsystem;
         this.speed = speed;
         addRequirements(elevatorSubsystem);
@@ -31,15 +31,16 @@ public class ElevatorVerticalCmd extends Command{
 
     @Override
     public void execute() {
-        elevatorSubsystem.setVerticalMotor(speed);
+        elevatorSubsystem.setVerticalMotor(0);
         System.out.println("Exec ElevatorVerticalCmd: " + speed);
+        elevatorSubsystem.setBottom(true);
     }
 
     @Override
     public void end(boolean interrupted) {
         //elevatorSubsystem.stopVerticalMotors();
         //elevatorSubsystem.setVerticalMotor(-0.10);
-        elevatorSubsystem.setBottom(false);
+        //elevatorSubsystem.setBottom(false);
         elevatorSubsystem.setMotorBrakeMode(NeutralMode.Brake);
         System.out.println("ElevatorVerticalCmd ended");
     }

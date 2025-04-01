@@ -54,7 +54,7 @@ public class AutoConstants {
         }
     }
 
-    public static final Set<Integer> driveForwardDepositTargetList = new HashSet<>(Arrays.asList(21, 10));
+    public static final Set<Integer> driveForwardDepositTargetList = new HashSet<>(Arrays.asList(21, 10, 20));
 
 // Constraint for the motion profilied robot angle controller
 public static final TrapezoidProfile.Constraints kThetaControllerConstraints = new TrapezoidProfile.Constraints(

@@ -5,11 +5,14 @@ import edu.wpi.first.wpilibj.Encoder;
 import frc.robot.constants.IntakeConstants;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class IntakeSubsystem extends SubsystemBase {
     private final SparkMaxConfig sparkInvertedConfig = new SparkMaxConfig();
+    private final SparkMaxConfig limitedConfig = new SparkMaxConfig();
     private final SparkMax intakeUpMotor = new SparkMax(IntakeConstants.kTopMotorPort, MotorType.kBrushless);
     private final SparkMax intakeDownMotor = new SparkMax(IntakeConstants.kBottomMotorPort, MotorType.kBrushless);
     // TODO: Revise these to use the newly installed motors, talons?
@@ -22,7 +25,11 @@ public class IntakeSubsystem extends SubsystemBase {
         // enc = new Encoder(IntakeConstants.kLeftEncoderA, IntakeConstants.kLeftEncoderB);
         // enc = new Encoder(IntakeConstants.kRightEncoderA, IntakeConstants.kRightEncoderB);
         // enc.setDistancePerPulse(Math.PI*RobotChassis.wheelDiameter/RobotChassis.SRXMagEncoderCPR);
-        sparkInvertedConfig.inverted(true);
+        sparkInvertedConfig.inverted(true).smartCurrentLimit(30);
+        limitedConfig.smartCurrentLimit(30);
+        this.intakeDownMotor.configure(limitedConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        this.intakeUpMotor.configure(sparkInvertedConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
         //intakeUpMotor.configure(sparkInvertedConfig, null, null);
     
     }
@@ -35,14 +42,14 @@ public class IntakeSubsystem extends SubsystemBase {
 
     public void setAlgaePosition(boolean consuming) {
         //CHANGE: for SparkMax
-            if (consuming) {
+        if (consuming) {
             System.out.println("setting setPosition to consuming");
             intakeDownMotor.set(IntakeConstants.kOpenSpeed);
-            intakeUpMotor.set(0.5);
+            intakeUpMotor.set(IntakeConstants.kCloseSpeed);
         } else {
             System.out.println("setting intake to spitting");
             intakeDownMotor.set(IntakeConstants.kCloseSpeed);
-            intakeUpMotor.set(-0.5);
+            intakeUpMotor.set(IntakeConstants.kOpenSpeed);
         }
         //CHANGE: for Talon
         // if (open) {

@@ -32,7 +32,12 @@ public class ElevatorIdleCmd extends Command{
         
         // Apply limits (adjust these values based on your system)
         //double limitedSpeed = Math.max(-0.5, Math.min(0.5, rawIdleSpeed));
-        elevatorSubsystem.setVerticalMotor(speed);
+        if (!elevatorSubsystem.getBottom(false)) {
+            elevatorSubsystem.setVerticalMotor(speed);
+        }
+        else {
+            elevatorSubsystem.setVerticalMotor(0);
+        }
         //System.out.println("Exec ElevatorIdleCmd: " + limitedSpeed);
     }
 
